@@ -5,11 +5,18 @@ IOFunc::IOFunc()
 
 }
 
+/**
+ * @brief 从外部资源文件读取航班信息
+ * @param _path 资源文件路径
+ * @return 航班信息，存储于栈中 
+ */
 Stack<flightInfor> IOFunc::readFlightData(const string _path)
 {
     Stack<flightInfor> _stack;
+
     ifstream _file;
     _file.open(_path);
+    //判断文件是否打开成功
     if (_file.is_open())
     {
         //the information of flight are split by ' '
@@ -21,6 +28,8 @@ Stack<flightInfor> IOFunc::readFlightData(const string _path)
         int _occupiedSeats;
         double _fares;
         DateTime _depatureDay;
+
+        //依次读取航班信息，次序为：航班号，飞机号，起始地，目的地，起飞时间，座位数，票价
         while (getline(_file, _flightID))
         {
             getline(_file, _planeID);
@@ -71,6 +80,10 @@ Stack<flightInfor> IOFunc::readFlightData(const string _path)
             flightInfor _flight(_beginning,_destination,_flightID,_planeID,_depatureDay,_occupiedSeats,_fares);
             _stack.push(_flight);
         }
+    }
+    else
+    {
+        throw("Error: File open failed");
     }
     _file.close();
     return _stack;

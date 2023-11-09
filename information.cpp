@@ -59,6 +59,12 @@ unsigned int flightInfor::getStockRemained(travelClass _travelClass)
 //    passengerList.removeByElement(_passenger);
 //}
 
+/**
+ * @brief 乘客预约航班
+ * @param _passenger 乘客信息
+ * @return 预约成功返回true，否则返回false
+ * @note 预约成功后，航班余票减一 
+ */
 bool flightInfor::passengerBook(passengerInfor& _passenger)
 {
     if(!passengerList.findByElement(_passenger))
@@ -89,6 +95,11 @@ bool flightInfor::passengerBook(passengerInfor& _passenger)
     return false;
 }
 
+/**
+ * @brief 乘客取消预约航班
+ * @param _passenger 乘客信息
+ * @note 取消预约成功后，航班余票加一
+ */
 void flightInfor::passengerCancel(passengerInfor& _passenger)
 {
     if(_passenger.getIsBooked() && passengerList.findByElement(_passenger))
@@ -111,6 +122,11 @@ void flightInfor::passengerCancel(passengerInfor& _passenger)
     }
 }
 
+/**
+ * @brief 重载等号运算符
+ * @param _flight 航班信息
+ * @return 航班信息 
+ */
 flightInfor flightInfor::operator=(flightInfor& _flight)
 {
     beginning = _flight.beginning;
@@ -126,7 +142,9 @@ flightInfor flightInfor::operator=(flightInfor& _flight)
     return *this;
 }
 
-//-------------------------------------------------
+/*-------------------------------------------------*/
+//以下为乘客信息类的实现
+
 string passengerInfor::getName()
 {
     return name;
@@ -147,6 +165,11 @@ void passengerInfor::setIsBooked(bool isBooked)
     this->isBooked = isBooked;
 }
 
+/**
+ * @brief 重载小于运算符
+ * @param _passenger
+ * @return 舱位等级大的返回true，舱位等级相同的返回姓名小的返回true，否则返回false 
+ */
 bool passengerInfor::operator<(passengerInfor& _passenger)
 {
     if(travelclass > _passenger.travelclass)
@@ -157,11 +180,22 @@ bool passengerInfor::operator<(passengerInfor& _passenger)
         return false;
 }
 
+/**
+ * @brief 重载乘客类型的==，用以判断两个乘客是否相同
+ * @param _passenger
+ * @return 两个乘客姓名相同返回true，否则返回false
+ * @note 由于本问题中涉及乘客信息较为简单，故只判断姓名是否相同即可
+ */
 bool passengerInfor::operator==(passengerInfor& _passenger)
 {
     return name == _passenger.name;
 }
 
+/**
+ * @brief 乘客预约航班
+ * @param _flight 航班信息
+ * @return 预约成功返回true，否则返回false
+ */
 bool passengerInfor::bookTicket(flightInfor& _flight)
 {
     if(!isBooked)
@@ -176,6 +210,11 @@ bool passengerInfor::bookTicket(flightInfor& _flight)
     return false;
 }
 
+/**
+ * @brief 乘客取消预约航班
+ * @param _flight 航班信息
+ * @return 取消预约成功返回true，否则返回false
+ */
 bool passengerInfor::cancelTicket(flightInfor& _flight)
 {
     if(isBooked)
@@ -187,6 +226,12 @@ bool passengerInfor::cancelTicket(flightInfor& _flight)
     return false;
 }
 
+/**
+ * @brief 乘客改签航班
+ * @param _flight 航班信息
+ * @param _travelclass 目标舱位等级
+ * @return 改签成功返回true，否则返回false 
+ */
 bool passengerInfor::changeTicket(flightInfor& _flight,travelClass _travelclass)
 {
     if(isBooked)
@@ -203,6 +248,11 @@ bool passengerInfor::changeTicket(flightInfor& _flight,travelClass _travelclass)
     return false;
 }
 
+/**
+ * @brief 乘客查询航班余票
+ * @param _flight 航班信息
+ * @return 航班余票信息
+ */
 StockRemained passengerInfor::getTicket(flightInfor& _flight)
 {
     return {_flight.getStockRemained(FIRST),_flight.getStockRemained(SECOND),_flight.getStockRemained(THIRD)};

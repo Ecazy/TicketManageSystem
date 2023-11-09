@@ -3,7 +3,8 @@
 
 #include "iofunc.h"
 
-Linklist<flightInfor> flightInforList;
+//存储总共所有的航班信息于链表中
+static Linklist<flightInfor> flightInforList;
 IOFunc iof;
 
 Linklist<flightInfor> findByTime(int y,int m,int d);

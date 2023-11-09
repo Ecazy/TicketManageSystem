@@ -1,6 +1,11 @@
 #ifndef DATASTRUCTURE_H
 #define DATASTRUCTURE_H
 
+/**
+ * @brief 链表中的结点，包括数据和指向下一个结点的指针
+ * 同时声明了一个默认构造函数，用于初始化头结点（默认参数是空指针）
+ * @tparam T 
+ */
 template<class T>
 struct Node
 {
@@ -10,6 +15,11 @@ struct Node
     Node() :data(0), next(nullptr) {}
 };
 
+/**
+ * @brief 二叉树中的结点，包括数据和指向左右子树的指针
+ * 同时声明了一个默认构造函数，用于初始化根结点（默认参数是空指针）
+ * @tparam T
+ */
 template<class T>
 struct TreeNode
 {
@@ -24,13 +34,15 @@ template<class T>
 class Linklist
 {
 private:
-
     void insert(T _data, int pos);
 public:
+    //类的公有成员变量包括头结点和链表长度
     Node<T>* head;
     int length;
 
+    //默认构造函数，用于初始化空链表
     Linklist(Node<T>* _head = nullptr, int _length = 0) :head(_head), length(_length) {}
+    //拷贝构造函数，用于初始化链表
     Linklist(Linklist& _list)
     {
         length = _list.length;
@@ -49,6 +61,7 @@ public:
             q = q->next;
         }
     }
+    //析构函数，用于释放链表中的内存
     ~Linklist(){for(Node<T>* p = head;p != nullptr;p = head){head = head->next;delete p;}}
 
     void addToHead(T _data);
@@ -105,6 +118,11 @@ public:
 #endif // DATASTRUCTURE_H
 
 //functions
+/**
+ * @brief 公有函数，用于对链表进行排序
+ * @tparam T
+ * @param compare 比较函数，用于比较两个数据的大小
+*/
 template<class T>
 void Linklist<T>::sort(bool(*compare)(T, T))
 {
@@ -139,6 +157,11 @@ void Linklist<T>::sort(bool(*compare)(T, T))
     r->next = right.head;
 }
 
+/**
+ * @brief 私有函数，用于插入结点到列表中
+ * @param _data 要插入的数据 
+ * @param pos 要插入的位置
+ */
 template<class T>
 void Linklist<T>::insert(T _data, int pos)
 {
@@ -161,6 +184,12 @@ void Linklist<T>::insert(T _data, int pos)
     length++;
 }
 
+/**
+ * @brief 公有函数，用于查找链表中是否存在某个数据
+ * @tparam T
+ * @param _data 要查找的数据
+ * @return true 存在 
+ */
 template<class T>
 bool Linklist<T>::findByElement(T _data)
 {
@@ -174,6 +203,11 @@ bool Linklist<T>::findByElement(T _data)
     return false;
 }
 
+/**
+ * @brief 公有函数，通过给定结点位置删除链表中的某个结点
+ * @tparam T
+ * @param pos 要删除的结点的位置
+ */
 template<class T>
 void Linklist<T>::remove(int pos)
 {
@@ -196,6 +230,11 @@ void Linklist<T>::remove(int pos)
     length--;
 }
 
+/**
+ * @brief 公有函数，通过给定数据删除链表中的某个结点
+ * @tparam T
+ * @param _data 要删除的结点的数据
+ */
 template<class T>
 void Linklist<T>::removeByElement(T _data)
 {
@@ -222,18 +261,34 @@ void Linklist<T>::removeByElement(T _data)
     length--;
 }
 
+/**
+ * @brief 将数据添加到链表的头部
+ * @tparam T 
+ * @param _data 要添加的数据
+ */
 template<class T>
 void Linklist<T>::addToHead(T _data)
 {
     insert(_data, 0);
 }
 
+/**
+ * @brief 将数据添加到链表的尾部
+ * @tparam T
+ * @param _data 要添加的数据 
+ */
 template<class T>
 void Linklist<T>::addToTail(T _data)
 {
     insert(_data, length);
 }
 
+/**
+ * @brief 公有函数，通过给定位置获取链表中的某个结点
+ * @tparam T
+ * @param pos 要获取的结点的位置
+ * @return T& 要获取的结点的数据的引用 
+ */
 template<class T>
 T& Linklist<T>::getNode(int pos)
 {
@@ -245,12 +300,24 @@ T& Linklist<T>::getNode(int pos)
     return p->data;
 }
 
+/**
+ * @brief 重载[]运算符，通过给定位置获取链表中的某个结点
+ * @tparam T
+ * @param pos 要获取的结点的位置
+ * @return T& 要获取的结点的数据的引用
+ */
 template<class T>
 T& Linklist<T>::operator[](int pos)
 {
     return getNode(pos);
 }
 
+/**
+ * @brief 公有函数，通过给定位置设置链表中的某个结点的数据
+ * @tparam T
+ * @param pos 要设置的结点的位置
+ * @param _data 要设置的数据
+ */
 template<class T>
 void Linklist<T>::setNode(int pos, T _data)
 {
@@ -261,6 +328,9 @@ void Linklist<T>::setNode(int pos, T _data)
         p = p->next;
     p->data = _data;
 }
+
+/*-------------------------------------------------*/
+//以下为队列、栈成员函数的实现
 
 template<class T>
 void Queue<T>::push(T _data)
@@ -288,6 +358,15 @@ T Stack<T>::pop()
     return data;
 }
 
+
+/*-------------------------------------------------*/
+//以下为二叉树成员函数的实现
+
+/**
+ * @brief 公有函数，用于前序遍历二叉树
+ * @tparam T
+ * @param root 二叉树的根结点 
+ */
 template<class T>
 void BinaryTree<T>::preorder(TreeNode<T>* root)
 {
@@ -297,6 +376,12 @@ void BinaryTree<T>::preorder(TreeNode<T>* root)
     preorder(root->left);
     preorder(root->right);
 }
+
+/**
+ * @brief 公有函数，用于中序遍历二叉树
+ * @tparam T
+ * @param root 二叉树的根结点
+ */
 template<class T>
 void BinaryTree<T>::inorder(TreeNode<T>* root)
 {
@@ -306,6 +391,12 @@ void BinaryTree<T>::inorder(TreeNode<T>* root)
     //cout << root->data << " ";
     inorder(root->right);
 }
+
+/**
+ * @brief 公有函数，用于后序遍历二叉树
+ * @tparam T
+ * @param root 二叉树的根结点
+ */
 template<class T>
 void BinaryTree<T>::postorder(TreeNode<T>* root)
 {
@@ -315,6 +406,12 @@ void BinaryTree<T>::postorder(TreeNode<T>* root)
     postorder(root->right);
     //cout << root->data << " ";
 }
+
+/**
+ * @brief 公有函数，用于向二叉树中插入结点
+ * @tparam T
+ * @param _data 要插入的数据 
+ */
 template<class T>
 void BinaryTree<T>::insert(T _data)
 {
@@ -348,6 +445,12 @@ void BinaryTree<T>::insert(T _data)
         }
     }
 }
+
+/**
+ * @brief 公有函数，用于删除二叉树中的某个结点，通过给定数据
+ * @tparam T
+ * @param _data 要删除的结点的数据 
+ */
 template<class T>
 void BinaryTree<T>::remove(T _data)
 {
@@ -410,6 +513,12 @@ void BinaryTree<T>::remove(T _data)
         delete s;
     }
 }
+
+/**
+ * @brief 私有函数，用于删除二叉树中的某个结点，通过给定结点
+ * @tparam T
+ * @param node 要删除的结点  
+ */
 template<class T>
 void BinaryTree<T>::remove(TreeNode<T>* node)
 {
@@ -419,6 +528,13 @@ void BinaryTree<T>::remove(TreeNode<T>* node)
     remove(node->right);
     delete node;
 }
+
+/**
+ * @brief 公有函数，用于查找二叉树中的某个结点，通过给定数据
+ * @tparam T
+ * @param _data 要查找的结点的数据
+ * @return TreeNode<T>* 要查找的结点的指针 
+ */
 template<class T>
 TreeNode<T>* BinaryTree<T>::search(T _data)
 {

@@ -1,5 +1,12 @@
 #include "function.h"
 
+/**
+ * @brief 查询指定时间的航班
+ * @param y 年
+ * @param m 月
+ * @param d 日
+ * @return 所有符合条件的航班信息的链表
+ */
 Linklist<flightInfor> findByTime(int y,int m,int d)
 {
     Linklist<flightInfor> flightList;
@@ -13,6 +20,12 @@ Linklist<flightInfor> findByTime(int y,int m,int d)
     return flightList;
 }
 
+/**
+ * @brief 查询指定起始地和目的地的航班
+ * @param beginning 起始地
+ * @param destination 目的地
+ * @return 所有符合条件的航班信息的链表 
+ */
 Linklist<flightInfor> findByBAD(const string beginning,const string destination)
 {
     Linklist<flightInfor> flightList;
@@ -26,6 +39,10 @@ Linklist<flightInfor> findByBAD(const string beginning,const string destination)
     return flightList;
 }
 
+/**
+ * @brief 检查航班是否符合指定时间，并将不符合条件的航班从列表中删除
+ * @param flightList 航班信息链表 
+ */
 void checkTime(Linklist<flightInfor>& flightList,int y,int m,int d)
 {
     for (int i = 0; i < flightList.length; i++)
@@ -37,6 +54,10 @@ void checkTime(Linklist<flightInfor>& flightList,int y,int m,int d)
     }
 }
 
+/**
+ * @brief 检查航班是否符合指定起始地和目的地，并将不符合条件的航班从列表中删除
+ * @param flightList 航班信息链表  
+ */
 void checkBAD(Linklist<flightInfor>& flightList,const string beginning,const string destination)
 {
     for (int i = 0; i < flightList.length; i++)
@@ -48,6 +69,10 @@ void checkBAD(Linklist<flightInfor>& flightList,const string beginning,const str
     }
 }
 
+/**
+ * @brief 删除没有余票的航班
+ * @param flightList 航班信息链表 
+ */
 void removeNoTicketFlight(Linklist<flightInfor>& flightList)
 {
     for (int i = 0; i < flightList.length; i++)

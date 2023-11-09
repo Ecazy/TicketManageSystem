@@ -9,16 +9,19 @@ using namespace std;
 #define STOCK_TOTAL_SECOND 100
 #define STOCK_TOTAL_THIRD 200
 
+//飞机舱位等级的枚举
 typedef enum
 {
     FIRST,SECOND,THIRD
 }travelClass;
 
+//星期的枚举
 typedef enum
 {
     MON,TUE,WED,THU,FRI,SAT,SUN
 }Week;
 
+//时间的结构体，包括年月日星期时分
 typedef struct
 {
     int year;
@@ -39,6 +42,7 @@ typedef struct
 }DateTime;
 
 
+//乘客取消订单的结构，包括乘客姓名，舱位等级，航班号
 typedef struct
 {
     string name;
@@ -46,16 +50,19 @@ typedef struct
     string flightID;
 }passengerCancelBook;
 
+//航班余票的结构，包括头等舱，商务舱，经济舱
 typedef struct{
     unsigned int first;
     unsigned int second;
     unsigned int third;
 }StockRemained;
 
+//由于两个类型的交叉引用，所以需要提前声明
 class flightInfor;
 
 class passengerInfor
 {
+//私有成员，包括乘客姓名，舱位等级，是否已经订票
 private:
     string name;
     travelClass travelclass;
@@ -92,6 +99,7 @@ public:
 
 class flightInfor
 {
+//私有成员，包括起始地，目的地，航班号，飞机号，起飞时间，座位数，票价，余票
 private:
     string beginning, destination;
     string flightID;
