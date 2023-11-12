@@ -5,7 +5,7 @@
 
 //存储总共所有的航班信息于链表中
 static Linklist<flightInfo> flightInforList;
-IOFunc iof;
+
 
 Linklist<flightInfo> findByTime(int y, int m, int d);
 

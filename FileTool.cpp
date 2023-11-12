@@ -2,7 +2,6 @@
 // Created by 杨千靖 on 2023/11/12.
 #include "FileTool.h"
 #include <iostream>
-#include "datastructure.h"
 
 using namespace std;
 
@@ -64,9 +63,11 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
         }
         break;
     }
-    return FlightList;
     // 关闭文件
     ifs.close();
+    return FlightList;
+
+
 }
 
 Linklist<FlightInfo> FileTool::read_by_path(const string start, const string end) {
@@ -81,7 +82,8 @@ Linklist<FlightInfo> FileTool::read_by_path(const string start, const string end
         }
         break;
     }
-    return FlightList;
     // 关闭文件
     ifs.close();
+    return FlightList;
+
 }
