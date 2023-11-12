@@ -6,13 +6,12 @@
 #include"information.h"
 
 //输入输出类，专用于程序输入输出信息
-class IOFunc
-{
+class IOFunc {
 public:
 
     IOFunc();
 
-    Stack<flightInfor> readFlightData(const string);
+    Stack<flightInfo> readFlightData(const string);
 
 };
 

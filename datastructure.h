@@ -7,12 +7,13 @@
  * @tparam T 
  */
 template<class T>
-struct Node
-{
+struct Node {
     T data;
-    Node* next;
-    Node(T _data, Node* _next = nullptr) :data(_data), next(_next) {}
-    Node() :data(0), next(nullptr) {}
+    Node *next;
+
+    Node(T _data, Node *_next = nullptr) : data(_data), next(_next) {}
+
+    Node() : data(0), next(nullptr) {}
 };
 
 /**
@@ -21,98 +22,127 @@ struct Node
  * @tparam T
  */
 template<class T>
-struct TreeNode
-{
+struct TreeNode {
     T data;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(T _data, TreeNode* _left = nullptr, TreeNode* _right = nullptr) :data(_data), left(_left), right(_right) {}
-    TreeNode() :data(0), left(nullptr), right(nullptr) {}
+    TreeNode *left;
+    TreeNode *right;
+
+    TreeNode(T _data, TreeNode *_left = nullptr, TreeNode *_right = nullptr) : data(_data), left(_left),
+                                                                               right(_right) {}
+
+    TreeNode() : data(0), left(nullptr), right(nullptr) {}
 };
 
 template<class T>
-class Linklist
-{
+class Linklist {
 private:
     void insert(T _data, int pos);
+
 public:
     //类的公有成员变量包括头结点和链表长度
-    Node<T>* head;
+    Node<T> *head;
     int length;
 
     //默认构造函数，用于初始化空链表
-    Linklist(Node<T>* _head = nullptr, int _length = 0) :head(_head), length(_length) {}
+    Linklist(Node<T> *_head = nullptr, int _length = 0) : head(_head), length(_length) {}
+
     //拷贝构造函数，用于初始化链表
-    Linklist(Linklist& _list)
-    {
+    Linklist(Linklist &_list) {
         length = _list.length;
-        if (length == 0)
-        {
+        if (length == 0) {
             head = nullptr;
             return;
         }
         head = new Node<T>(_list.head->data);
-        Node<T>* p = head;
-        Node<T>* q = _list.head->next;
-        while (q != nullptr)
-        {
+        Node<T> *p = head;
+        Node<T> *q = _list.head->next;
+        while (q != nullptr) {
             p->next = new Node<T>(q->data);
             p = p->next;
             q = q->next;
         }
     }
+
     //析构函数，用于释放链表中的内存
-    ~Linklist(){for(Node<T>* p = head;p != nullptr;p = head){head = head->next;delete p;}}
+    ~Linklist() {
+        for (Node<T> *p = head; p != nullptr; p = head) {
+            head = head->next;
+            delete p;
+        }
+    }
 
     void addToHead(T _data);
+
     void addToTail(T _data);
+
     void remove(int pos);
+
     void removeByElement(T _data);
-    void sort(bool(*compare)(T, T) = [](T a, T b) {return a < b; });
+
+    void sort(bool(*compare)(T, T) = [](T a, T b) { return a < b; });
+
     bool findByElement(T _data);
-    T& getNode(int pos);
-    T& operator[](int pos);
+
+    T &getNode(int pos);
+
+    T &operator[](int pos);
+
     void setNode(int pos, T _data);
 };
 
 template<class T>
-class Queue:public Linklist<T>
-{
+class Queue : public Linklist<T> {
 public:
-    Queue(Node<T>* _head = nullptr, int _length = 0) :Linklist<T>(_head, _length) {}
-    Queue(Queue& _queue) :Linklist<T>(_queue) {}
+    Queue(Node<T> *_head = nullptr, int _length = 0) : Linklist<T>(_head, _length) {}
+
+    Queue(Queue &_queue) : Linklist<T>(_queue) {}
 
     void push(T _data);
+
     T pop();
 };
 
 template<class T>
-class Stack:public Linklist<T>
-{
+class Stack : public Linklist<T> {
 public:
-    Stack(Node<T>* _head = nullptr, int _length = 0) :Linklist<T>(_head, _length) {}
-    Stack(Stack& _stack) :Linklist<T>(_stack) {}
+    Stack(Node<T> *_head = nullptr, int _length = 0) : Linklist<T>(_head, _length) {}
+
+    Stack(Stack &_stack) : Linklist<T>(_stack) {}
+
     void push(T _data);
+
     T pop();
 };
 
 template<class T>
-class BinaryTree
-{
+class BinaryTree {
 public:
 
-    TreeNode<T>* root;
+    TreeNode<T> *root;
     int length;
 
-    BinaryTree(TreeNode<T>* _root = nullptr, int _length = 0) :root(_root), length(_length) {}
-    ~BinaryTree() { for (TreeNode<T>* p = root; p != nullptr; p = root) { root = root->left; delete p; } }
-    void preorder(TreeNode<T>* _root);
-    void inorder(TreeNode<T>* _root);
-    void postorder(TreeNode<T>* _root);
+    BinaryTree(TreeNode<T> *_root = nullptr, int _length = 0) : root(_root), length(_length) {}
+
+    ~BinaryTree() {
+        for (TreeNode<T> *p = root; p != nullptr; p = root) {
+            root = root->left;
+            delete p;
+        }
+    }
+
+    void preorder(TreeNode<T> *_root);
+
+    void inorder(TreeNode<T> *_root);
+
+    void postorder(TreeNode<T> *_root);
+
     void insert(T _data);
+
     void remove(T _data);
-    void remove(TreeNode<T>* node);
-    TreeNode<T>* search(T _data);
+
+    void remove(TreeNode<T> *node);
+
+    TreeNode<T> *search(T _data);
 };
 
 #endif // DATASTRUCTURE_H
@@ -124,17 +154,14 @@ public:
  * @param compare 比较函数，用于比较两个数据的大小
 */
 template<class T>
-void Linklist<T>::sort(bool(*compare)(T, T))
-{
+void Linklist<T>::sort(bool(*compare)(T, T)) {
     if (length <= 1)
         return;
-    Node<T>* p = head;
-    Node<T>* q = head->next;
-    Node<T>* r = head;
-    while (q != nullptr)
-    {
-        if (compare(q->data, head->data))
-        {
+    Node<T> *p = head;
+    Node<T> *q = head->next;
+    Node<T> *r = head;
+    while (q != nullptr) {
+        if (compare(q->data, head->data)) {
             r = r->next;
             T temp = r->data;
             r->data = q->data;
@@ -163,19 +190,15 @@ void Linklist<T>::sort(bool(*compare)(T, T))
  * @param pos 要插入的位置
  */
 template<class T>
-void Linklist<T>::insert(T _data, int pos)
-{
+void Linklist<T>::insert(T _data, int pos) {
     if (pos < 0 || pos > length)
         return;
-    Node<T>* p = head;
-    Node<T>* q = new Node<T>(_data);
-    if (pos == 0)
-    {
+    Node<T> *p = head;
+    Node<T> *q = new Node<T>(_data);
+    if (pos == 0) {
         q->next = head;
         head = q;
-    }
-    else
-    {
+    } else {
         for (int i = 0; i < pos - 1; i++)
             p = p->next;
         q->next = p->next;
@@ -191,11 +214,9 @@ void Linklist<T>::insert(T _data, int pos)
  * @return true 存在 
  */
 template<class T>
-bool Linklist<T>::findByElement(T _data)
-{
-    Node<T>* p = head;
-    while (p != nullptr)
-    {
+bool Linklist<T>::findByElement(T _data) {
+    Node<T> *p = head;
+    while (p != nullptr) {
         if (p->data == _data)
             return true;
         p = p->next;
@@ -209,21 +230,17 @@ bool Linklist<T>::findByElement(T _data)
  * @param pos 要删除的结点的位置
  */
 template<class T>
-void Linklist<T>::remove(int pos)
-{
+void Linklist<T>::remove(int pos) {
     if (pos < 0 || pos >= length)
         return;
-    Node<T>* p = head;
-    if (pos == 0)
-    {
+    Node<T> *p = head;
+    if (pos == 0) {
         head = head->next;
         delete p;
-    }
-    else
-    {
+    } else {
         for (int i = 0; i < pos - 1; i++)
             p = p->next;
-        Node<T>* q = p->next;
+        Node<T> *q = p->next;
         p->next = q->next;
         delete q;
     }
@@ -236,21 +253,15 @@ void Linklist<T>::remove(int pos)
  * @param _data 要删除的结点的数据
  */
 template<class T>
-void Linklist<T>::removeByElement(T _data)
-{
-    Node<T>* p = head;
-    if (p->data == _data)
-    {
+void Linklist<T>::removeByElement(T _data) {
+    Node<T> *p = head;
+    if (p->data == _data) {
         head = head->next;
         delete p;
-    }
-    else
-    {
-        while (p->next != nullptr)
-        {
-            if (p->next->data == _data)
-            {
-                Node<T>* q = p->next;
+    } else {
+        while (p->next != nullptr) {
+            if (p->next->data == _data) {
+                Node<T> *q = p->next;
                 p->next = q->next;
                 delete q;
                 break;
@@ -267,8 +278,7 @@ void Linklist<T>::removeByElement(T _data)
  * @param _data 要添加的数据
  */
 template<class T>
-void Linklist<T>::addToHead(T _data)
-{
+void Linklist<T>::addToHead(T _data) {
     insert(_data, 0);
 }
 
@@ -278,8 +288,7 @@ void Linklist<T>::addToHead(T _data)
  * @param _data 要添加的数据 
  */
 template<class T>
-void Linklist<T>::addToTail(T _data)
-{
+void Linklist<T>::addToTail(T _data) {
     insert(_data, length);
 }
 
@@ -290,11 +299,10 @@ void Linklist<T>::addToTail(T _data)
  * @return T& 要获取的结点的数据的引用 
  */
 template<class T>
-T& Linklist<T>::getNode(int pos)
-{
-    if(pos < 0 || pos >= length)
-        throw("out of range");
-    Node<T>* p = head;
+T &Linklist<T>::getNode(int pos) {
+    if (pos < 0 || pos >= length)
+        throw ("out of range");
+    Node<T> *p = head;
     for (int i = 0; i < pos; i++)
         p = p->next;
     return p->data;
@@ -307,8 +315,7 @@ T& Linklist<T>::getNode(int pos)
  * @return T& 要获取的结点的数据的引用
  */
 template<class T>
-T& Linklist<T>::operator[](int pos)
-{
+T &Linklist<T>::operator[](int pos) {
     return getNode(pos);
 }
 
@@ -319,11 +326,10 @@ T& Linklist<T>::operator[](int pos)
  * @param _data 要设置的数据
  */
 template<class T>
-void Linklist<T>::setNode(int pos, T _data)
-{
+void Linklist<T>::setNode(int pos, T _data) {
     if (pos < 0 || pos >= length)
         return;
-    Node<T>* p = head;
+    Node<T> *p = head;
     for (int i = 0; i < pos; i++)
         p = p->next;
     p->data = _data;
@@ -333,26 +339,24 @@ void Linklist<T>::setNode(int pos, T _data)
 //以下为队列、栈成员函数的实现
 
 template<class T>
-void Queue<T>::push(T _data)
-{
+void Queue<T>::push(T _data) {
     addToTail(_data);
 }
+
 template<class T>
-T Queue<T>::pop()
-{
+T Queue<T>::pop() {
     T data = this->head->data;
     removeByElement(data);
     return data;
 }
 
 template<class T>
-void Stack<T>::push(T _data)
-{
+void Stack<T>::push(T _data) {
     this->addToHead(_data);
 }
+
 template<class T>
-T Stack<T>::pop()
-{
+T Stack<T>::pop() {
     T data = this->head->data;
     removeByElement(data);
     return data;
@@ -368,8 +372,7 @@ T Stack<T>::pop()
  * @param root 二叉树的根结点 
  */
 template<class T>
-void BinaryTree<T>::preorder(TreeNode<T>* root)
-{
+void BinaryTree<T>::preorder(TreeNode<T> *root) {
     if (root == nullptr)
         return;
     //cout << root->data << " ";
@@ -383,8 +386,7 @@ void BinaryTree<T>::preorder(TreeNode<T>* root)
  * @param root 二叉树的根结点
  */
 template<class T>
-void BinaryTree<T>::inorder(TreeNode<T>* root)
-{
+void BinaryTree<T>::inorder(TreeNode<T> *root) {
     if (root == nullptr)
         return;
     inorder(root->left);
@@ -398,8 +400,7 @@ void BinaryTree<T>::inorder(TreeNode<T>* root)
  * @param root 二叉树的根结点
  */
 template<class T>
-void BinaryTree<T>::postorder(TreeNode<T>* root)
-{
+void BinaryTree<T>::postorder(TreeNode<T> *root) {
     if (root == nullptr)
         return;
     postorder(root->left);
@@ -413,34 +414,24 @@ void BinaryTree<T>::postorder(TreeNode<T>* root)
  * @param _data 要插入的数据 
  */
 template<class T>
-void BinaryTree<T>::insert(T _data)
-{
-    if (root == nullptr)
-    {
+void BinaryTree<T>::insert(T _data) {
+    if (root == nullptr) {
         root = new TreeNode(_data);
         return;
     }
-    TreeNode<T>* p = root;
-    while (true)
-    {
-        if (_data < p->data)
-        {
-            if (p->left == nullptr)
-            {
+    TreeNode<T> *p = root;
+    while (true) {
+        if (_data < p->data) {
+            if (p->left == nullptr) {
                 p->left = new TreeNode(_data);
                 return;
-            }
-            else
+            } else
                 p = p->left;
-        }
-        else
-        {
-            if (p->right == nullptr)
-            {
+        } else {
+            if (p->right == nullptr) {
                 p->right = new TreeNode(_data);
                 return;
-            }
-            else
+            } else
                 p = p->right;
         }
     }
@@ -452,12 +443,10 @@ void BinaryTree<T>::insert(T _data)
  * @param _data 要删除的结点的数据 
  */
 template<class T>
-void BinaryTree<T>::remove(T _data)
-{
-    TreeNode<T>* p = root;
-    TreeNode<T>* q = nullptr;
-    while (p != nullptr && p->data != _data)
-    {
+void BinaryTree<T>::remove(T _data) {
+    TreeNode<T> *p = root;
+    TreeNode<T> *q = nullptr;
+    while (p != nullptr && p->data != _data) {
         q = p;
         if (_data < p->data)
             p = p->left;
@@ -466,8 +455,7 @@ void BinaryTree<T>::remove(T _data)
     }
     if (p == nullptr)
         return;
-    if (p->left == nullptr && p->right == nullptr)
-    {
+    if (p->left == nullptr && p->right == nullptr) {
         if (q == nullptr)
             root = nullptr;
         else if (q->left == p)
@@ -475,9 +463,7 @@ void BinaryTree<T>::remove(T _data)
         else
             q->right = nullptr;
         delete p;
-    }
-    else if (p->left == nullptr)
-    {
+    } else if (p->left == nullptr) {
         if (q == nullptr)
             root = p->right;
         else if (q->left == p)
@@ -485,9 +471,7 @@ void BinaryTree<T>::remove(T _data)
         else
             q->right = p->right;
         delete p;
-    }
-    else if (p->right == nullptr)
-    {
+    } else if (p->right == nullptr) {
         if (q == nullptr)
             root = p->left;
         else if (q->left == p)
@@ -495,13 +479,10 @@ void BinaryTree<T>::remove(T _data)
         else
             q->right = p->left;
         delete p;
-    }
-    else
-    {
-        TreeNode<T>* s = p->left;
-        TreeNode<T>* t = p;
-        while (s->right != nullptr)
-        {
+    } else {
+        TreeNode<T> *s = p->left;
+        TreeNode<T> *t = p;
+        while (s->right != nullptr) {
             t = s;
             s = s->right;
         }
@@ -520,8 +501,7 @@ void BinaryTree<T>::remove(T _data)
  * @param node 要删除的结点  
  */
 template<class T>
-void BinaryTree<T>::remove(TreeNode<T>* node)
-{
+void BinaryTree<T>::remove(TreeNode<T> *node) {
     if (node == nullptr)
         return;
     remove(node->left);
@@ -536,11 +516,9 @@ void BinaryTree<T>::remove(TreeNode<T>* node)
  * @return TreeNode<T>* 要查找的结点的指针 
  */
 template<class T>
-TreeNode<T>* BinaryTree<T>::search(T _data)
-{
-    TreeNode<T>* p = root;
-    while (p != nullptr && p->data != _data)
-    {
+TreeNode<T> *BinaryTree<T>::search(T _data) {
+    TreeNode<T> *p = root;
+    while (p != nullptr && p->data != _data) {
         if (_data < p->data)
             p = p->left;
         else

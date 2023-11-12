@@ -142,7 +142,7 @@ typedef enum
 航班信息以及乘客信息如下
 
 ```cpp
-class flightInfor
+class flightInfo
 {
 private:
     string beginning, destination;
@@ -156,15 +156,15 @@ private:
         unsigned int third;
     }StockRemained;
     StockRemained stockRemained;
-    void addPassenger(passengerInfor& _passenger);
-    void deletePassenger(passengerInfor& _passenger);
+    void addPassenger(passengerInfo& _passenger);
+    void deletePassenger(passengerInfo& _passenger);
 public:
-    Linklist<passengerInfor> passengerList;
+    Linklist<passengerInfo> passengerList;
 
-    flightInfor(string beginning,string destination,string flightID,string planeID,int occupLimit,double fares):
+    flightInfo(string beginning,string destination,string flightID,string planeID,int occupLimit,double fares):
         beginning(beginning),destination(destination),flightID(flightID),planeID(planeID),occupLimit(occupLimit),fares(fares),stockRemained(StockRemained{STOCK_TOTAL_FIRST,STOCK_TOTAL_SECOND,STOCK_TOTAL_THIRD})
     {}
-    flightInfor(flightInfor& _flight)
+    flightInfo(flightInfo& _flight)
     {
         beginning = _flight.beginning;
         destination = _flight.destination;
@@ -182,22 +182,22 @@ public:
     double getFares();
     unsigned int getStockRemained(travelClass _travelClass);
 
-    bool passengerBook(passengerInfor& _passenger);
-    void passengerCancelBook(passengerInfor& _passenger);
+    bool passengerBook(passengerInfo& _passenger);
+    void TicketInfo(passengerInfo& _passenger);
 };
 
-class passengerInfor
+class passengerInfo
 {
 private:
     string name;
     travelClass travelclass;
     bool isBooked;
 public:
-    friend class flightInfor;
-    passengerInfor(string name,travelClass travelclass):
+    friend class flightInfo;
+    passengerInfo(string name,travelClass travelclass):
         name(name),travelclass(travelclass)
     {}
-    passengerInfor(passengerInfor& _passenger)
+    passengerInfo(passengerInfo& _passenger)
     {
         name = _passenger.name;
         travelclass = _passenger.travelclass;
@@ -207,7 +207,7 @@ public:
     bool getIsBooked();
     void setIsBooked(bool isBooked);
 
-    bool operator<(passengerInfor& _passenger);
+    bool operator<(passengerInfo& _passenger);
 
 };
 ```

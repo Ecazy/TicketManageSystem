@@ -2,8 +2,8 @@
 
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+    std::ofstream ofs("data.bin", std::ios::binary);
     iof.readFlightData("D:/Code/C++/Project/data.dat");
     QApplication a(argc, argv);
     TicketManageSystem w;
