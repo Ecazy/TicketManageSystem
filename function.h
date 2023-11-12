@@ -4,23 +4,29 @@
 #include "iofunc.h"
 
 //存储总共所有的航班信息于链表中
-static Linklist<flightInfor> flightInforList;
+static Linklist<flightInfo> flightInforList;
 IOFunc iof;
 
-Linklist<flightInfor> findByTime(int y,int m,int d);
-Linklist<flightInfor> findByBAD(const string beginning,const string destination);
+Linklist<flightInfo> findByTime(int y, int m, int d);
 
-void checkTime(Linklist<flightInfor>& flightList,int y,int m,int d);
-void checkBAD(Linklist<flightInfor>& flightList,const string beginning,const string destination);
+Linklist<flightInfo> findByBAD(const string beginning, const string destination);
 
-void removeNoTicketFlight(Linklist<flightInfor>& flightList);
+void checkTime(Linklist<flightInfo> &flightList, int y, int m, int d);
 
-void sortByStartTime(Linklist<flightInfor>& flightList);
-void sortByPrice(Linklist<flightInfor>& flightList);
-void sortByArrivalTime(Linklist<flightInfor>& flightList);
+void checkBAD(Linklist<flightInfo> &flightList, const string beginning, const string destination);
 
-bool buyTicket(flightInfor& flight,passengerInfor& passenger);
-bool cancelTicket(flightInfor& flight,passengerInfor& passenger);
-bool changeTicket(flightInfor& flight,passengerInfor& passenger,travelClass _travelclass);
+void removeNoTicketFlight(Linklist<flightInfo> &flightList);
+
+void sortByStartTime(Linklist<flightInfo> &flightList);
+
+void sortByPrice(Linklist<flightInfo> &flightList);
+
+void sortByArrivalTime(Linklist<flightInfo> &flightList);
+
+bool buyTicket(flightInfo &flight, passengerInfo &passenger);
+
+bool cancelTicket(flightInfo &flight, passengerInfo &passenger);
+
+bool changeTicket(flightInfo &flight, passengerInfo &passenger, travelClass _travelclass);
 
 #endif // FUNCTION_H
