@@ -6,23 +6,14 @@
 #ifndef TICKETMANAGESYSTEM_TOOL_H
 #define TICKETMANAGESYSTEM_TOOL_H
 
-//记得初始化flag为true
-typedef struct {
-    int ID;
-    int y, m, d;
-    string start, end;
-    int First, Second, Third;
-    bool flag;
-} FlightInfo;
-
 class FileTool {
 public:
-    void add(FlightInfo a);
+    bool add(FlightInfo a);
 
-    void remove(FlightInfo a);
+    bool remove(FlightInfo a);
 
     //c表示舱位（0是头等，1是一等，2是二等）
-    void change(FlightInfo a, int c);
+    bool change(FlightInfo a, int c);
 
     //year, month, day
     Linklist<FlightInfo> read_by_time(int y, int m, int d);

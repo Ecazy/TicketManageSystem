@@ -9,15 +9,15 @@ IOFunc::IOFunc() {
  * @param _path 资源文件路径
  * @return 航班信息，存储于栈中 
  */
-Stack<flightInfo> IOFunc::readFlightData(const string _path) {
-    Stack<flightInfo> _stack;
+Stack<FlightInfo> IOFunc::readFlightData(const string _path) {
+    Stack<FlightInfo> _stack;
 
     ifstream _file;
     _file.open(_path);
     //判断文件是否打开成功
     if (_file.is_open()) {
         //the information of flight are split by ' '
-        //and include flightID,planeID,beginning,destination,depatureDay,occupiedSeats,fares
+        //and include flightID,planeID,beginning,destination,depature,occupiedSeats,fares
         //DepatureDay is split by '-' and include year,month,day,hour,minute
         //and each flight is split by '\n'
         string _flightID, _planeID, _beginning, _destination;
@@ -72,7 +72,7 @@ Stack<flightInfo> IOFunc::readFlightData(const string _path) {
             _occupiedSeats = stoi(_occupiedSeatsStr);
             getline(_file, faresStr);
             _fares = stod(faresStr);
-            flightInfo _flight(_beginning, _destination, _flightID, _planeID, _depatureDay, _occupiedSeats, _fares);
+            FlightInfo _flight(_beginning, _destination, _flightID, _planeID, _depatureDay, _occupiedSeats, _fares);
             _stack.push(_flight);
         }
     } else {

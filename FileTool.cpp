@@ -14,41 +14,46 @@ void FileTool::add(FlightInfo a) {
     ofs.close();
 }
 
-//二进制文件删除成员过于麻烦，这里通过flag的bool值判断是否存在成员
-//当前航班票卖空后将flag置为false即可
-void FileTool::remove(FlightInfo a) {
-    a.flag = false;
-}
-
 //减去一张余票
-void FileTool::change(FlightInfo a, int c) {
+bool FileTool::change(FlightInfo a, int c) {
     // 打开二进制文件
     std::ifstream ifs("data.bin", std::ios::binary);
     //读取数据
     FlightInfo temp;
-    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.flag) {
+    int num;
+    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
         // 检查这个值是否是我们想要的
-        if (temp.ID == a.ID) {
-            // 修改结构体成员
+        if (temp.getFlightID() == a.getFlightID()) {
+            // 修改类成员
             switch (c) {
                 case 0:
-                    a.First--;
+                    num = temp.getStockRemained(FIRST);
+                    num--;
+                    if(num < 0)
+                        return false;
+                    a.setStockRemained(FIRST,num);
                     break;
                 case 1:
-                    a.Second--;
+                    num = temp.getStockRemained(SECOND);
+                    num--;
+                    if(num < 0)
+                        return false;
+                    a.setStockRemained(SECOND,num);
                     break;
                 case 2:
-                    a.Third--;
+                    num = temp.getStockRemained(THIRD);
+                    num--;
+                    if(num < 0)
+                        return false;
+                    a.setStockRemained(THIRD,num);
                     break;
             }
             break;
         }
-        if (a.First == 0 && a.Second == 0 && a.Third == 0) {
-            a.flag = false;
-        }
         // 关闭文件
         ifs.close();
     }
+    return true;
 }
 
 Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
@@ -56,9 +61,9 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
     std::ifstream ifs("data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.flag) {
+    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
         // 检查这个值是否是我们想要的
-        if (temp.y == y && temp.m == m && temp.d == d) {
+        if (temp.getDepature().year == y && temp.getDepature().month == m && temp.getDepature().day == d) {
             FlightList.addToTail(temp);
         }
         break;
@@ -75,9 +80,9 @@ Linklist<FlightInfo> FileTool::read_by_path(const string start, const string end
     std::ifstream ifs("data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.flag) {
+    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
         // 检查这个值是否是我们想要的
-        if (temp.start == start && temp.end == end) {
+        if (temp.getBeginning() == start && temp.getDestination() == end) {
             FlightList.addToTail(temp);
         }
         break;

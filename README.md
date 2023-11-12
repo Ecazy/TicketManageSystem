@@ -142,13 +142,13 @@ typedef enum
 航班信息以及乘客信息如下
 
 ```cpp
-class flightInfo
+class FlightInfo
 {
 private:
     string beginning, destination;
     string flightID;
     string planeID;
-    int occupLimit;
+    int capacity;
     double fares;
     typedef struct{
         unsigned int first;
@@ -161,16 +161,16 @@ private:
 public:
     Linklist<passengerInfo> passengerList;
 
-    flightInfo(string beginning,string destination,string flightID,string planeID,int occupLimit,double fares):
-        beginning(beginning),destination(destination),flightID(flightID),planeID(planeID),occupLimit(occupLimit),fares(fares),stockRemained(StockRemained{STOCK_TOTAL_FIRST,STOCK_TOTAL_SECOND,STOCK_TOTAL_THIRD})
+    FlightInfo(string beginning,string destination,string flightID,string planeID,int capacity,double fares):
+        beginning(beginning),destination(destination),flightID(flightID),planeID(planeID),capacity(capacity),fares(fares),stockRemained(StockRemained{STOCK_TOTAL_FIRST,STOCK_TOTAL_SECOND,STOCK_TOTAL_THIRD})
     {}
-    flightInfo(flightInfo& _flight)
+    FlightInfo(FlightInfo& _flight)
     {
         beginning = _flight.beginning;
         destination = _flight.destination;
         flightID = _flight.flightID;
         planeID = _flight.planeID;
-        occupLimit = _flight.occupLimit;
+        capacity = _flight.capacity;
         fares = _flight.fares;
         stockRemained = _flight.stockRemained;
     }
@@ -193,7 +193,7 @@ private:
     travelClass travelclass;
     bool isBooked;
 public:
-    friend class flightInfo;
+    friend class FlightInfo;
     passengerInfo(string name,travelClass travelclass):
         name(name),travelclass(travelclass)
     {}
