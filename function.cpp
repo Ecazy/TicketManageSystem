@@ -206,23 +206,23 @@ void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list) {
     }
 }
 
-bool book(Linklist<FlightInfo> list, string name, string id, string your_class) {
+bool book( string name, string id, string your_class) {
     for (int i = 0; i < my_tickets.length; i++) {
         if (my_tickets.getNode(i).getInfo().getFlightID() == id) {
             return false;
         }
     }
     if (your_class == "FIRST") {
-        f.change(f.find_flight_by_Id(list, id), 0);
-        passengerInfo a(name, f.find_flight_by_Id(list, id), FIRST, true);
+        f.change(f.find_flight_by_Id(flightList, id), 0);
+        passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
         my_tickets.addToTail(a);
     } else if (your_class == "SECOND") {
-        f.change(f.find_flight_by_Id(list, id), 1);
-        passengerInfo a(name, f.find_flight_by_Id(list, id), SECOND, true);
+        f.change(f.find_flight_by_Id(flightList, id), 1);
+        passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
         my_tickets.addToTail(a);
     } else if (your_class == "THIRD") {
-        f.change(f.find_flight_by_Id(list, id), 2);
-        passengerInfo a(name, f.find_flight_by_Id(list, id), THIRD, true);
+        f.change(f.find_flight_by_Id(flightList, id), 2);
+        passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
         my_tickets.addToTail(a);
     }
     return true;
@@ -250,15 +250,26 @@ void BookTicket() {
     QComboBox *Book = widget->findChild<QComboBox *>("BookFlightIDComBox");
     QString flightID = Book->currentText();
 
-    //TODO 调用Book
+    QComboBox* Class = widget->findChild<QComboBox*>("BookClasscomboBox");
+    QString travelClass = Class->currentText();
+
+
+    if(book("root",flightID.toStdString(),travelClass.toStdString()))
+        return;
+    else
+        //TODO 处理错误
+        return ;
+
 }
 
 void ChangeTicket() {
     QWidget *widget = loadUiFile(UI_PATH);
-    QComboBox *Original = widget->findChild<QComboBox *>("BookedFlightID");
-    QComboBox *Target = widget->findChild<QComboBox *>("BookFlightIDComBox_2");
+    QComboBox* Original = widget->findChild<QComboBox*>("BookedFlightID");
+    QComboBox* Target = widget->findChild<QComboBox*>("BookFlightIDComBox_2");
+    QComboBox* TargetClass = widget->findChild<QComboBox*>("TargetClassComboBox");
     QString originalFlightID = Original->currentText();
     QString targetFlightID = Target->currentText();
+    QString targetFlightClass = TargetClass->currentText();
     //TODO 调用Change
 }
 

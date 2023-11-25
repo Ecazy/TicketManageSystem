@@ -7,7 +7,6 @@
 #include<sstream>
 #include"Passenger.h"
 
-
 QWidget *loadUiFile(const string &path);
 
 #ifndef TICKETMANAGESYSTEM_TOOL_H
@@ -29,5 +28,7 @@ public:
 
     FlightInfo find_flight_by_Id(Linklist<FlightInfo> list, string id);
 };
+
+QWidget *loadUiFile(const string &path);
 
 #endif //TICKETMANAGESYSTEM_TOOL_H

@@ -8,7 +8,7 @@
 //存储总共所有的航班信息于链表中
 static Linklist<FlightInfo> flightInforList;
 
-bool book(Linklist<FlightInfo> list, string name, string id, string your_class);
+bool book(Linklist<FlightInfo> flightList, string name, string id, string your_class);
 
 bool change();
 
