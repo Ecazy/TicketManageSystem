@@ -1,6 +1,3 @@
-//
-// Created by 杨千靖 on 2023/11/12.
-//
 #include "FlightInfo.h"
 
 string FlightInfo::getBeginning() {

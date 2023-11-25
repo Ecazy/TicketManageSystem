@@ -48,6 +48,7 @@ public:
 
     bool operator==(passengerInfo &_passenger);
 
+    StockRemained getTicket(FlightInfo &_flight);
 };
 
 #endif

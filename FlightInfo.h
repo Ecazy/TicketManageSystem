@@ -1,6 +1,3 @@
-//
-// Created by 杨千靖 on 2023/11/12.
-//
 #include <string>
 #include "datastructure.h"
 
@@ -48,6 +45,12 @@ public:
         hour = _hour;
         minute = _minute;
     }
+    void getDate(int&year,int &month,int &day) {
+        year = year;
+        month = month;
+        day = day;
+    }
+
 };
 
 class FlightInfo {
@@ -77,8 +80,8 @@ public:
             beginning(beginning), destination(destination), flightID(flightID), planeID(planeID),
             depature(depature),
             capacity(capacity), first_fare(first_fare),
-    second_fare(second_fare),
-    third_fare(third_fare),
+            second_fare(second_fare),
+            third_fare(third_fare),
             stockRemained(StockRemained{STOCK_TOTAL_FIRST, STOCK_TOTAL_SECOND, STOCK_TOTAL_THIRD}) {}
 
     FlightInfo(FlightInfo &_flight) {
@@ -132,5 +135,6 @@ public:
 
     FlightInfo operator=(FlightInfo &_flight);
 };
+
 
 #endif //TICKETMANAGESYSTEM_FLIGHTINFO_H

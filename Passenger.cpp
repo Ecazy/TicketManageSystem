@@ -40,3 +40,13 @@ bool passengerInfo::operator==(passengerInfo &_passenger) {
     return name == _passenger.name;
 }
 
+/**
+ * @brief 乘客查询航班余票
+ * @param _flight 航班信息
+ * @return 航班余票信息
+ */
+StockRemained passengerInfo::getTicket(FlightInfo &_flight) {
+    return {_flight.getStockRemained(FIRST),
+            _flight.getStockRemained(SECOND),
+            _flight.getStockRemained(THIRD)};
+}

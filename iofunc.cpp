@@ -72,12 +72,20 @@ Stack<FlightInfo> IOFunc::readFlightData(const string _path) {
             _occupiedSeats = stoi(_occupiedSeatsStr);
             getline(_file, faresStr);
             _fares = stod(faresStr);
-       //     FlightInfo _flight(_beginning, _destination, _flightID, _planeID, _depatureDay, _occupiedSeats, _fares);
-        //    _stack.push(_flight);
         }
     } else {
         throw ("Error: File open failed");
     }
     _file.close();
     return _stack;
+}
+
+QWidget* loadUiFile(const string &path)
+{
+    QUiLoader uiLoader;
+    QFile file("D:/Code/C++/Project/Widget/TicketManageSystem/ticketmanagesystem.ui");
+    QWidget *main = uiLoader.load(&file);
+//    if(main!= nullptr)
+        return main;
+
 }
