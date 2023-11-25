@@ -1,4 +1,12 @@
-#include "iofunc.h"
+#include <QApplication>
+
+#include <QWidget>
+
+#include <QtUiTools/QUiLoader>
+#include <QFile>
+#include<fstream>
+#include<sstream>
+#include"Passenger.h"
 
 #ifndef TICKETMANAGESYSTEM_TOOL_H
 #define TICKETMANAGESYSTEM_TOOL_H
@@ -19,5 +27,7 @@ public:
 
     FlightInfo find_flight_by_Id(Linklist<FlightInfo> list, string id);
 };
+
+QWidget *loadUiFile(const string &path);
 
 #endif //TICKETMANAGESYSTEM_TOOL_H

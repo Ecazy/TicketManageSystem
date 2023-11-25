@@ -199,7 +199,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="ReserveTab">
     <attribute name="title">
@@ -316,7 +316,7 @@
       <rect>
        <x>0</x>
        <y>70</y>
-       <width>171</width>
+       <width>281</width>
        <height>26</height>
       </rect>
      </property>
@@ -324,19 +324,35 @@
       <item>
        <widget class="QComboBox" name="BookFlightIDComBox_2"/>
       </item>
+      <item>
+       <widget class="QComboBox" name="TargetClassComboBox"/>
+      </item>
      </layout>
     </widget>
     <widget class="QPushButton" name="Change">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>30</y>
-       <width>101</width>
-       <height>41</height>
+       <x>200</x>
+       <y>20</y>
+       <width>81</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="text">
       <string>改签</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>新的舱位</string>
      </property>
     </widget>
    </widget>

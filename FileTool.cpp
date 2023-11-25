@@ -96,3 +96,13 @@ FlightInfo FileTool::find_flight_by_Id(Linklist<FlightInfo> list, string id) {
     }
     return list.getNode(0);
 }
+
+QWidget* loadUiFile(const string &path)
+{
+    QUiLoader uiLoader;
+    QFile file("D:/Code/C++/Project/Widget/TicketManageSystem/ticketmanagesystem.ui");
+    QWidget *main = uiLoader.load(&file);
+//    if(main!= nullptr)
+    return main;
+
+}
