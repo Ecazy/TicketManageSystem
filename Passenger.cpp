@@ -40,36 +40,3 @@ bool passengerInfo::operator==(passengerInfo &_passenger) {
     return name == _passenger.name;
 }
 
-/**
- * @brief 乘客预约航班
- * @param _flight 航班信息
- * @return 预约成功返回true，否则返回false
- */
-bool passengerInfo::bookTicket(FlightInfo &_flight) {}
-
-/**
- * @brief 乘客取消预约航班
- * @param _flight 航班信息
- * @return 取消预约成功返回true，否则返回false
- */
-bool passengerInfo::cancelTicket(FlightInfo &_flight) {}
-
-/**
- * @brief 乘客改签航班
- * @param _flight 航班信息
- * @param _travelclass 目标舱位等级
- * @return 改签成功返回true，否则返回false 
- */
-bool passengerInfo::changeTicket(FlightInfo &_flight, travelClass _travelclass) {}
-
-/**
- * @brief 乘客查询航班余票
- * @param _flight 航班信息
- * @return 航班余票信息
- */
-StockRemained passengerInfo::getTicket(FlightInfo &_flight) {
-    return {_flight.getStockRemained(FIRST),
-            _flight.getStockRemained(SECOND),
-            _flight.getStockRemained(THIRD)};
-}
-

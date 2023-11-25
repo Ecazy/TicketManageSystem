@@ -25,6 +25,7 @@ void sortByArrivalTime(Linklist<FlightInfo> &flightList);
 
 bool buyTicket(FlightInfo &flight, passengerInfo &passenger);
 
+
 bool cancelTicket(FlightInfo &flight, passengerInfo &passenger);
 
 bool changeTicket(FlightInfo &flight, passengerInfo &passenger, travelClass _travelclass);

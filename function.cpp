@@ -1,4 +1,5 @@
 #include "function.h"
+#include <iostream>
 
 /**
  * @brief 查询指定时间的航班
@@ -76,31 +77,20 @@ void removeNoTicketFlight(Linklist<FlightInfo> &flightList) {
 void sortByStartTime(Linklist<FlightInfo> &flightList) {
     flightList.sort([](FlightInfo a, FlightInfo b) {
         return a.getDepature().hour * 60 + a.getDepature().minute <
-                b.getDepature().hour * 60 + b.getDepature().minute;
+               b.getDepature().hour * 60 + b.getDepature().minute;
     });
 }
 
 void sortByPrice(Linklist<FlightInfo> &flightList) {
-    flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares() < b.getFares(); });
+    std::cout << "function sortByPrice not implemented" << endl;
 }
 
 void sortByArrivalTime(Linklist<FlightInfo> &flightList) {
     flightList.sort([](FlightInfo a, FlightInfo b) {
         return a.getDepature().hour * 60 + a.getDepature().minute + a.getDepature().hour * 60 +
                a.getDepature().minute <
-                b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
-                b.getDepature().minute;
+               b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
+               b.getDepature().minute;
     });
 }
 
-bool buyTicket(FlightInfo &flight, passengerInfo &passenger) {
-    return passenger.bookTicket(flight);
-}
-
-bool cancelTicket(FlightInfo &flight, passengerInfo &passenger) {
-    return passenger.cancelTicket(flight);
-}
-
-bool changeTicket(FlightInfo &flight, passengerInfo &passenger, travelClass _travelclass) {
-    return passenger.changeTicket(flight, _travelclass);
-}

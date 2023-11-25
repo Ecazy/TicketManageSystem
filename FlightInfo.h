@@ -60,7 +60,9 @@ private:
     string planeID;
     DateTime depature;// 出发时间
     int capacity;// 载客量
-    double fares;// 价格
+    double first_fare;// 价格
+    double second_fare;// 价格
+    double third_fare;// 价格
     StockRemained stockRemained;// 余票
     //void addPassenger(passengerInfo& _passenger);
     //void deletePassenger(passengerInfo& _passenger);
@@ -71,10 +73,12 @@ public:
 
     FlightInfo(string beginning, string destination, string flightID, string planeID,
                DateTime depature,
-               int capacity, double fares) :
+               int capacity, double first_fare,double second_fare, double third_fare) :
             beginning(beginning), destination(destination), flightID(flightID), planeID(planeID),
             depature(depature),
-            capacity(capacity), fares(fares),
+            capacity(capacity), first_fare(first_fare),
+    second_fare(second_fare),
+    third_fare(third_fare),
             stockRemained(StockRemained{STOCK_TOTAL_FIRST, STOCK_TOTAL_SECOND, STOCK_TOTAL_THIRD}) {}
 
     FlightInfo(FlightInfo &_flight) {
@@ -84,7 +88,9 @@ public:
         planeID = _flight.planeID;
         depature = _flight.depature;
         capacity = _flight.capacity;
-        fares = _flight.fares;
+        first_fare = _flight.first_fare;
+        second_fare = _flight.second_fare;
+        third_fare = _flight.third_fare;
         stockRemained = _flight.stockRemained;
     }
 
@@ -95,7 +101,9 @@ public:
         planeID = _flight.planeID;
         depature = _flight.depature;
         capacity = _flight.capacity;
-        fares = _flight.fares;
+        first_fare = _flight.first_fare;
+        second_fare = _flight.second_fare;
+        third_fare = _flight.third_fare;
         stockRemained = _flight.stockRemained;
     }
 
@@ -113,7 +121,7 @@ public:
 
     int getCapacity();
 
-    double getFares();
+    double getFares(travelClass a);
 
     unsigned int getStockRemained(travelClass _travelClass);
 

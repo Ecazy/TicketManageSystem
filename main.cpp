@@ -1,3 +1,4 @@
+/*
 #include "ticketmanagesystem.h"
 
 #include <QApplication>
@@ -12,4 +13,11 @@ int main(int argc, char *argv[]) {
     TicketManageSystem w;
     w.show();
     return a.exec();
+}
+*/
+#include "Console.h"
+
+int main(){
+    Console console;
+    console.run();
 }

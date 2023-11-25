@@ -16,7 +16,7 @@
 class Console {
 
 public:
-    void book_ticket_by_date(DateTime my_time);
+    void book_ticket_by_date(int y, int m, int d);
 
     void book_ticket_by_place(string start, string end);
 
@@ -25,6 +25,12 @@ public:
     void change_flight(string name);
 
     void check_my_flight(string name);
+
+    void displayInfo(Linklist<FlightInfo> list);
+
+    void book(Linklist<FlightInfo> list);
+
+    void run();
 };
 
 #endif //TICKETMANAGESYSTEM_CONSOLE_H
