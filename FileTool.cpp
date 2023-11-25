@@ -1,6 +1,7 @@
 #include "FileTool.h"
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
 // 二进制文件"data.bin"在main函数中创建
@@ -13,43 +14,47 @@ void FileTool::add(FlightInfo a) {
 }
 
 //减去一张余票
-bool FileTool::change(FlightInfo a, int c) {
+bool FileTool::change(FlightInfo a, int c, int flag) {
     // 打开二进制文件
-    std::ifstream ifs("data.bin", std::ios::binary);
+    std::fstream fs("data.bin", std::ios::in | std::ios::out | std::ios::binary);
     //读取数据
     FlightInfo temp;
-    int num;
-    while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
+    int num, count = 0;
+    while (fs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
+
         // 检查这个值是否是我们想要的
         if (temp.getFlightID() == a.getFlightID()) {
             // 修改类成员
             switch (c) {
                 case 0:
                     num = temp.getStockRemained(FIRST);
-                    num--;
-                    if(num < 0)
+                    num-= flag;
+                    if (num < 0)
                         return false;
-                    a.setStockRemained(FIRST,num);
+                    a.setStockRemained(FIRST, num);
                     break;
                 case 1:
                     num = temp.getStockRemained(SECOND);
-                    num--;
-                    if(num < 0)
+                    num-=flag;
+                    if (num < 0)
                         return false;
-                    a.setStockRemained(SECOND,num);
+                    a.setStockRemained(SECOND, num);
                     break;
                 case 2:
                     num = temp.getStockRemained(THIRD);
-                    num--;
-                    if(num < 0)
+                    num-=flag;
+                    if (num < 0)
                         return false;
-                    a.setStockRemained(THIRD,num);
+                    a.setStockRemained(THIRD, num);
                     break;
             }
+            fs.seekp(count * sizeof(FlightInfo),ios::beg);
+            fs.write(reinterpret_cast<const char*>(&temp), sizeof(FlightInfo));
             break;
         }
+        count++;
         // 关闭文件
-        ifs.close();
+        fs.close();
     }
     return true;
 }
@@ -97,8 +102,8 @@ FlightInfo FileTool::find_flight_by_Id(Linklist<FlightInfo> list, string id) {
     return list.getNode(0);
 }
 
-QWidget* loadUiFile(const string &path)
-{
+
+QWidget *loadUiFile(const string &path) {
     QUiLoader uiLoader;
     QFile file("D:/Code/C++/Project/Widget/TicketManageSystem/ticketmanagesystem.ui");
     QWidget *main = uiLoader.load(&file);

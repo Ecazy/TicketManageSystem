@@ -93,7 +93,7 @@ void sortByStartTime() {
 }
 
 void sortByPrice() {
-flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares(THIRD) < b.getFares(THIRD); });
+    flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares(THIRD) < b.getFares(THIRD); });
 }
 
 //void sortByArrivalTime() {
@@ -109,13 +109,11 @@ flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares(THIRD) < b.ge
 
 //航班号，起点，终点，航班时间，一、二、三等舱余票
 
-void WriteInTicketAvailable()
-{
-    QWidget* widget = loadUiFile(UI_PATH);
-    QTableWidget* ticketAvailable = widget->findChild<QTableWidget*>("TicketsAvailable");
+void WriteInTicketAvailable() {
+    QWidget *widget = loadUiFile(UI_PATH);
+    QTableWidget *ticketAvailable = widget->findChild<QTableWidget *>("TicketsAvailable");
     ticketAvailable->setRowCount(0);
-    for(int i=0;i<flightList.length;i++)
-    {
+    for (int i = 0; i < flightList.length; i++) {
         FlightInfo tmp = flightList[i];
         string flightID = tmp.getFlightID();
         string start = tmp.getBeginning();
@@ -148,11 +146,10 @@ void WriteInTicketAvailable()
     }
 }
 
-void Inquire()
-{
+void Inquire() {
     FileTool f;
-    QWidget* widget = loadUiFile(UI_PATH);
-    QDateEdit* ConditionDate = widget->findChild<QDateEdit*>("ConditionDate");
+    QWidget *widget = loadUiFile(UI_PATH);
+    QDateEdit *ConditionDate = widget->findChild<QDateEdit *>("ConditionDate");
 
     QString str;
     QDate date = ConditionDate->date();
@@ -161,8 +158,9 @@ void Inquire()
     int year = date.year();
     int month = date.month();
     int day = date.day();
-    flightList = f.read_by_time(year,month,day);
-    checkBAD(flightList,start->currentData().toString().toStdString(),destination->currentData().toString().toStdString());
+    flightList = f.read_by_time(year, month, day);
+    checkBAD(flightList, start->currentData().toString().toStdString(),
+             destination->currentData().toString().toStdString());
     WriteInTicketAvailable();
 }
 
@@ -230,12 +228,26 @@ bool book( string name, string id, string your_class) {
     return true;
 }
 
+bool cancel(string name, string id) {
+    for (int i = 0; i < my_tickets.length; i++) {
+        if (my_tickets.getNode(i).getInfo().getFlightID() == id) {
+            my_tickets.remove(i);
+            f.change(my_tickets.getNode(i).getInfo(), my_tickets.getNode(i).my_class, -1);
+            return true;
+        }
+    }
+    return false;
+}
 
-void BookTicket()
-{
-    QWidget* widget = loadUiFile(UI_PATH);
+bool change(string name, string now_id, string target_id, string target_class) {
+    if (cancel(name, now_id))
+        return book(flightList, name, target_id, target_class);
+}
 
-    QComboBox* Book = widget->findChild<QComboBox*>("BookFlightIDComBox");
+void BookTicket() {
+    QWidget *widget = loadUiFile(UI_PATH);
+
+    QComboBox *Book = widget->findChild<QComboBox *>("BookFlightIDComBox");
     QString flightID = Book->currentText();
 
     QComboBox* Class = widget->findChild<QComboBox*>("BookClasscomboBox");
@@ -250,8 +262,7 @@ void BookTicket()
 
 }
 
-void ChangeTicket()
-{
+void ChangeTicket() {
     QWidget *widget = loadUiFile(UI_PATH);
     QComboBox* Original = widget->findChild<QComboBox*>("BookedFlightID");
     QComboBox* Target = widget->findChild<QComboBox*>("BookFlightIDComBox_2");
@@ -262,25 +273,22 @@ void ChangeTicket()
     //TODO 调用Change
 }
 
-void CancelTicket()
-{
-    QWidget* widget = loadUiFile(UI_PATH);
-    QComboBox* Cancel = widget->findChild<QComboBox*>("CancelMyTicketsComBox");
+void CancelTicket() {
+    QWidget *widget = loadUiFile(UI_PATH);
+    QComboBox *Cancel = widget->findChild<QComboBox *>("CancelMyTicketsComBox");
     QString cancelFlightID = Cancel->currentText();
     //TODO 调用Cancel
 }
 
-void flightListUpdateUI()
-{
+void flightListUpdateUI() {
     QWidget *widget = loadUiFile(UI_PATH);
-    QComboBox* Book = widget->findChild<QComboBox*>("BookFlightIDComBox");
-    QComboBox* Original = widget->findChild<QComboBox*>("BookedFlightID");
-    QComboBox* Target = widget->findChild<QComboBox*>("BookFlightIDComBox_2");
-    QComboBox* Cancel = widget->findChild<QComboBox*>("CancelMyTicketsComBox");
+    QComboBox *Book = widget->findChild<QComboBox *>("BookFlightIDComBox");
+    QComboBox *Original = widget->findChild<QComboBox *>("BookedFlightID");
+    QComboBox *Target = widget->findChild<QComboBox *>("BookFlightIDComBox_2");
+    QComboBox *Cancel = widget->findChild<QComboBox *>("CancelMyTicketsComBox");
 
-    QStringList flightIDList,MyFlightIDList;
-    for(int i=0;i<flightList.length;++i)
-    {
+    QStringList flightIDList, MyFlightIDList;
+    for (int i = 0; i < flightList.length; ++i) {
         QString flightID = QString::fromStdString(flightList[i].getFlightID());
         flightIDList.append(flightID);
     }
