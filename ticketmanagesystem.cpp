@@ -15,4 +15,3 @@ void TicketManageSystem::Inquire() {
     QMessageBox::information(this, tr("Information"), tr("Open"));
 }
 
-// uic /Users/yangqianjing/git/TicketManageSystem/ticketmanagesystem.ui -o /Users/yangqianjing/git/TicketManageSystem/ui_ticketmanagesystem.h

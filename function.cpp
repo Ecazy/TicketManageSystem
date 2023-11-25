@@ -81,7 +81,7 @@ void removeNoTicketFlight(Linklist<FlightInfo> &flightList) {
 void sortByStartTime(Linklist<FlightInfo> &flightList) {
     flightList.sort([](FlightInfo a, FlightInfo b) {
         return a.getDepature().hour * 60 + a.getDepature().minute <
-                b.getDepature().hour * 60 + b.getDepature().minute;
+               b.getDepature().hour * 60 + b.getDepature().minute;
     });
 }
 
@@ -93,8 +93,8 @@ void sortByArrivalTime(Linklist<FlightInfo> &flightList) {
     flightList.sort([](FlightInfo a, FlightInfo b) {
         return a.getDepature().hour * 60 + a.getDepature().minute + a.getDepature().hour * 60 +
                a.getDepature().minute <
-                b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
-                b.getDepature().minute;
+               b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
+               b.getDepature().minute;
     });
 }
 
@@ -155,6 +155,3 @@ void Inquire()
     checkBAD(FlightList,start->currentData().toString().toStdString(),destination->currentData().toString().toStdString());
     WriteInTicketAvailable(FlightList);
 }
-
-
-

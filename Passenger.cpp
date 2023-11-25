@@ -50,4 +50,3 @@ StockRemained passengerInfo::getTicket(FlightInfo &_flight) {
             _flight.getStockRemained(SECOND),
             _flight.getStockRemained(THIRD)};
 }
-
