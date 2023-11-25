@@ -15,9 +15,3 @@ int main(int argc, char *argv[]) {
     return a.exec();
 }
 
-//#include "Console.h"
-//
-//int main(){
-//    Console console;
-//    console.run();
-//}

@@ -145,7 +145,7 @@ public:
     TreeNode<T> *search(T _data);
 };
 
-#endif // DATASTRUCTURE_H
+
 
 //functions
 /**
@@ -526,3 +526,4 @@ TreeNode<T> *BinaryTree<T>::search(T _data) {
     }
     return p;
 }
+#endif // DATASTRUCTURE_H

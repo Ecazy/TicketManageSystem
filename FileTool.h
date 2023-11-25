@@ -1,4 +1,4 @@
-#include "function.h"
+#include "iofunc.h"
 
 #ifndef TICKETMANAGESYSTEM_TOOL_H
 #define TICKETMANAGESYSTEM_TOOL_H
