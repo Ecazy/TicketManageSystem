@@ -1,5 +1,3 @@
-//
-// Created by 杨千靖 on 2023/11/12.
 #include "FileTool.h"
 #include <iostream>
 
@@ -71,11 +69,9 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
     // 关闭文件
     ifs.close();
     return FlightList;
-
-
 }
 
-Linklist<FlightInfo> FileTool::read_by_path(const string start, const string end) {
+Linklist<FlightInfo> FileTool::read_by_path(string start, string end) {
     // 打开二进制文件
     std::ifstream ifs("data.bin", std::ios::binary);
     FlightInfo temp;
@@ -90,5 +86,13 @@ Linklist<FlightInfo> FileTool::read_by_path(const string start, const string end
     // 关闭文件
     ifs.close();
     return FlightList;
+}
 
+FlightInfo FileTool::find_flight_by_Id(Linklist<FlightInfo> list, string id) {
+    for (int i = 0; i < list.length; i++) {
+        if (list.getNode(i).getFlightID() == id) {
+            return list.getNode(i);
+        }
+    }
+    return list.getNode(0);
 }

@@ -1,12 +1,14 @@
 #ifndef IOFUNC_H
 #define IOFUNC_H
 
+#include <QApplication>
+#include <QtUiTools/QUiLoader>
+#include <QFile>
 #include<fstream>
 #include<sstream>
 #include"Passenger.h"
 
-#include <QtUiTools/QUiLoader>
-#include <QFile>
+
 
 //输入输出类，专用于程序输入输出信息
 class IOFunc {

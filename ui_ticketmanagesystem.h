@@ -22,7 +22,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_ticketmanagementsystem
+class Ui_ticketmanagesystem
 {
 public:
     QWidget *horizontalLayoutWidget;
@@ -44,12 +44,12 @@ public:
     QPushButton *SortByTime;
     QPushButton *pushButton_3;
 
-    void setupUi(QWidget *ticketmanagementsystem)
+    void setupUi(QWidget *ticketmanagesystem)
     {
-        if (ticketmanagementsystem->objectName().isEmpty())
-            ticketmanagementsystem->setObjectName("ticketmanagementsystem");
-        ticketmanagementsystem->resize(671, 376);
-        horizontalLayoutWidget = new QWidget(ticketmanagementsystem);
+        if (ticketmanagesystem->objectName().isEmpty())
+            ticketmanagesystem->setObjectName("ticketmanagesystem");
+        ticketmanagesystem->resize(671, 376);
+        horizontalLayoutWidget = new QWidget(ticketmanagesystem);
         horizontalLayoutWidget->setObjectName("horizontalLayoutWidget");
         horizontalLayoutWidget->setGeometry(QRect(10, 20, 291, 41));
         Conditions = new QHBoxLayout(horizontalLayoutWidget);
@@ -75,7 +75,7 @@ public:
 
         Conditions->addWidget(ConditionDestination);
 
-        horizontalLayoutWidget_2 = new QWidget(ticketmanagementsystem);
+        horizontalLayoutWidget_2 = new QWidget(ticketmanagesystem);
         horizontalLayoutWidget_2->setObjectName("horizontalLayoutWidget_2");
         horizontalLayoutWidget_2->setGeometry(QRect(310, 30, 351, 31));
         TicketFuction = new QHBoxLayout(horizontalLayoutWidget_2);
@@ -101,7 +101,7 @@ public:
 
         TicketFuction->addWidget(Change);
 
-        TicketsAvailable = new QTableWidget(ticketmanagementsystem);
+        TicketsAvailable = new QTableWidget(ticketmanagesystem);
         if (TicketsAvailable->columnCount() < 7)
             TicketsAvailable->setColumnCount(7);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -122,7 +122,7 @@ public:
         TicketsAvailable->setEnabled(true);
         TicketsAvailable->setGeometry(QRect(10, 80, 511, 141));
         TicketsAvailable->setShowGrid(true);
-        MyTickets = new QTableWidget(ticketmanagementsystem);
+        MyTickets = new QTableWidget(ticketmanagesystem);
         if (MyTickets->columnCount() < 3)
             MyTickets->setColumnCount(3);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
@@ -133,7 +133,7 @@ public:
         MyTickets->setHorizontalHeaderItem(2, __qtablewidgetitem9);
         MyTickets->setObjectName("MyTickets");
         MyTickets->setGeometry(QRect(10, 251, 311, 101));
-        verticalLayoutWidget = new QWidget(ticketmanagementsystem);
+        verticalLayoutWidget = new QWidget(ticketmanagesystem);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
         verticalLayoutWidget->setGeometry(QRect(560, 90, 91, 111));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
@@ -155,9 +155,9 @@ public:
         verticalLayout->addWidget(pushButton_3);
 
 
-        retranslateUi(ticketmanagementsystem);
+        retranslateUi(ticketmanagesystem);
 
-        QMetaObject::connectSlotsByName(ticketmanagementsystem);
+        QMetaObject::connectSlotsByName(ticketmanagesystem);
     } // setupUi
 
     void retranslateUi(QWidget *ticketmanagementsystem)
@@ -202,7 +202,7 @@ public:
 };
 
 namespace Ui {
-    class ticketmanagementsystem: public Ui_ticketmanagementsystem {};
+    class TicketManageSystem: public Ui_ticketmanagesystem {};
 } // namespace Ui
 
 QT_END_NAMESPACE

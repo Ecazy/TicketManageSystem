@@ -3,7 +3,7 @@
 #include <QTableWidget>
 #include <QComboBox>
 
-const string UI_PATH = "./ticketmanagesystem.ui"
+const string UI_PATH = "./ticketmanagesystem.ui";
 
 /**
  * @brief 查询指定时间的航班
@@ -15,8 +15,8 @@ const string UI_PATH = "./ticketmanagesystem.ui"
 Linklist<FlightInfo> findByTime(int y, int m, int d) {
     Linklist<FlightInfo> flightList;
     for (int i = 0; i < flightInforList.length; i++) {
-        if (flightInforList[i].getDepature().year == year && flightInforList[i].getDepature().month == month &&
-            flightInforList[i].getDepature().day == day) {
+        if (flightInforList[i].getDepature().year == y && flightInforList[i].getDepature().month == m &&
+            flightInforList[i].getDepature().day == d) {
             flightList.addToTail(flightInforList[i]);
         }
     }
@@ -86,7 +86,7 @@ void sortByStartTime(Linklist<FlightInfo> &flightList) {
 }
 
 void sortByPrice(Linklist<FlightInfo> &flightList) {
-    flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares() < b.getFares(); });
+flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares(THIRD) < b.getFares(THIRD); });
 }
 
 void sortByArrivalTime(Linklist<FlightInfo> &flightList) {
@@ -96,18 +96,6 @@ void sortByArrivalTime(Linklist<FlightInfo> &flightList) {
                 b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
                 b.getDepature().minute;
     });
-}
-
-bool buyTicket(FlightInfo &flight, passengerInfo &passenger) {
-    return passenger.bookTicket(flight);
-}
-
-bool cancelTicket(FlightInfo &flight, passengerInfo &passenger) {
-    return passenger.cancelTicket(flight);
-}
-
-bool changeTicket(FlightInfo &flight, passengerInfo &passenger, travelClass _travelclass) {
-    return passenger.changeTicket(flight, _travelclass);
 }
 
 //以下为直接与界面交互的函数
@@ -136,7 +124,7 @@ void WriteInTicketAvailable(Linklist<FlightInfo>&FlightList)
         int column = 0;
         str=QString::fromStdString(flightID);
         ticketAvailable->item(i,column++)->setText(str);
-        str = QString::fromStdString((start);
+        str = QString::fromStdString(start);
         ticketAvailable->item(i,column++)->setText(str);
         str = QString::fromStdString(destination);
         ticketAvailable->item(i,column++)->setText(str);

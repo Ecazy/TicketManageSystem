@@ -5,7 +5,7 @@
 
 class FileTool {
 public:
-    bool add(FlightInfo a);
+    void add(FlightInfo a);
 
     bool remove(FlightInfo a);
 
@@ -15,7 +15,9 @@ public:
     //year, month, day
     Linklist<FlightInfo> read_by_time(int y, int m, int d);
 
-    Linklist<FlightInfo> read_by_path(const string start, const string end);
+    Linklist<FlightInfo> read_by_path(string start, string end);
+
+    FlightInfo find_flight_by_Id(Linklist<FlightInfo> list, string id);
 };
 
 #endif //TICKETMANAGESYSTEM_TOOL_H

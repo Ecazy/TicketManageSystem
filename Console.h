@@ -1,6 +1,3 @@
-//
-// Created by 杨千靖 on 2023/11/12.
-//
 /*
  * 用二进制文件储存航班的所有对象
  * 依据用户输入找到用户信息进行增删改查
@@ -16,7 +13,7 @@
 class Console {
 
 public:
-    void book_ticket_by_date(DateTime my_time);
+    void book_ticket_by_date(int y, int m, int d);
 
     void book_ticket_by_place(string start, string end);
 
@@ -25,6 +22,12 @@ public:
     void change_flight(string name);
 
     void check_my_flight(string name);
+
+    void displayInfo(Linklist<FlightInfo> list);
+
+    void book(Linklist<FlightInfo> list);
+
+    void run();
 };
 
 #endif //TICKETMANAGESYSTEM_CONSOLE_H

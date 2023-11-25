@@ -48,12 +48,6 @@ public:
 
     bool operator==(passengerInfo &_passenger);
 
-    bool bookTicket(FlightInfo &_flight);
-
-    bool cancelTicket(FlightInfo &_flight);
-
-    bool changeTicket(FlightInfo &_flight, travelClass _travelclass);
-
     StockRemained getTicket(FlightInfo &_flight);
 };
 

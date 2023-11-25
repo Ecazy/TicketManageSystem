@@ -24,8 +24,18 @@ int FlightInfo::getCapacity() {
     return capacity;
 }
 
-double FlightInfo::getFares() {
-    return fares;
+double FlightInfo::getFares(travelClass a) {
+    switch (a) {
+        case FIRST:
+            return first_fare;
+            break;
+        case SECOND:
+            return second_fare;
+            break;
+        case THIRD:
+            return third_fare;
+            break;
+    }
 }
 
 unsigned int FlightInfo::getStockRemained(travelClass _travelClass) {
@@ -64,7 +74,9 @@ FlightInfo FlightInfo::operator=(FlightInfo &_flight) {
     planeID = _flight.planeID;
     depature = _flight.depature;
     capacity = _flight.capacity;
-    fares = _flight.fares;
+    first_fare = _flight.first_fare;
+    second_fare = _flight.second_fare;
+    third_fare = _flight.third_fare;
     stockRemained = _flight.stockRemained;
     return *this;
 }
