@@ -1,9 +1,12 @@
 #include "function.h"
+#include "FileTool.h"
 #include <QDateEdit>
 #include <QTableWidget>
 #include <QComboBox>
 
+//此处需使用绝对路径
 const string UI_PATH = "./ticketmanagesystem.ui";
+Linklist<FlightInfo> flightList;
 
 /**
  * @brief 查询指定时间的航班
@@ -70,7 +73,7 @@ void checkBAD(Linklist<FlightInfo> &flightList, const string beginning, const st
  * @brief 删除没有余票的航班
  * @param flightList 航班信息链表 
  */
-void removeNoTicketFlight(Linklist<FlightInfo> &flightList) {
+void removeNoTicketFlight() {
     for (int i = 0; i < flightList.length; i++) {
         if (flightList[i].getStockRemained(FIRST) == 0 && flightList[i].getStockRemained(SECOND) == 0 &&
             flightList[i].getStockRemained(THIRD) == 0)
@@ -78,36 +81,37 @@ void removeNoTicketFlight(Linklist<FlightInfo> &flightList) {
     }
 }
 
-void sortByStartTime(Linklist<FlightInfo> &flightList) {
+void sortByStartTime() {
     flightList.sort([](FlightInfo a, FlightInfo b) {
         return a.getDepature().hour * 60 + a.getDepature().minute <
                b.getDepature().hour * 60 + b.getDepature().minute;
     });
 }
 
-void sortByPrice(Linklist<FlightInfo> &flightList) {
+void sortByPrice() {
 flightList.sort([](FlightInfo a, FlightInfo b) { return a.getFares(THIRD) < b.getFares(THIRD); });
 }
 
-void sortByArrivalTime(Linklist<FlightInfo> &flightList) {
-    flightList.sort([](FlightInfo a, FlightInfo b) {
-        return a.getDepature().hour * 60 + a.getDepature().minute + a.getDepature().hour * 60 +
-               a.getDepature().minute <
-               b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
-               b.getDepature().minute;
-    });
-}
+//void sortByArrivalTime() {
+//    flightList.sort([](FlightInfo a, FlightInfo b) {
+//        return a.getDepature().hour * 60 + a.getDepature().minute + a.getDepature().hour * 60 +
+//               a.getDepature().minute <
+//               b.getDepature().hour * 60 + b.getDepature().minute + b.getDepature().hour * 60 +
+//               b.getDepature().minute;
+//    });
+//}
 
 //以下为直接与界面交互的函数
 
 //航班号，起点，终点，航班时间，一、二、三等舱余票
-void WriteInTicketAvailable(Linklist<FlightInfo>&FlightList)
+void WriteInTicketAvailable()
 {
     QWidget* widget = loadUiFile(UI_PATH);
     QTableWidget* ticketAvailable = widget->findChild<QTableWidget*>("TicketsAvailable");
-    for(int i=0;i<FlightList.length;i++)
+    ticketAvailable->setRowCount(0);
+    for(int i=0;i<flightList.length;i++)
     {
-        FlightInfo tmp = FlightList[i];
+        FlightInfo tmp = flightList[i];
         string flightID = tmp.getFlightID();
         string start = tmp.getBeginning();
         string destination = tmp.getDestination();
@@ -142,6 +146,7 @@ void WriteInTicketAvailable(Linklist<FlightInfo>&FlightList)
 
 void Inquire()
 {
+    FileTool f;
     QWidget* widget = loadUiFile(UI_PATH);
     QDateEdit* ConditionDate = widget->findChild<QDateEdit*>("ConditionDate");
     QString str;
@@ -151,7 +156,57 @@ void Inquire()
     int year = date.year();
     int month = date.month();
     int day = date.day();
-    Linklist<FlightInfo> FlightList = findByTime(year,month,day);
-    checkBAD(FlightList,start->currentData().toString().toStdString(),destination->currentData().toString().toStdString());
-    WriteInTicketAvailable(FlightList);
+    flightList = f.read_by_time(year,month,day);
+    checkBAD(flightList,start->currentData().toString().toStdString(),destination->currentData().toString().toStdString());
+    WriteInTicketAvailable();
 }
+
+void BookTicket()
+{
+    QWidget* widget = loadUiFile(UI_PATH);
+
+    QComboBox* Book = widget->findChild<QComboBox*>("BookFlightIDComBox");
+    QString flightID = Book->currentText();
+
+    //TODO 调用Book
+}
+
+void ChangeTicket()
+{
+    QWidget *widget = loadUiFile(UI_PATH);
+    QComboBox* Original = widget->findChild<QComboBox*>("BookedFlightID");
+    QComboBox* Target = widget->findChild<QComboBox*>("BookFlightIDComBox_2");
+    QString originalFlightID = Original->currentText();
+    QString targetFlightID = Target->currentText();
+    //TODO 调用Change
+}
+
+void CancelTicket()
+{
+    QWidget* widget = loadUiFile(UI_PATH);
+    QComboBox* Cancel = widget->findChild<QComboBox*>("CancelMyTicketsComBox");
+    QString cancelFlightID = Cancel->currentText();
+    //TODO 调用Cancel
+}
+
+void flightListUpdateUI()
+{
+    QWidget *widget = loadUiFile(UI_PATH);
+    QComboBox* Book = widget->findChild<QComboBox*>("BookFlightIDComBox");
+    QComboBox* Original = widget->findChild<QComboBox*>("BookedFlightID");
+    QComboBox* Target = widget->findChild<QComboBox*>("BookFlightIDComBox_2");
+    QComboBox* Cancel = widget->findChild<QComboBox*>("CancelMyTicketsComBox");
+
+    QStringList flightIDList,MyFlightIDList;
+    for(int i=0;i<flightList.length;++i)
+    {
+        QString flightID = QString::fromStdString(flightList[i].getFlightID());
+        flightIDList.append(flightID);
+    }
+    //TODO 获取用户已订票并转换为QStringList，再加入到MyFlightIDList中，转换为Original
+
+    Book->addItems(flightIDList);
+    Target->addItems(flightIDList);
+    Cancel->addItems(flightIDList);
+}
+

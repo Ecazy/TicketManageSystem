@@ -2,6 +2,7 @@
 #define IOFUNC_H
 
 #include <QApplication>
+#include <QWidget>
 #include <QtUiTools/QUiLoader>
 #include <QFile>
 #include<fstream>

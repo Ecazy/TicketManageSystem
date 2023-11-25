@@ -36,6 +36,7 @@ double FlightInfo::getFares(travelClass a) {
             return third_fare;
             break;
     }
+    return INT_MIN;
 }
 
 unsigned int FlightInfo::getStockRemained(travelClass _travelClass) {

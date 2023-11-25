@@ -15,19 +15,27 @@ void checkTime(Linklist<FlightInfo> &flightList, int y, int m, int d);
 
 void checkBAD(Linklist<FlightInfo> &flightList, const string beginning, const string destination);
 
-void removeNoTicketFlight(Linklist<FlightInfo> &flightList);
+void removeNoTicketFlight();
 
-void sortByStartTime(Linklist<FlightInfo> &flightList);
+void sortByStartTime();
 
-void sortByPrice(Linklist<FlightInfo> &flightList);
+void sortByPrice();
 
-void sortByArrivalTime(Linklist<FlightInfo> &flightList);
+//void sortByArrivalTime(Linklist<FlightInfo> &flightList);
 
-bool buyTicket(FlightInfo &flight, passengerInfo &passenger);
+void WriteInTicketAvailable();
+
+void flightListUpdateUI();
+
+void Inquire();
+
+void BookTicket();
+
+void ChangeTicket();
+
+void CancelTicket();
 
 
-bool cancelTicket(FlightInfo &flight, passengerInfo &passenger);
 
-bool changeTicket(FlightInfo &flight, passengerInfo &passenger, travelClass _travelclass);
 
 #endif // FUNCTION_H

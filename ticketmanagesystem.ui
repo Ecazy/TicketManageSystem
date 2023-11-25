@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ticketmanagementsystem</class>
- <widget class="QWidget" name="ticketmanagementsystem">
+ <class>TicketManageSystem</class>
+ <widget class="QWidget" name="TicketManageSystem">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -64,9 +64,9 @@
   <widget class="QWidget" name="horizontalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>360</x>
      <y>30</y>
-     <width>351</width>
+     <width>91</width>
      <height>31</height>
     </rect>
    </property>
@@ -75,27 +75,6 @@
      <widget class="QPushButton" name="Inquire">
       <property name="text">
        <string>查询</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="Reserve">
-      <property name="text">
-       <string>订票</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="Cancel">
-      <property name="text">
-       <string>退票</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="Change">
-      <property name="text">
-       <string>改签</string>
       </property>
      </widget>
     </item>
@@ -202,13 +181,206 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="RemoveNo">
       <property name="text">
        <string>去除无票航班</string>
       </property>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QTabWidget" name="TicketOperation">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>230</y>
+     <width>301</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>2</number>
+   </property>
+   <widget class="QWidget" name="ReserveTab">
+    <attribute name="title">
+     <string>订票</string>
+    </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>231</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QComboBox" name="BookFlightIDComBox"/>
+      </item>
+      <item>
+       <widget class="QComboBox" name="BookClasscomboBox">
+        <item>
+         <property name="text">
+          <string>一等舱</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>二等舱</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>三等舱</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>-10</y>
+       <width>72</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>请选择航班号</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Reserve">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>50</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>订票</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="CancelTab">
+    <attribute name="title">
+     <string>改签</string>
+    </attribute>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>61</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>初始航班号</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>171</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QComboBox" name="BookedFlightID"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>新航班号</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_6">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>171</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QComboBox" name="BookFlightIDComBox_2"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="Change">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>30</y>
+       <width>101</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>改签</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="ChangeTab">
+    <attribute name="title">
+     <string>退票</string>
+    </attribute>
+    <widget class="QComboBox" name="CancelMyTicketsComBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>141</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>6</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>退票航班号</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Cancel">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>30</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>退票</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>

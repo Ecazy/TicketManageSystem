@@ -16,10 +16,24 @@ public:
 
     ~TicketManageSystem();
 
+private slots:
+    void on_Inquire_clicked();
+
+    void on_SortByPrice_clicked();
+
+    void on_SortByTime_clicked();
+
+    void on_RemoveNo_clicked();
+
+    void on_Reserve_clicked();
+
+    void on_Change_clicked();
+
+    void on_Cancel_clicked();
+
 private:
     Ui::TicketManageSystem *ui;
 
-    void Inquire();
 };
 
 #endif // TICKETMANAGESYSTEM_H
