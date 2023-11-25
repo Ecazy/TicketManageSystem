@@ -12,10 +12,6 @@ string FlightInfo::getFlightID() {
     return flightID;
 }
 
-string FlightInfo::getPlaneID() {
-    return planeID;
-}
-
 DateTime FlightInfo::getDepature() {
     return depature;
 }

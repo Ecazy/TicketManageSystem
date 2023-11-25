@@ -13,40 +13,6 @@ FileTool f;
 Linklist<passengerInfo> my_tickets;
 
 /**
- * @brief 查询指定时间的航班
- * @param y 年
- * @param m 月
- * @param d 日
- * @return 所有符合条件的航班信息的链表
- */
-Linklist<FlightInfo> findByTime(int y, int m, int d) {
-    Linklist<FlightInfo> flightList;
-    for (int i = 0; i < flightInforList.length; i++) {
-        if (flightInforList[i].getDepature().year == y && flightInforList[i].getDepature().month == m &&
-            flightInforList[i].getDepature().day == d) {
-            flightList.addToTail(flightInforList[i]);
-        }
-    }
-    return flightList;
-}
-
-/**
- * @brief 查询指定起始地和目的地的航班
- * @param beginning 起始地
- * @param destination 目的地
- * @return 所有符合条件的航班信息的链表 
- */
-Linklist<FlightInfo> findByBAD(const string beginning, const string destination) {
-    Linklist<FlightInfo> flightList;
-    for (int i = 0; i < flightInforList.length; i++) {
-        if (flightInforList[i].getBeginning() == beginning && flightInforList[i].getDestination() == destination) {
-            flightList.addToTail(flightInforList[i]);
-        }
-    }
-    return flightList;
-}
-
-/**
  * @brief 检查航班是否符合指定时间，并将不符合条件的航班从列表中删除
  * @param flightList 航班信息链表 
  */
@@ -119,8 +85,8 @@ void WriteInTicketAvailable() {
         string start = tmp.getBeginning();
         string destination = tmp.getDestination();
         DateTime dateTime = tmp.getDepature();
-        int year, month, day;
-        dateTime.getDate(year, month, day);
+        int year, month, day,hour,minute;
+        dateTime.getDate(year, month, day,hour,minute);
         int firstStock = tmp.getStockRemained(FIRST);
         int secondStock = tmp.getStockRemained(SECOND);
         int thirdStock = tmp.getStockRemained(THIRD);
@@ -134,7 +100,8 @@ void WriteInTicketAvailable() {
         ticketAvailable->item(i, column++)->setText(str);
         str = QString::fromStdString(destination);
         ticketAvailable->item(i, column++)->setText(str);
-        string date = to_string(year) + "/" + to_string(month) + "/" + to_string(day);
+        string date = to_string(year) + "/" + to_string(month) + "/" + to_string(day)+" "+ to_string(hour)+":"+
+                                                                                                           to_string(minute);
         str = QString::fromStdString(date);
         ticketAvailable->item(i, column++)->setText(str);
         str = QString::fromStdString(to_string(firstStock));
@@ -186,7 +153,8 @@ void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list) {
         int column = 0;
         str = QString::fromStdString(flightID);
         MyTickets->item(i, column++)->setText(str);
-        string date = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day);
+        string date = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day)+" "+ to_string(time.hour)+":"+
+                                                                                                                               to_string(time.minute);
         str = QString::fromStdString(date);
         MyTickets->item(i, column++)->setText(str);
         switch (a) {
@@ -206,7 +174,7 @@ void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list) {
     }
 }
 
-bool book( string name, string id, string your_class) {
+bool book(string name, string id, string your_class) {
     for (int i = 0; i < my_tickets.length; i++) {
         if (my_tickets.getNode(i).getInfo().getFlightID() == id) {
             return false;
@@ -241,7 +209,8 @@ bool cancel(string name, string id) {
 
 bool change(string name, string now_id, string target_id, string target_class) {
     if (cancel(name, now_id))
-        return book(flightList, name, target_id, target_class);
+        return book(name, target_id, target_class);
+    return false;
 }
 
 void BookTicket() {

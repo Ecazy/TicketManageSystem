@@ -24,18 +24,44 @@
    </property>
    <layout class="QHBoxLayout" name="Conditions">
     <item>
-     <widget class="QDateEdit" name="ConditionDate"/>
+     <widget class="QDateEdit" name="ConditionDate">
+      <property name="dateTime">
+       <datetime>
+        <hour>0</hour>
+        <minute>0</minute>
+        <second>0</second>
+        <year>2023</year>
+        <month>11</month>
+        <day>25</day>
+       </datetime>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QComboBox" name="ConditionStart">
       <item>
        <property name="text">
-        <string>起点1</string>
+        <string>北京</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>起点2</string>
+        <string>上海</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>广州</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>深圳</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>武汉</string>
        </property>
       </item>
      </widget>
@@ -44,17 +70,27 @@
      <widget class="QComboBox" name="ConditionDestination">
       <item>
        <property name="text">
-        <string>终点1</string>
+        <string>北京</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>终点2</string>
+        <string>上海</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>终点3</string>
+        <string>广州</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>深圳</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>武汉</string>
        </property>
       </item>
      </widget>

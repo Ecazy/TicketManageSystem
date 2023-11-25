@@ -12,6 +12,7 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        UiTools
         REQUIRED)
 
 add_executable(TicketManageSystem
@@ -20,17 +21,16 @@ add_executable(TicketManageSystem
                 function.h
                 Passenger.cpp
                 Passenger.h
-                iofunc.cpp
-                iofunc.h
                 main.cpp
                 ticketmanagesystem.cpp
                 ticketmanagesystem.h
                 ui_ticketmanagesystem.h
-                FileTool.h FileTool.cpp Console.h FlightInfo.h FlightInfo.cpp Console.cpp)
+                FileTool.h FileTool.cpp FlightInfo.h FlightInfo.cpp)
 target_link_libraries(TicketManageSystem
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::UiTools
         )
 
 if (WIN32)

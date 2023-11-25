@@ -14,11 +14,6 @@ typedef enum {
     FIRST, SECOND, THIRD
 } travelClass;
 
-//星期的枚举
-typedef enum {
-    MON, TUE, WED, THU, FRI, SAT, SUN
-} Week;
-
 //航班余票的结构，包括头等舱，商务舱，经济舱
 typedef struct {
     unsigned int first;
@@ -33,22 +28,22 @@ public:
     int year;
     int month;
     int day;
-    Week week;
     int hour;
     int minute;
 
-    void setDateTime(int _year, int _month, int _date, Week _week, int _hour, int _minute) {
+    void setDateTime(int _year, int _month, int _date, int _hour, int _minute) {
         year = _year;
         month = _month;
         day = _date;
-        week = _week;
         hour = _hour;
         minute = _minute;
     }
-    void getDate(int&year,int &month,int &day) {
+    void getDate(int&year,int &month,int &day,int &hour,int &minute) {
         year = year;
         month = month;
         day = day;
+        hour = hour;
+        minute = minute;
     }
 
 };

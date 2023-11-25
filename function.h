@@ -8,15 +8,11 @@
 //存储总共所有的航班信息于链表中
 static Linklist<FlightInfo> flightInforList;
 
-bool book(Linklist<FlightInfo> flightList, string name, string id, string your_class);
+bool book(string name, string id, string your_class);
 
-bool change();
+bool change(string name, string now_id, string target_id, string target_class);
 
 bool cancel(string name, string id);
-
-Linklist<FlightInfo> findByTime(int y, int m, int d);
-
-Linklist<FlightInfo> findByBAD(const string beginning, const string destination);
 
 void checkTime(Linklist<FlightInfo> &flightList, int y, int m, int d);
 
