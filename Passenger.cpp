@@ -4,10 +4,6 @@ string passengerInfo::getName() {
     return name;
 }
 
-travelClass passengerInfo::getTravelClass() {
-    return travelclass;
-}
-
 bool passengerInfo::getIsBooked() {
     return isBooked;
 }
@@ -22,9 +18,9 @@ void passengerInfo::setIsBooked(bool isBooked) {
  * @return 舱位等级大的返回true，舱位等级相同的返回姓名小的返回true，否则返回false 
  */
 bool passengerInfo::operator<(passengerInfo &_passenger) {
-    if (travelclass > _passenger.travelclass)
+    if (my_class > _passenger.my_class)
         return true;
-    else if (travelclass == _passenger.travelclass)
+    else if (my_class == _passenger.my_class)
         return name < _passenger.name;
     else
         return false;
@@ -40,13 +36,7 @@ bool passengerInfo::operator==(passengerInfo &_passenger) {
     return name == _passenger.name;
 }
 
-/**
- * @brief 乘客查询航班余票
- * @param _flight 航班信息
- * @return 航班余票信息
- */
-StockRemained passengerInfo::getTicket(FlightInfo &_flight) {
-    return {_flight.getStockRemained(FIRST),
-            _flight.getStockRemained(SECOND),
-            _flight.getStockRemained(THIRD)};
+
+FlightInfo passengerInfo::getInfo() {
+    return my_flight;
 }

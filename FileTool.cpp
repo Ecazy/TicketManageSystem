@@ -1,6 +1,6 @@
 #include "FileTool.h"
 #include <iostream>
-
+#include <fstream>
 using namespace std;
 
 // 二进制文件"data.bin"在main函数中创建

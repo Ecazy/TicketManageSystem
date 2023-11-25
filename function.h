@@ -1,11 +1,14 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
-#include "iofunc.h"
+#include "FileTool.h"
+
+
 
 //存储总共所有的航班信息于链表中
 static Linklist<FlightInfo> flightInforList;
 
+bool book(Linklist<FlightInfo> list, string name, string id, string your_class);
 
 Linklist<FlightInfo> findByTime(int y, int m, int d);
 
@@ -23,11 +26,10 @@ void sortByPrice(Linklist<FlightInfo> &flightList);
 
 void sortByArrivalTime(Linklist<FlightInfo> &flightList);
 
-bool buyTicket(FlightInfo &flight, passengerInfo &passenger);
+void WriteInTicketAvailable(Linklist<FlightInfo> &FlightList);
 
+void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list);
 
-bool cancelTicket(FlightInfo &flight, passengerInfo &passenger);
-
-bool changeTicket(FlightInfo &flight, passengerInfo &passenger, travelClass _travelclass);
+void Inquire();
 
 #endif // FUNCTION_H

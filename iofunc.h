@@ -2,12 +2,12 @@
 #define IOFUNC_H
 
 #include <QApplication>
+#include<QWidget>
 #include <QtUiTools/QUiLoader>
 #include <QFile>
 #include<fstream>
 #include<sstream>
 #include"Passenger.h"
-
 
 
 //输入输出类，专用于程序输入输出信息
@@ -20,6 +20,6 @@ public:
 
 };
 
-QWidget* loadUiFile(const string& path);
+QWidget *loadUiFile(const string &path);
 
 #endif // IOFUNC_H
