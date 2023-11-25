@@ -1,22 +1,216 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <author/>
-    <comment/>
-    <exportmacro/>
-    <class>ticketmanagementsystem</class>
-    <widget class="QWidget" name="ticketmanagementsystem">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>400</width>
-                <height>300</height>
-            </rect>
-        </property>
-        <property name="windowTitle">
-            <string>ticketmanagementsystem</string>
-        </property>
-    </widget>
-    <pixmapfunction/>
-    <connections/>
+ <class>ticketmanagementsystem</class>
+ <widget class="QWidget" name="ticketmanagementsystem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>671</width>
+    <height>376</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ticketmanagementsystem</string>
+  </property>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>291</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="Conditions">
+    <item>
+     <widget class="QDateEdit" name="ConditionDate"/>
+    </item>
+    <item>
+     <widget class="QComboBox" name="ConditionStart">
+      <item>
+       <property name="text">
+        <string>起点1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>起点2</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="ConditionDestination">
+      <item>
+       <property name="text">
+        <string>终点1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>终点2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>终点3</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>30</y>
+     <width>351</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="TicketFuction">
+    <item>
+     <widget class="QPushButton" name="Inquire">
+      <property name="text">
+       <string>查询</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Reserve">
+      <property name="text">
+       <string>订票</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Cancel">
+      <property name="text">
+       <string>退票</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Change">
+      <property name="text">
+       <string>改签</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QTableWidget" name="TicketsAvailable">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>511</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="showGrid">
+    <bool>true</bool>
+   </property>
+   <column>
+    <property name="text">
+     <string>航班号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>起点</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>终点</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>航班时间</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>一等舱余票</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>二等舱余票</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>三等舱余票</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QTableWidget" name="MyTickets">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>251</y>
+     <width>311</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>航班号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>航班时间</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>舱位</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>90</y>
+     <width>91</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="SortByPrice">
+      <property name="text">
+       <string>按价格排序</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="SortByTime">
+      <property name="text">
+       <string>按时间排序</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>去除无票航班</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>

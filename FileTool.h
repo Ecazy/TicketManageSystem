@@ -1,6 +1,3 @@
-//
-// Created by 杨千靖 on 2023/11/12.
-//
 #include "function.h"
 
 #ifndef TICKETMANAGESYSTEM_TOOL_H

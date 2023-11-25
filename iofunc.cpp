@@ -81,3 +81,12 @@ Stack<FlightInfo> IOFunc::readFlightData(const string _path) {
     _file.close();
     return _stack;
 }
+
+QWidget* loadUiFile(const string &path)
+{
+    QUiLoader uiLoader;
+    QFile file("./ticketmanagesystem.ui");
+    QWidget *main = uiLoader.load(&file);
+    if(main!= nullptr)
+        return main;
+}

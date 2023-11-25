@@ -1,4 +1,9 @@
 #include "function.h"
+#include <QDateEdit>
+#include <QTableWidget>
+#include <QComboBox>
+
+const string UI_PATH = "./ticketmanagesystem.ui"
 
 /**
  * @brief 查询指定时间的航班
@@ -10,8 +15,8 @@
 Linklist<FlightInfo> findByTime(int y, int m, int d) {
     Linklist<FlightInfo> flightList;
     for (int i = 0; i < flightInforList.length; i++) {
-        if (flightInforList[i].getDepature().year == y && flightInforList[i].getDepature().month == m &&
-            flightInforList[i].getDepature().day == d) {
+        if (flightInforList[i].getDepature().year == year && flightInforList[i].getDepature().month == month &&
+            flightInforList[i].getDepature().day == day) {
             flightList.addToTail(flightInforList[i]);
         }
     }
@@ -104,3 +109,64 @@ bool cancelTicket(FlightInfo &flight, passengerInfo &passenger) {
 bool changeTicket(FlightInfo &flight, passengerInfo &passenger, travelClass _travelclass) {
     return passenger.changeTicket(flight, _travelclass);
 }
+
+//以下为直接与界面交互的函数
+
+//航班号，起点，终点，航班时间，一、二、三等舱余票
+void WriteInTicketAvailable(Linklist<FlightInfo>&FlightList)
+{
+    QWidget* widget = loadUiFile(UI_PATH);
+    QTableWidget* ticketAvailable = widget->findChild<QTableWidget*>("TicketsAvailable");
+    for(int i=0;i<FlightList.length;i++)
+    {
+        FlightInfo tmp = FlightList[i];
+        string flightID = tmp.getFlightID();
+        string start = tmp.getBeginning();
+        string destination = tmp.getDestination();
+        DateTime dateTime = tmp.getDepature();
+        int year,month,day;
+        dateTime.getDate(year,month,day);
+        int firstStock = tmp.getStockRemained(FIRST);
+        int secondStock = tmp.getStockRemained(SECOND);
+        int thirdStock = tmp.getStockRemained(THIRD);
+
+
+
+        QString str;
+        int column = 0;
+        str=QString::fromStdString(flightID);
+        ticketAvailable->item(i,column++)->setText(str);
+        str = QString::fromStdString((start);
+        ticketAvailable->item(i,column++)->setText(str);
+        str = QString::fromStdString(destination);
+        ticketAvailable->item(i,column++)->setText(str);
+        string date = to_string(year)+"/"+ to_string(month)+"/"+ to_string(day);
+        str = QString::fromStdString(date);
+        ticketAvailable->item(i,column++)->setText(str);
+        str = QString::fromStdString(to_string(firstStock));
+        ticketAvailable->item(i,column++)->setText(str);
+        str = QString::fromStdString(to_string(secondStock));
+        ticketAvailable->item(i,column++)->setText(str);
+        str = QString::fromStdString(to_string(thirdStock));
+        ticketAvailable->item(i,column++)->setText(str);
+    }
+}
+
+void Inquire()
+{
+    QWidget* widget = loadUiFile(UI_PATH);
+    QDateEdit* ConditionDate = widget->findChild<QDateEdit*>("ConditionDate");
+    QString str;
+    QDate date = ConditionDate->date();
+    QComboBox* start = widget->findChild<QComboBox*>("ConditionStart");
+    QComboBox* destination = widget->findChild<QComboBox*>("ConditionDestination");
+    int year = date.year();
+    int month = date.month();
+    int day = date.day();
+    Linklist<FlightInfo> FlightList = findByTime(year,month,day);
+    checkBAD(FlightList,start->currentData().toString().toStdString(),destination->currentData().toString().toStdString());
+    WriteInTicketAvailable(FlightList);
+}
+
+
+

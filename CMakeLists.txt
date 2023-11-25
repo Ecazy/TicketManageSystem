@@ -1,9 +1,12 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.24)
 project(TicketManageSystem)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_PREFIX_PATH "/Users/yangqianjing/Qt/6.6.0/macos/lib/cmake/Qt6")
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+set(CMAKE_PREFIX_PATH "D:/Qt/6.6.0/mingw_64")
 
 find_package(Qt6 COMPONENTS
         Core
@@ -12,23 +15,52 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 add_executable(TicketManageSystem
-        datastructure.h
-        function.cpp
-        function.h
-        Passenger.cpp
-        Passenger.h
-        iofunc.cpp
-        iofunc.h
-        main.cpp
-        ticketmanagesystem.cpp
-        ticketmanagesystem.h
-        ui_ticketmanagesystem.h
-        FileTool.h FileTool.cpp Console.h FlightInfo.h FlightInfo.cpp Console.cpp)
-
+                datastructure.h
+                function.cpp
+                function.h
+                Passenger.cpp
+                Passenger.h
+                iofunc.cpp
+                iofunc.h
+                main.cpp
+                ticketmanagesystem.cpp
+                ticketmanagesystem.h
+                ui_ticketmanagesystem.h
+                FileTool.h FileTool.cpp Console.h FlightInfo.h FlightInfo.cpp Console.cpp)
 target_link_libraries(TicketManageSystem
         Qt::Core
         Qt::Gui
         Qt::Widgets
         )
+
+if (WIN32)
+    set(DEBUG_SUFFIX)
+    if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
+        set(DEBUG_SUFFIX "d")
+    endif ()
+    set(QT_INSTALL_PATH "${CMAKE_PREFIX_PATH}")
+    if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
+        set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
+        if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
+            set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
+        endif ()
+    endif ()
+    if (EXISTS "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E make_directory
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/plugins/platforms/")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/plugins/platforms/")
+    endif ()
+    foreach (QT_LIB Core Gui Widgets)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                "${QT_INSTALL_PATH}/bin/Qt6${QT_LIB}${DEBUG_SUFFIX}.dll"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
+    endforeach (QT_LIB)
+endif ()
+
 
 

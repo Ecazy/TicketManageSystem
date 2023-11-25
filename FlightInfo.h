@@ -1,6 +1,3 @@
-//
-// Created by 杨千靖 on 2023/11/12.
-//
 #include <string>
 #include "datastructure.h"
 
@@ -48,6 +45,12 @@ public:
         hour = _hour;
         minute = _minute;
     }
+    void getDate(int&year,int &month,int &day) {
+        year = year;
+        month = month;
+        day = day;
+    }
+
 };
 
 class FlightInfo {
