@@ -72,8 +72,7 @@ void TicketManageSystem::ClickSortByTime()
 }
 
 
-void TicketManageSystem::on_RemoveNo_clicked()
-
+void TicketManageSystem::on_RemoveNo_clicked(){
 }
 
 void TicketManageSystem::ClickRemove() {
