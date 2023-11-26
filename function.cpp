@@ -4,8 +4,7 @@
 #include <QTableWidget>
 #include <QComboBox>
 
-//此处需使用绝对路径
-const string UI_PATH = "./ticketmanagesystem.ui";
+//const string UI_PATH = "./ticketmanagesystem.ui";
 Linklist<FlightInfo> flightList;
 
 FileTool f;
@@ -75,9 +74,9 @@ void sortByPrice() {
 
 //航班号，起点，终点，航班时间，一、二、三等舱余票
 
-void WriteInTicketAvailable() {
-    QWidget *widget = loadUiFile(UI_PATH);
-    QTableWidget *ticketAvailable = widget->findChild<QTableWidget *>("TicketsAvailable");
+void WriteInTicketAvailable(Ui::TicketManageSystem* ui) {
+//    QWidget *widget = loadUiFile(UI_PATH);
+    QTableWidget *ticketAvailable = ui->TicketsAvailable;
     ticketAvailable->setRowCount(0);
     for (int i = 0; i < flightList.length; i++) {
         FlightInfo tmp = flightList[i];
@@ -113,27 +112,26 @@ void WriteInTicketAvailable() {
     }
 }
 
-void Inquire() {
+void Inquire(Ui::TicketManageSystem* ui) {
     FileTool f;
-    QWidget *widget = loadUiFile(UI_PATH);
-    QDateEdit *ConditionDate = widget->findChild<QDateEdit *>("ConditionDate");
+//    QWidget *widget = loadUiFile(UI_PATH);
+    QDateEdit *ConditionDate = ui->ConditionDate;
 
     QString str;
     QDate date = ConditionDate->date();
-    QComboBox *start = widget->findChild<QComboBox *>("ConditionStart");
-    QComboBox *destination = widget->findChild<QComboBox *>("ConditionDestination");
+    QComboBox *start = ui->ConditionStart;
+    QComboBox *destination = ui->ConditionDestination;
     int year = date.year();
     int month = date.month();
     int day = date.day();
     flightList = f.read_by_time(year, month, day);
     checkBAD(flightList, start->currentData().toString().toStdString(),
              destination->currentData().toString().toStdString());
-    WriteInTicketAvailable();
+    WriteInTicketAvailable(ui);
 }
 
-void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list) {
-    QWidget *widget = loadUiFile(UI_PATH);
-    QTableWidget *MyTickets = widget->findChild<QTableWidget *>("MyTickets");
+void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list,Ui::TicketManageSystem* ui) {
+    QTableWidget *MyTickets = ui->MyTickets;
     MyTickets->setRowCount(0);
     for (int i = 0; i < my_ticket_list.length; i++) {
         passengerInfo tmp = my_ticket_list[i];
@@ -159,36 +157,36 @@ void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list) {
         MyTickets->item(i, column++)->setText(str);
         switch (a) {
             case FIRST:
-                str = QString::fromStdString("first class");
+                str = QString::fromStdString("一等舱");
                 MyTickets->item(i, column++)->setText(str);
                 break;
             case SECOND:
-                str = QString::fromStdString("second class");
+                str = QString::fromStdString("二等舱");
                 MyTickets->item(i, column++)->setText(str);
                 break;
             case THIRD:
-                str = QString::fromStdString("third class");
+                str = QString::fromStdString("三等舱");
                 MyTickets->item(i, column++)->setText(str);
                 break;
         }
     }
 }
 
-bool book(string name, string id, string your_class) {
+bool book(string name, string id, travelClass your_class) {
     for (int i = 0; i < my_tickets.length; i++) {
         if (my_tickets.getNode(i).getInfo().getFlightID() == id) {
             return false;
         }
     }
-    if (your_class == "FIRST") {
+    if (your_class == FIRST) {
         f.change(f.find_flight_by_Id(flightList, id), 0);
         passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
         my_tickets.addToTail(a);
-    } else if (your_class == "SECOND") {
+    } else if (your_class == SECOND) {
         f.change(f.find_flight_by_Id(flightList, id), 1);
         passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
         my_tickets.addToTail(a);
-    } else if (your_class == "THIRD") {
+    } else if (your_class == THIRD) {
         f.change(f.find_flight_by_Id(flightList, id), 2);
         passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
         my_tickets.addToTail(a);
@@ -207,54 +205,61 @@ bool cancel(string name, string id) {
     return false;
 }
 
-bool change(string name, string now_id, string target_id, string target_class) {
+bool change(string name, string now_id, string target_id, travelClass target_class) {
     if (cancel(name, now_id))
         return book(name, target_id, target_class);
     return false;
 }
 
-void BookTicket() {
-    QWidget *widget = loadUiFile(UI_PATH);
-
-    QComboBox *Book = widget->findChild<QComboBox *>("BookFlightIDComBox");
+void BookTicket(Ui::TicketManageSystem* ui) {
+    QComboBox *Book = ui->BookFlightIDComBox;
     QString flightID = Book->currentText();
 
-    QComboBox* Class = widget->findChild<QComboBox*>("BookClasscomboBox");
-    QString travelClass = Class->currentText();
+    QComboBox* Class = ui->BookClasscomboBox;
+    QString TravelClass = Class->currentText();
 
-
-    if(book("root",flightID.toStdString(),travelClass.toStdString()))
+    string tc = TravelClass.toStdString();
+    travelClass targetClass;
+    if(tc=="一等舱")   targetClass=FIRST;
+    else if(tc=="二等舱")  targetClass=SECOND;
+    else    targetClass = THIRD;
+    if(book("root",flightID.toStdString(),targetClass))
         return;
-    else
-        //TODO 处理错误
-        return ;
-
+    qDebug()<<"Error in book ticket";
 }
 
-void ChangeTicket() {
-    QWidget *widget = loadUiFile(UI_PATH);
-    QComboBox* Original = widget->findChild<QComboBox*>("BookedFlightID");
-    QComboBox* Target = widget->findChild<QComboBox*>("BookFlightIDComBox_2");
-    QComboBox* TargetClass = widget->findChild<QComboBox*>("TargetClassComboBox");
+void ChangeTicket(Ui::TicketManageSystem* ui) {
+    QComboBox* Original = ui->BookedFlightID;
+    QComboBox* Target = ui->BookFlightIDComBox_2;
+    QComboBox* TargetClass = ui->TargetClassComboBox;
     QString originalFlightID = Original->currentText();
     QString targetFlightID = Target->currentText();
     QString targetFlightClass = TargetClass->currentText();
-    //TODO 调用Change
+
+    string tc = targetFlightClass.toStdString();
+    travelClass targetClass;
+    if(tc=="一等舱")   targetClass=FIRST;
+    else if(tc=="二等舱")  targetClass=SECOND;
+    else    targetClass = THIRD;
+    if(change("root",originalFlightID.toStdString(),targetFlightID.toStdString(),targetClass))
+        return;
+    qDebug()<<"Error in change Ticket for the above reason";
 }
 
-void CancelTicket() {
-    QWidget *widget = loadUiFile(UI_PATH);
-    QComboBox *Cancel = widget->findChild<QComboBox *>("CancelMyTicketsComBox");
+void CancelTicket(Ui::TicketManageSystem* ui) {
+    QComboBox *Cancel = ui->CancelMyTicketsComBox;
     QString cancelFlightID = Cancel->currentText();
     //TODO 调用Cancel
+    if(cancel("root",cancelFlightID.toStdString()))
+        return;
+    qDebug()<<"Error in canceling ticket";
 }
 
-void flightListUpdateUI() {
-    QWidget *widget = loadUiFile(UI_PATH);
-    QComboBox *Book = widget->findChild<QComboBox *>("BookFlightIDComBox");
-    QComboBox *Original = widget->findChild<QComboBox *>("BookedFlightID");
-    QComboBox *Target = widget->findChild<QComboBox *>("BookFlightIDComBox_2");
-    QComboBox *Cancel = widget->findChild<QComboBox *>("CancelMyTicketsComBox");
+void flightListUpdateUI(Ui::TicketManageSystem* ui) {
+    QComboBox *Book = ui->BookFlightIDComBox;
+    QComboBox *Original = ui->BookedFlightID;
+    QComboBox *Target = ui->BookFlightIDComBox_2;
+    QComboBox *Cancel = ui->CancelMyTicketsComBox;
 
     QStringList flightIDList, MyFlightIDList;
     for (int i = 0; i < flightList.length; ++i) {
@@ -262,9 +267,9 @@ void flightListUpdateUI() {
         flightIDList.append(flightID);
     }
     //TODO 获取用户已订票并转换为QStringList，再加入到MyFlightIDList中，转换为Original
-
-    Book->addItems(flightIDList);
-    Target->addItems(flightIDList);
-    Cancel->addItems(flightIDList);
+    //以下代码正确性存疑
+    //    Book->addItems(flightIDList);
+    //    Target->addItems(flightIDList);
+    //    Cancel->addItems(flightIDList);
 }
 

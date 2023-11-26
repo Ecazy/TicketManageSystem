@@ -2,15 +2,16 @@
 #define FUNCTION_H
 
 #include "FileTool.h"
+#include "ui_ticketmanagesystem.h"
 
 
 
 //存储总共所有的航班信息于链表中
 static Linklist<FlightInfo> flightInforList;
 
-bool book(string name, string id, string your_class);
+bool book(string name, string id, travelClass your_class);
 
-bool change(string name, string now_id, string target_id, string target_class);
+bool change(string name, string now_id, string target_id, travelClass target_class);
 
 bool cancel(string name, string id);
 
@@ -28,20 +29,20 @@ void sortByPrice();
 
 
 
-void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list);
+void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list,Ui::TicketManageSystem* ui);
 
 
-void WriteInTicketAvailable();
+void WriteInTicketAvailable(Ui::TicketManageSystem* ui);
 
-void flightListUpdateUI();
+void flightListUpdateUI(Ui::TicketManageSystem* ui);
 
-void Inquire();
+void Inquire(Ui::TicketManageSystem* ui);
 
-void BookTicket();
+void BookTicket(Ui::TicketManageSystem* ui);
 
-void ChangeTicket();
+void ChangeTicket(Ui::TicketManageSystem* ui);
 
-void CancelTicket();
+void CancelTicket(Ui::TicketManageSystem* ui);
 
 
 
