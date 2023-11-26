@@ -15,9 +15,9 @@ bool change(string name, string now_id, string target_id, travelClass target_cla
 
 bool cancel(string name, string id);
 
-void checkTime(Linklist<FlightInfo> &flightList, int y, int m, int d);
+void checkTime(Linklist<FlightInfo> &FlightList, int y, int m, int d);
 
-void checkBAD(Linklist<FlightInfo> &flightList, const string beginning, const string destination);
+void checkBAD(Linklist<FlightInfo> &FlightList, const string beginning, const string destination);
 
 void removeNoTicketFlight();
 

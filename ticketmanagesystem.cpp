@@ -32,13 +32,10 @@ TicketManageSystem::~TicketManageSystem() {
 }
 
 
-
-void TicketManageSystem::on_Inquire_clicked()
-{
+void TicketManageSystem::on_Inquire_clicked() {
 }
 
-void TicketManageSystem::ClickInquire()
-{
+void TicketManageSystem::ClickInquire() {
     Inquire(this->ui);
     flightListUpdateUI(this->ui);
     //终端返回信息
@@ -46,12 +43,10 @@ void TicketManageSystem::ClickInquire()
 }
 
 
-void TicketManageSystem::on_SortByPrice_clicked()
-{
+void TicketManageSystem::on_SortByPrice_clicked() {
 }
 
-void TicketManageSystem::ClickSortByPrice()
-{
+void TicketManageSystem::ClickSortByPrice() {
     sortByPrice();
     WriteInTicketAvailable(this->ui);
 
@@ -59,12 +54,10 @@ void TicketManageSystem::ClickSortByPrice()
 }
 
 
-void TicketManageSystem::on_SortByTime_clicked()
-{
+void TicketManageSystem::on_SortByTime_clicked() {
 }
 
-void TicketManageSystem::ClickSortByTime()
-{
+void TicketManageSystem::ClickSortByTime() {
     sortByStartTime();
     WriteInTicketAvailable(this->ui);
 
@@ -72,7 +65,7 @@ void TicketManageSystem::ClickSortByTime()
 }
 
 
-void TicketManageSystem::on_RemoveNo_clicked(){
+void TicketManageSystem::on_RemoveNo_clicked() {
 }
 
 void TicketManageSystem::ClickRemove() {
@@ -82,19 +75,16 @@ void TicketManageSystem::ClickRemove() {
     qDebug() << "RemoveNo";
 }
 
-void TicketManageSystem::on_Reserve_clicked()
-{
+void TicketManageSystem::on_Reserve_clicked() {
 }
 
-void TicketManageSystem::ClickBook()
-{
+void TicketManageSystem::ClickBook() {
     BookTicket(this->ui);
 
     qDebug() << "Reserve";
 }
 
-void TicketManageSystem::on_Change_clicked()
-{
+void TicketManageSystem::on_Change_clicked() {
 }
 
 void TicketManageSystem::ClickChange() {
@@ -104,8 +94,7 @@ void TicketManageSystem::ClickChange() {
 }
 
 
-void TicketManageSystem::on_Cancel_clicked()
-{
+void TicketManageSystem::on_Cancel_clicked() {
 }
 
 void TicketManageSystem::ClickCancel() {

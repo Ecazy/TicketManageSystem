@@ -46,21 +46,64 @@ public:
     //默认构造函数，用于初始化空链表
     Linklist(Node<T> *_head = nullptr, int _length = 0) : head(_head), length(_length) {}
 
-    //拷贝构造函数，用于初始化链表
-    Linklist(Linklist &_list) {
-        length = _list.length;
+    Linklist(const Linklist &other) {
+        length = other.length;
         if (length == 0) {
             head = nullptr;
             return;
         }
-        head = new Node<T>(_list.head->data);
+
+        head = new Node<T>(other.head->data);
         Node<T> *p = head;
-        Node<T> *q = _list.head->next;
+        Node<T> *q = other.head->next;
         while (q != nullptr) {
             p->next = new Node<T>(q->data);
             p = p->next;
             q = q->next;
+            if (q != nullptr) {
+                p->next = nullptr; // 设置新链表的非最后一个节点的指针为nullptr
+            }
         }
+    }
+
+    void clear() {
+        Node<T> *current = head;
+        while (current) {
+            Node<T> *next = current->next; // 保存下一个节点的指针
+            delete current; // 释放当前节点
+            current = next; // 移动到下一个节点
+        }
+        head = nullptr; // 将头指针设置为 nullptr，表示链表为空
+        length = 0; // 更新链表长度
+    }
+
+    void insertBack(const T& data) {
+        Node<T>* newNode = new Node<T>(data); // 创建一个新节点
+
+        if (!head) { // 如果链表为空，将新节点设为头节点
+            head = newNode;
+        } else {
+            Node<T>* current = head;
+            while (current->next) { // 找到链表中的最后一个节点
+                current = current->next;
+            }
+            current->next = newNode; // 将新节点连接到最后一个节点的后面
+        }
+
+        length++; // 链表长度加一
+    }
+
+    Linklist<T> &operator=(const Linklist<T> &other) {
+        if (this != &other) {
+            clear(); // 清空当前链表内容
+
+            Node<T> *current = other.head;
+            while (current) {
+                insertBack(current->data); // 后向插入操作，将 other 链表中的节点一个一个插入到当前链表中
+                current = current->next;
+            }
+        }
+        return *this;
     }
 
     //析构函数，用于释放链表中的内存
@@ -526,4 +569,5 @@ TreeNode<T> *BinaryTree<T>::search(T _data) {
     }
     return p;
 }
+
 #endif // DATASTRUCTURE_H

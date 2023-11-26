@@ -64,11 +64,10 @@ void FlightInfo::setStockRemained(travelClass _travelClass, int a) {
  * @param _flight 航班信息
  * @return 航班信息
  */
-FlightInfo FlightInfo::operator=(FlightInfo &_flight) {
-    beginning = _flight.beginning;
-    destination = _flight.destination;
-    flightID = _flight.flightID;
-    planeID = _flight.planeID;
+FlightInfo& FlightInfo::operator=(FlightInfo &_flight) {
+    beginning = _flight.getBeginning();
+    destination = _flight.getDestination();
+    flightID = _flight.getFlightID();
     depature = _flight.depature;
     capacity = _flight.capacity;
     first_fare = _flight.first_fare;

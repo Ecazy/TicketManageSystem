@@ -8,7 +8,7 @@ using namespace std;
 
 void FileTool::add(FlightInfo a) {
     // 按类写入二进制数据
-    std::ofstream ofs("data.bin", std::ios::binary);
+    std::ofstream ofs("/Users/yangqianjing/data.bin", std::ios::binary | std::ios::app);
     ofs.write((char *) &a, sizeof(a));
     ofs.close();
 }
@@ -16,7 +16,7 @@ void FileTool::add(FlightInfo a) {
 //减去一张余票
 bool FileTool::change(FlightInfo a, int c, int flag) {
     // 打开二进制文件
-    std::fstream fs("data.bin", std::ios::in | std::ios::out | std::ios::binary);
+    std::fstream fs("/Users/yangqianjing/data.bin", std::ios::in | std::ios::out | std::ios::binary);
     //读取数据
     FlightInfo temp;
     int num, count = 0;
@@ -28,28 +28,28 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
             switch (c) {
                 case 0:
                     num = temp.getStockRemained(FIRST);
-                    num-= flag;
+                    num -= flag;
                     if (num < 0)
                         return false;
                     a.setStockRemained(FIRST, num);
                     break;
                 case 1:
                     num = temp.getStockRemained(SECOND);
-                    num-=flag;
+                    num -= flag;
                     if (num < 0)
                         return false;
                     a.setStockRemained(SECOND, num);
                     break;
                 case 2:
                     num = temp.getStockRemained(THIRD);
-                    num-=flag;
+                    num -= flag;
                     if (num < 0)
                         return false;
                     a.setStockRemained(THIRD, num);
                     break;
             }
-            fs.seekp(count * sizeof(FlightInfo),ios::beg);
-            fs.write(reinterpret_cast<const char*>(&temp), sizeof(FlightInfo));
+            fs.seekp(count * sizeof(FlightInfo), ios::beg);
+            fs.write(reinterpret_cast<const char *>(&temp), sizeof(FlightInfo));
             break;
         }
         count++;
@@ -61,7 +61,7 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
 
 Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
     // 打开二进制文件
-    std::ifstream ifs("data.bin", std::ios::binary);
+    std::ifstream ifs("/Users/yangqianjing/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
     while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
@@ -69,7 +69,6 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
         if (temp.getDepature().year == y && temp.getDepature().month == m && temp.getDepature().day == d) {
             FlightList.addToTail(temp);
         }
-        break;
     }
     // 关闭文件
     ifs.close();
@@ -78,7 +77,7 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
 
 Linklist<FlightInfo> FileTool::read_by_path(string start, string end) {
     // 打开二进制文件
-    std::ifstream ifs("data.bin", std::ios::binary);
+    std::ifstream ifs("/Users/yangqianjing/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
     while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
@@ -105,7 +104,7 @@ FlightInfo FileTool::find_flight_by_Id(Linklist<FlightInfo> list, string id) {
 
 QWidget *loadUiFile(const string &path) {
     QUiLoader uiLoader;
-    QFile file("D:/Code/C++/Project/Widget/TicketManageSystem/ticketmanagesystem.ui");
+    QFile file("/Users/yangqianjing/git/TicketManageSystem_v_2.7/ticketmanagesystem.ui");
     QWidget *main = uiLoader.load(&file);
 //    if(main!= nullptr)
     return main;

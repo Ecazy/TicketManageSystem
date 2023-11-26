@@ -38,12 +38,13 @@ public:
         hour = _hour;
         minute = _minute;
     }
-    void getDate(int&year,int &month,int &day,int &hour,int &minute) {
-        year = year;
-        month = month;
-        day = day;
-        hour = hour;
-        minute = minute;
+
+    void getDate(int &_year, int &_month, int &_day, int &_hour, int &_minute) {
+        _year = year;
+        _month = month;
+        _day = day;
+        _hour = hour;
+        _minute = minute;
     }
 
 };
@@ -55,7 +56,6 @@ private:
 
     string beginning, destination;
     string flightID;
-    string planeID;
     DateTime depature;// 出发时间
     int capacity;// 载客量
     double first_fare;// 价格
@@ -67,12 +67,12 @@ private:
 
 public:
 
-    FlightInfo(){}
+    FlightInfo() {}
 
-    FlightInfo(string beginning, string destination, string flightID, string planeID,
+    FlightInfo(string beginning, string destination, string flightID,
                DateTime depature,
-               int capacity, double first_fare,double second_fare, double third_fare) :
-            beginning(beginning), destination(destination), flightID(flightID), planeID(planeID),
+               int capacity, double first_fare, double second_fare, double third_fare) :
+            beginning(beginning), destination(destination), flightID(flightID),
             depature(depature),
             capacity(capacity), first_fare(first_fare),
             second_fare(second_fare),
@@ -83,7 +83,6 @@ public:
         beginning = _flight.beginning;
         destination = _flight.destination;
         flightID = _flight.flightID;
-        planeID = _flight.planeID;
         depature = _flight.depature;
         capacity = _flight.capacity;
         first_fare = _flight.first_fare;
@@ -96,7 +95,6 @@ public:
         beginning = _flight.beginning;
         destination = _flight.destination;
         flightID = _flight.flightID;
-        planeID = _flight.planeID;
         depature = _flight.depature;
         capacity = _flight.capacity;
         first_fare = _flight.first_fare;
@@ -113,8 +111,6 @@ public:
 
     string getFlightID();
 
-    string getPlaneID();
-
     DateTime getDepature();
 
     int getCapacity();
@@ -128,7 +124,7 @@ public:
     //是否存在余票
     bool ticket_has_left();
 
-    FlightInfo operator=(FlightInfo &_flight);
+    FlightInfo& operator=(FlightInfo &_flight);
 };
 
 
