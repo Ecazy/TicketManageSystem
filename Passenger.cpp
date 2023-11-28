@@ -37,6 +37,6 @@ bool passengerInfo::operator==(passengerInfo &_passenger) {
 }
 
 
-FlightInfo passengerInfo::getInfo() {
+FlightInfo passengerInfo::getFlightInfo() {
     return my_flight;
 }

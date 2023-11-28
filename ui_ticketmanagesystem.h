@@ -24,7 +24,8 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_TicketManageSystem {
+class Ui_TicketManageSystem
+{
 public:
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *Conditions;
@@ -64,7 +65,8 @@ public:
     QPushButton *Cancel;
     QPushButton *Inquire;
 
-    void setupUi(QWidget *TicketManageSystem) {
+    void setupUi(QWidget *TicketManageSystem)
+    {
         if (TicketManageSystem->objectName().isEmpty())
             TicketManageSystem->setObjectName("TicketManageSystem");
         TicketManageSystem->resize(671, 376);
@@ -76,7 +78,7 @@ public:
         Conditions->setContentsMargins(0, 0, 0, 0);
         ConditionDate = new QDateEdit(horizontalLayoutWidget);
         ConditionDate->setObjectName("ConditionDate");
-        ConditionDate->setDateTime(QDateTime(QDate(2023, 11, 25), QTime(0, 0, 0)));
+        ConditionDate->setDateTime(QDateTime(QDate(2023, 11, 24), QTime(8, 0, 0)));
 
         Conditions->addWidget(ConditionDate);
 
@@ -244,128 +246,72 @@ public:
 
         retranslateUi(TicketManageSystem);
 
-        TicketOperation->setCurrentIndex(2);
+        TicketOperation->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(TicketManageSystem);
     } // setupUi
 
-    void retranslateUi(QWidget *TicketManageSystem) {
-        TicketManageSystem->setWindowTitle(
-                QCoreApplication::translate("TicketManageSystem", "ticketmanagementsystem", nullptr));
-        ConditionStart->setItemText(0, QCoreApplication::translate("TicketManageSystem", "\345\214\227\344\272\254",
-                                                                   nullptr));
-        ConditionStart->setItemText(1, QCoreApplication::translate("TicketManageSystem", "\344\270\212\346\265\267",
-                                                                   nullptr));
-        ConditionStart->setItemText(2, QCoreApplication::translate("TicketManageSystem", "\345\271\277\345\267\236",
-                                                                   nullptr));
-        ConditionStart->setItemText(3, QCoreApplication::translate("TicketManageSystem", "\346\267\261\345\234\263",
-                                                                   nullptr));
-        ConditionStart->setItemText(4, QCoreApplication::translate("TicketManageSystem", "\346\255\246\346\261\211",
-                                                                   nullptr));
+    void retranslateUi(QWidget *TicketManageSystem)
+    {
+        TicketManageSystem->setWindowTitle(QCoreApplication::translate("TicketManageSystem", "ticketmanagementsystem", nullptr));
+        ConditionStart->setItemText(0, QCoreApplication::translate("TicketManageSystem", "\345\214\227\344\272\254", nullptr));
+        ConditionStart->setItemText(1, QCoreApplication::translate("TicketManageSystem", "\344\270\212\346\265\267", nullptr));
+        ConditionStart->setItemText(2, QCoreApplication::translate("TicketManageSystem", "\345\271\277\345\267\236", nullptr));
+        ConditionStart->setItemText(3, QCoreApplication::translate("TicketManageSystem", "\346\267\261\345\234\263", nullptr));
+        ConditionStart->setItemText(4, QCoreApplication::translate("TicketManageSystem", "\346\255\246\346\261\211", nullptr));
 
-        ConditionDestination->setItemText(0,
-                                          QCoreApplication::translate("TicketManageSystem", "\345\214\227\344\272\254",
-                                                                      nullptr));
-        ConditionDestination->setItemText(1,
-                                          QCoreApplication::translate("TicketManageSystem", "\344\270\212\346\265\267",
-                                                                      nullptr));
-        ConditionDestination->setItemText(2,
-                                          QCoreApplication::translate("TicketManageSystem", "\345\271\277\345\267\236",
-                                                                      nullptr));
-        ConditionDestination->setItemText(3,
-                                          QCoreApplication::translate("TicketManageSystem", "\346\267\261\345\234\263",
-                                                                      nullptr));
-        ConditionDestination->setItemText(4,
-                                          QCoreApplication::translate("TicketManageSystem", "\346\255\246\346\261\211",
-                                                                      nullptr));
+        ConditionDestination->setItemText(0, QCoreApplication::translate("TicketManageSystem", "\345\214\227\344\272\254", nullptr));
+        ConditionDestination->setItemText(1, QCoreApplication::translate("TicketManageSystem", "\344\270\212\346\265\267", nullptr));
+        ConditionDestination->setItemText(2, QCoreApplication::translate("TicketManageSystem", "\345\271\277\345\267\236", nullptr));
+        ConditionDestination->setItemText(3, QCoreApplication::translate("TicketManageSystem", "\346\267\261\345\234\263", nullptr));
+        ConditionDestination->setItemText(4, QCoreApplication::translate("TicketManageSystem", "\346\255\246\346\261\211", nullptr));
 
         QTableWidgetItem *___qtablewidgetitem = TicketsAvailable->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(
-                QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\345\217\267", nullptr));
+        ___qtablewidgetitem->setText(QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\345\217\267", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = TicketsAvailable->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(
-                QCoreApplication::translate("TicketManageSystem", "\350\265\267\347\202\271", nullptr));
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("TicketManageSystem", "\350\265\267\347\202\271", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = TicketsAvailable->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(
-                QCoreApplication::translate("TicketManageSystem", "\347\273\210\347\202\271", nullptr));
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("TicketManageSystem", "\347\273\210\347\202\271", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = TicketsAvailable->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(
-                QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\346\227\266\351\227\264",
-                                            nullptr));
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\346\227\266\351\227\264", nullptr));
         QTableWidgetItem *___qtablewidgetitem4 = TicketsAvailable->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("TicketManageSystem",
-                                                                  "\344\270\200\347\255\211\350\210\261\344\275\231\347\245\250",
-                                                                  nullptr));
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("TicketManageSystem", "\344\270\200\347\255\211\350\210\261\344\275\231\347\245\250", nullptr));
         QTableWidgetItem *___qtablewidgetitem5 = TicketsAvailable->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("TicketManageSystem",
-                                                                  "\344\272\214\347\255\211\350\210\261\344\275\231\347\245\250",
-                                                                  nullptr));
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("TicketManageSystem", "\344\272\214\347\255\211\350\210\261\344\275\231\347\245\250", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = TicketsAvailable->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("TicketManageSystem",
-                                                                  "\344\270\211\347\255\211\350\210\261\344\275\231\347\245\250",
-                                                                  nullptr));
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("TicketManageSystem", "\344\270\211\347\255\211\350\210\261\344\275\231\347\245\250", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = MyTickets->horizontalHeaderItem(0);
-        ___qtablewidgetitem7->setText(
-                QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\345\217\267", nullptr));
+        ___qtablewidgetitem7->setText(QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\345\217\267", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = MyTickets->horizontalHeaderItem(1);
-        ___qtablewidgetitem8->setText(
-                QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\346\227\266\351\227\264",
-                                            nullptr));
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("TicketManageSystem", "\350\210\252\347\217\255\346\227\266\351\227\264", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = MyTickets->horizontalHeaderItem(2);
-        ___qtablewidgetitem9->setText(
-                QCoreApplication::translate("TicketManageSystem", "\350\210\261\344\275\215", nullptr));
-        SortByPrice->setText(QCoreApplication::translate("TicketManageSystem",
-                                                         "\346\214\211\344\273\267\346\240\274\346\216\222\345\272\217",
-                                                         nullptr));
-        SortByTime->setText(QCoreApplication::translate("TicketManageSystem",
-                                                        "\346\214\211\346\227\266\351\227\264\346\216\222\345\272\217",
-                                                        nullptr));
-        RemoveNo->setText(QCoreApplication::translate("TicketManageSystem",
-                                                      "\345\216\273\351\231\244\346\227\240\347\245\250\350\210\252\347\217\255",
-                                                      nullptr));
-        BookClasscomboBox->setItemText(0, QCoreApplication::translate("TicketManageSystem",
-                                                                      "\344\270\200\347\255\211\350\210\261", nullptr));
-        BookClasscomboBox->setItemText(1, QCoreApplication::translate("TicketManageSystem",
-                                                                      "\344\272\214\347\255\211\350\210\261", nullptr));
-        BookClasscomboBox->setItemText(2, QCoreApplication::translate("TicketManageSystem",
-                                                                      "\344\270\211\347\255\211\350\210\261", nullptr));
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("TicketManageSystem", "\350\210\261\344\275\215", nullptr));
+        SortByPrice->setText(QCoreApplication::translate("TicketManageSystem", "\346\214\211\344\273\267\346\240\274\346\216\222\345\272\217", nullptr));
+        SortByTime->setText(QCoreApplication::translate("TicketManageSystem", "\346\214\211\346\227\266\351\227\264\346\216\222\345\272\217", nullptr));
+        RemoveNo->setText(QCoreApplication::translate("TicketManageSystem", "\345\216\273\351\231\244\346\227\240\347\245\250\350\210\252\347\217\255", nullptr));
+        BookClasscomboBox->setItemText(0, QCoreApplication::translate("TicketManageSystem", "\344\270\200\347\255\211\350\210\261", nullptr));
+        BookClasscomboBox->setItemText(1, QCoreApplication::translate("TicketManageSystem", "\344\272\214\347\255\211\350\210\261", nullptr));
+        BookClasscomboBox->setItemText(2, QCoreApplication::translate("TicketManageSystem", "\344\270\211\347\255\211\350\210\261", nullptr));
 
-        label->setText(QCoreApplication::translate("TicketManageSystem",
-                                                   "\350\257\267\351\200\211\346\213\251\350\210\252\347\217\255\345\217\267",
-                                                   nullptr));
+        label->setText(QCoreApplication::translate("TicketManageSystem", "\350\257\267\351\200\211\346\213\251\350\210\252\347\217\255\345\217\267", nullptr));
         Reserve->setText(QCoreApplication::translate("TicketManageSystem", "\350\256\242\347\245\250", nullptr));
-        TicketOperation->setTabText(TicketOperation->indexOf(ReserveTab),
-                                    QCoreApplication::translate("TicketManageSystem", "\350\256\242\347\245\250",
-                                                                nullptr));
-        label_2->setText(QCoreApplication::translate("TicketManageSystem",
-                                                     "\345\210\235\345\247\213\350\210\252\347\217\255\345\217\267",
-                                                     nullptr));
-        label_3->setText(
-                QCoreApplication::translate("TicketManageSystem", "\346\226\260\350\210\252\347\217\255\345\217\267",
-                                            nullptr));
+        TicketOperation->setTabText(TicketOperation->indexOf(ReserveTab), QCoreApplication::translate("TicketManageSystem", "\350\256\242\347\245\250", nullptr));
+        label_2->setText(QCoreApplication::translate("TicketManageSystem", "\345\210\235\345\247\213\350\210\252\347\217\255\345\217\267", nullptr));
+        label_3->setText(QCoreApplication::translate("TicketManageSystem", "\346\226\260\350\210\252\347\217\255\345\217\267", nullptr));
         Change->setText(QCoreApplication::translate("TicketManageSystem", "\346\224\271\347\255\276", nullptr));
-        label_5->setText(
-                QCoreApplication::translate("TicketManageSystem", "\346\226\260\347\232\204\350\210\261\344\275\215",
-                                            nullptr));
-        TicketOperation->setTabText(TicketOperation->indexOf(CancelTab),
-                                    QCoreApplication::translate("TicketManageSystem", "\346\224\271\347\255\276",
-                                                                nullptr));
-        label_4->setText(QCoreApplication::translate("TicketManageSystem",
-                                                     "\351\200\200\347\245\250\350\210\252\347\217\255\345\217\267",
-                                                     nullptr));
+        label_5->setText(QCoreApplication::translate("TicketManageSystem", "\346\226\260\347\232\204\350\210\261\344\275\215", nullptr));
+        TicketOperation->setTabText(TicketOperation->indexOf(CancelTab), QCoreApplication::translate("TicketManageSystem", "\346\224\271\347\255\276", nullptr));
+        label_4->setText(QCoreApplication::translate("TicketManageSystem", "\351\200\200\347\245\250\350\210\252\347\217\255\345\217\267", nullptr));
         Cancel->setText(QCoreApplication::translate("TicketManageSystem", "\351\200\200\347\245\250", nullptr));
-        TicketOperation->setTabText(TicketOperation->indexOf(ChangeTab),
-                                    QCoreApplication::translate("TicketManageSystem", "\351\200\200\347\245\250",
-                                                                nullptr));
+        TicketOperation->setTabText(TicketOperation->indexOf(ChangeTab), QCoreApplication::translate("TicketManageSystem", "\351\200\200\347\245\250", nullptr));
         Inquire->setText(QCoreApplication::translate("TicketManageSystem", "\346\237\245\350\257\242", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class TicketManageSystem : public Ui_TicketManageSystem {
-    };
+    class TicketManageSystem: public Ui_TicketManageSystem {};
 } // namespace Ui
 
 QT_END_NAMESPACE
