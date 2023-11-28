@@ -24,7 +24,7 @@ public:
 
     string getName();
 
-    FlightInfo getInfo();
+    FlightInfo getFlightInfo();
 
     bool getIsBooked();
 

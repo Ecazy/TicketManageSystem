@@ -7,6 +7,10 @@ TicketManageSystem::TicketManageSystem(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::TicketManageSystem) {
     //TODO 将widget都声明，尝试addItem()
     ui->setupUi(this);
+
+    //禁用表格更改
+    ui->TicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->MyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 TicketManageSystem::~TicketManageSystem() {
@@ -60,3 +64,8 @@ void TicketManageSystem::on_Cancel_clicked() {
 
     qDebug() << "Cancel";
 }
+
+
+//简单介绍原理：
+//通过将此处的this->ui传入函数中，才可修改程序中的数值、绑定程序中的按钮等部件
+//也即此处的this->ui可理解为用于渲染界面的一个指针
