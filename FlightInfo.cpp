@@ -47,6 +47,11 @@ unsigned int FlightInfo::getStockRemained(travelClass _travelClass) {
     return 0;
 }
 
+StockRemained FlightInfo::getStockRemained()
+{
+    return stockRemained;
+}
+
 void FlightInfo::setStockRemained(travelClass _travelClass, int a) {
     switch (_travelClass) {
         case FIRST:

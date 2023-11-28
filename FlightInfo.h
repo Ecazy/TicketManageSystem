@@ -69,8 +69,7 @@ public:
 
     FlightInfo() {}
 
-    FlightInfo(string beginning, string destination, string flightID,
-               DateTime depature,
+    FlightInfo(string beginning, string destination, string flightID,DateTime depature,
                int capacity, double first_fare, double second_fare, double third_fare) :
             beginning(beginning), destination(destination), flightID(flightID),
             depature(depature),
@@ -80,15 +79,16 @@ public:
             stockRemained(StockRemained{STOCK_TOTAL_FIRST, STOCK_TOTAL_SECOND, STOCK_TOTAL_THIRD}) {}
 
     FlightInfo(FlightInfo &_flight) {
-        beginning = _flight.beginning;
-        destination = _flight.destination;
-        flightID = _flight.flightID;
-        depature = _flight.depature;
-        capacity = _flight.capacity;
-        first_fare = _flight.first_fare;
-        second_fare = _flight.second_fare;
-        third_fare = _flight.third_fare;
-        stockRemained = _flight.stockRemained;
+        beginning = _flight.getBeginning();
+        destination = _flight.getDestination();
+        flightID = _flight.getFlightID();
+        depature = _flight.getDepature();
+        capacity = _flight.getCapacity();
+        first_fare = _flight.getFares(FIRST);
+        second_fare = _flight.getFares(SECOND);
+        third_fare = _flight.getFares(THIRD);
+        stockRemained = _flight.getStockRemained();
+
     }
 
     FlightInfo(const FlightInfo &_flight) {
@@ -118,6 +118,8 @@ public:
     double getFares(travelClass a);
 
     unsigned int getStockRemained(travelClass _travelClass);
+
+    StockRemained  getStockRemained();
 
     void setStockRemained(travelClass _travelClass, int a);
 
