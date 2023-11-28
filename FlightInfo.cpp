@@ -56,10 +56,15 @@ void FlightInfo::setStockRemained(travelClass _travelClass, int a) {
     switch (_travelClass) {
         case FIRST:
             stockRemained.first = a;
+            break;
         case SECOND:
             stockRemained.second = a;
+            break;
         case THIRD:
             stockRemained.third = a;
+            break;
+        default:
+            break;
     }
 
 }

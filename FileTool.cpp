@@ -11,6 +11,13 @@ void FileTool::writeString(std::ofstream& ofs,const std::string& str)
     ofs.write(str.c_str(),len);
 }
 
+void FileTool::writeString(std::fstream& fs,const std::string& str)
+{
+    size_t len = str.size();
+    fs.write(reinterpret_cast<const char*>(&len),sizeof(size_t));
+    fs.write(str.c_str(),len);
+}
+
 std::string FileTool::readString(std::ifstream& ifs)
 {
     size_t len;
@@ -19,26 +26,60 @@ std::string FileTool::readString(std::ifstream& ifs)
     ifs.read(&str[0],len);
     return str;
 }
+
+std::string FileTool::readString(std::fstream& fs)
+{
+    size_t len;
+    fs.read(reinterpret_cast<char*>(&len),sizeof(size_t));
+    string str(len,' ');
+    fs.read(&str[0],len);
+    return str;
+}
+
+void FileTool::writeFlightInfo(std::fstream& fs,FlightInfo& tmp)
+{
+    string start=tmp.getBeginning(),end=tmp.getDestination(),flightID=tmp.getFlightID();
+    this->writeString(fs, start);
+    this->writeString(fs,end);
+    this->writeString(fs,flightID);
+
+    DateTime depature(tmp.getDepature());
+    fs.write(reinterpret_cast<const char*>(&depature),sizeof(depature));
+    int capacity = tmp.getCapacity();
+    fs.write(reinterpret_cast<const char*>(&capacity),sizeof(capacity));
+    double first=tmp.getFares(FIRST),second=tmp.getFares(SECOND),third=tmp.getFares(THIRD);
+    fs.write(reinterpret_cast<const char*>(&first),sizeof(double));
+    fs.write(reinterpret_cast<const char*>(&second),sizeof(double));
+    fs.write(reinterpret_cast<const char*>(&third),sizeof(double));
+    StockRemained stock =  tmp.getStockRemained();
+    fs.write(reinterpret_cast<const char*>(&stock),sizeof(stock));
+}
+
+void FileTool::writeFlightInfo(std::ofstream& ofs,FlightInfo& tmp)
+{
+    string start=tmp.getBeginning(),end=tmp.getDestination(),flightID=tmp.getFlightID();
+    this->writeString(ofs, start);
+    this->writeString(ofs,end);
+    this->writeString(ofs,flightID);
+
+    DateTime depature(tmp.getDepature());
+    ofs.write(reinterpret_cast<const char*>(&depature),sizeof(depature));
+    int capacity = tmp.getCapacity();
+    ofs.write(reinterpret_cast<const char*>(&capacity),sizeof(capacity));
+    double first=tmp.getFares(FIRST),second=tmp.getFares(SECOND),third=tmp.getFares(THIRD);
+    ofs.write(reinterpret_cast<const char*>(&first),sizeof(double));
+    ofs.write(reinterpret_cast<const char*>(&second),sizeof(double));
+    ofs.write(reinterpret_cast<const char*>(&third),sizeof(double));
+    StockRemained stock =  tmp.getStockRemained();
+    ofs.write(reinterpret_cast<const char*>(&stock),sizeof(stock));
+}
 // 二进制文件"data.bin"在main函数中创建
 
 void FileTool::add(FlightInfo& a) {
     // 按类写入二进制数据
     std::ofstream ofs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary | std::ios::app);
     //以下为逐成员变量写入文件
-    this->writeString(ofs, a.getBeginning());
-    this->writeString(ofs,a.getDestination());
-    this->writeString(ofs,a.getFlightID());
-
-    DateTime depature(a.getDepature());
-    ofs.write(reinterpret_cast<const char*>(&depature),sizeof(depature));
-    int capacity = a.getCapacity();
-    ofs.write(reinterpret_cast<const char*>(&capacity),sizeof(capacity));
-    double first=a.getFares(FIRST),second=a.getFares(SECOND),third=a.getFares(THIRD);
-    ofs.write(reinterpret_cast<const char*>(&first),sizeof(double));
-    ofs.write(reinterpret_cast<const char*>(&second),sizeof(double));
-    ofs.write(reinterpret_cast<const char*>(&third),sizeof(double));
-    StockRemained stock =  a.getStockRemained();
-    ofs.write(reinterpret_cast<const char*>(&stock),sizeof(stock));
+    this->writeFlightInfo(ofs,a);
 //    ofs.write((char *) &a, sizeof(a));
     ofs.close();
 }
@@ -69,6 +110,32 @@ bool FileTool::read(ifstream& ifs,FlightInfo& tmp)
     return true;
 }
 
+bool FileTool::read(fstream& fs,FlightInfo& tmp)
+{
+    if(fs.peek()==EOF)
+        return false;
+    string beginning,destination,flightID;
+    DateTime depature;
+    int capacity;
+    double first,second,third;
+    StockRemained stock;
+    beginning = readString(fs);
+    destination = readString(fs);
+    flightID = readString(fs);
+    fs.read(reinterpret_cast<char*>(&depature),sizeof(depature));
+    fs.read(reinterpret_cast<char*>(&capacity),sizeof(capacity));
+    fs.read(reinterpret_cast<char*>(&first),sizeof(double));
+    fs.read(reinterpret_cast<char*>(&second),sizeof(double));
+    fs.read(reinterpret_cast<char*>(&third),sizeof(double));
+    fs.read(reinterpret_cast<char*>(&stock),sizeof(stock));
+    FlightInfo temp(beginning,destination,flightID,depature,capacity,first,second,third);
+    tmp = temp;
+    tmp.setStockRemained(FIRST,stock.first);
+    tmp.setStockRemained(SECOND,stock.second);
+    tmp.setStockRemained(THIRD,stock.third);
+    return true;
+}
+
 //减去一张余票
 //TODO 此处可能大改,未规划好如何改进
 bool FileTool::change(FlightInfo a, int c, int flag) {
@@ -76,9 +143,9 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
     std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary);
     //读取数据
     FlightInfo temp;
-    int num, count = 0;
-    while (fs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
-
+    int num;
+    int rpointer;
+    while (read(fs,temp) && temp.ticket_has_left()) {
         // 检查这个值是否是我们想要的
         if (temp.getFlightID() == a.getFlightID()) {
             // 修改类成员
@@ -105,14 +172,15 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
                     a.setStockRemained(THIRD, num);
                     break;
             }
-            fs.seekp(count * sizeof(FlightInfo),ios::beg);
-            fs.write(reinterpret_cast<const char*>(&temp), sizeof(FlightInfo));
+            fs.seekp(rpointer,ios::beg);
+            //此处如何修改
+            writeFlightInfo(fs,a);
             break;
         }
-        count++;
-        // 关闭文件
-        fs.close();
+        rpointer = fs.tellg();
     }
+    // 关闭文件
+    fs.close();
     return true;
 }
 
