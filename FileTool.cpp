@@ -45,7 +45,7 @@ void FileTool::add(FlightInfo& a) {
 
 bool FileTool::read(ifstream& ifs,FlightInfo& tmp)
 {
-    if(ifs.eof())
+    if(ifs.peek()==EOF)
         return false;
     string beginning,destination,flightID;
     DateTime depature;

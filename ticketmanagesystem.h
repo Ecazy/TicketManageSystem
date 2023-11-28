@@ -16,13 +16,6 @@ public:
 
     ~TicketManageSystem();
 
-    void ClickInquire();
-    void ClickSortByPrice();
-    void ClickSortByTime();
-    void ClickRemove();
-    void ClickBook();
-    void ClickChange();
-    void ClickCancel();
 
 private slots:
     void on_Inquire_clicked();
