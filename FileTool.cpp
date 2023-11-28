@@ -2,16 +2,16 @@
 #include <iostream>
 #include <fstream>
 
-using namespace std;
+//using namespace std;
 
-void writeString(ostream& ofs,const string& str)
+void FileTool::writeString(std::ofstream& ofs,const std::string& str)
 {
     size_t len = str.size();
     ofs.write(reinterpret_cast<const char*>(&len),sizeof(size_t));
     ofs.write(str.c_str(),len);
 }
 
-string readString(istream& ifs)
+std::string FileTool::readString(std::ifstream& ifs)
 {
     size_t len;
     ifs.read(reinterpret_cast<char*>(&len),sizeof(size_t));
@@ -25,9 +25,9 @@ void FileTool::add(FlightInfo& a) {
     // 按类写入二进制数据
     std::ofstream ofs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary | std::ios::app);
     //以下为逐成员变量写入文件
-    writeString(ofs, a.getBeginning());
-    writeString(ofs,a.getDestination());
-    writeString(ofs,a.getFlightID());
+    this->writeString(ofs, a.getBeginning());
+    this->writeString(ofs,a.getDestination());
+    this->writeString(ofs,a.getFlightID());
 
     DateTime depature(a.getDepature());
     ofs.write(reinterpret_cast<const char*>(&depature),sizeof(depature));
