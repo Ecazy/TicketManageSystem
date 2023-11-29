@@ -143,8 +143,8 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
     std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary);
     //读取数据
     FlightInfo temp;
-    int num;
-    int rpointer;
+    int num=0;
+    int rpointer=0;
     while (read(fs,temp) && temp.ticket_has_left()) {
         // 检查这个值是否是我们想要的
         if (temp.getFlightID() == a.getFlightID()) {

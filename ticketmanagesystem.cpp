@@ -5,7 +5,6 @@
 
 TicketManageSystem::TicketManageSystem(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::TicketManageSystem) {
-    //TODO 将widget都声明，尝试addItem()
     ui->setupUi(this);
 
     //禁用表格更改

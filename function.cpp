@@ -202,7 +202,7 @@ bool book(string name, string id, travelClass your_class) {
         f.change(f.find_flight_by_Id(flightList, id), 1);
         passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
         my_tickets.addToTail(a);
-    } else if (your_class == THIRD) {
+    } else {
         f.change(f.find_flight_by_Id(flightList, id), 2);
         passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
         my_tickets.addToTail(a);
@@ -263,12 +263,25 @@ void ChangeTicket(Ui::TicketManageSystem *ui) {
     if (tc == "一等舱") targetClass = FIRST;
     else if (tc == "二等舱") targetClass = SECOND;
     else targetClass = THIRD;
-    if (change("root", originalFlightID.toStdString(), targetFlightID.toStdString(), targetClass))
+//    if (change("root", originalFlightID.toStdString(), targetFlightID.toStdString(), targetClass))
+//    {
+//        Inquire(ui);
+//        flightListUpdateUI(ui);
+//        WriteInMyTicket(ui);
+//        return ;
+//    }
+    if(cancel("root", originalFlightID.toStdString()))
     {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
-        return ;
+        if (book("root", targetFlightID.toStdString(), targetClass))
+        {
+            Inquire(ui);
+            flightListUpdateUI(ui);
+            WriteInMyTicket(ui);
+            return;
+        }
     }
     qDebug() << "Error in change Ticket for the above reason";
 }
