@@ -14,23 +14,7 @@ QWidget *loadUiFile(const string &path);
 
 class FileTool {
 public:
-    void writeString(std::ofstream& ofs,const std::string& str);
-
-    void writeString(std::fstream& fs,const std::string& str);
-
-    std::string readString(std::ifstream& ifs);
-
-    std::string readString(std::fstream& fs);
-
-    void writeFlightInfo(std::fstream&fs,FlightInfo& tmp);
-
-    void writeFlightInfo(std::ofstream& ofs,FlightInfo& tmp);
-
-    void add(FlightInfo& a);
-
-    bool read(ifstream& ifs,FlightInfo &tmp);
-
-    bool read(fstream& fs,FlightInfo &tmp);
+    void add(FlightInfo a);
 
     bool remove(FlightInfo a);
 

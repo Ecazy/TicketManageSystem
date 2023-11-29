@@ -5,7 +5,6 @@
 #include "ui_ticketmanagesystem.h"
 
 
-
 //存储总共所有的航班信息于链表中
 static Linklist<FlightInfo> flightInforList;
 
@@ -29,21 +28,20 @@ void sortByPrice();
 
 
 
-void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list,Ui::TicketManageSystem* ui);
+void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list, Ui::TicketManageSystem *ui);
 
 
-void WriteInTicketAvailable(Ui::TicketManageSystem* ui);
+void WriteInTicketAvailable(Ui::TicketManageSystem *ui);
 
-void flightListUpdateUI(Ui::TicketManageSystem* ui);
+void flightListUpdateUI(Ui::TicketManageSystem *ui);
 
-void Inquire(Ui::TicketManageSystem* ui);
+void Inquire(Ui::TicketManageSystem *ui);
 
-void BookTicket(Ui::TicketManageSystem* ui);
+void BookTicket(Ui::TicketManageSystem *ui);
 
-void ChangeTicket(Ui::TicketManageSystem* ui);
+void ChangeTicket(Ui::TicketManageSystem *ui);
 
-void CancelTicket(Ui::TicketManageSystem* ui);
-
+void CancelTicket(Ui::TicketManageSystem *ui);
 
 
 #endif // FUNCTION_H
