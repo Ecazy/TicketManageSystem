@@ -1,11 +1,12 @@
 //
 // Created by 杨千靖 on 2023/11/29.
 //
-//#include "ui_ticketmanagesystem.h"
 #include <QObject>
 #include <QMessageBox>
 #include "ui_login.h"
 #include "Login.h"
+
+FileTool f1;
 
 Login::Login(QWidget *parent) : QMainWindow(parent), ui(new Ui::Login) {
     ui->setupUi(this);
@@ -24,6 +25,8 @@ void Login::on_login_clicked() {
     string name = username.toStdString();
     string code = password.toStdString();
 
-    if (name == "root" && code == "12345")
-            emit loginSuccessful();
+    if (f1.find_user_by_name(name).head->data.getPassword() == code) {
+        get_username = name;
+        emit loginSuccessful();
+    }
 }

@@ -14,6 +14,10 @@ QWidget *loadUiFile(const string &path);
 
 class FileTool {
 public:
+    void add_user(passengerInfo user_ticket);
+
+    Linklist<passengerInfo> find_user_by_name(string name);
+
     void add(FlightInfo a);
 
     bool remove(FlightInfo a);

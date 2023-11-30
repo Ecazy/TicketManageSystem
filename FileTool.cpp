@@ -6,6 +6,26 @@ using namespace std;
 
 // 二进制文件"data.bin"在main函数中创建
 
+void FileTool::add_user(passengerInfo user_ticket) {
+    std::ofstream ofs("/Users/yangqianjing/user_data.bin", std::ios::binary | std::ios::app);
+    ofs.write((char *) &user_ticket, sizeof(user_ticket));
+    ofs.close();
+}
+
+Linklist<passengerInfo> FileTool::find_user_by_name(std::string name) {
+    std::ifstream ifs("/Users/yangqianjing/user_data.bin", std::ios::binary);
+    passengerInfo temp;
+    Linklist<passengerInfo> tickets;
+    while (ifs.read((char *) &temp, sizeof(passengerInfo))) {
+        if (temp.getName() == name) {
+            tickets.addToTail(temp);
+        }
+    }
+    // 关闭文件
+    ifs.close();
+    return tickets;
+}
+
 void FileTool::add(FlightInfo a) {
     // 按类写入二进制数据
     std::ofstream ofs("/Users/yangqianjing/data.bin", std::ios::binary | std::ios::app);

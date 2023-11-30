@@ -3,8 +3,10 @@
 //#include "ui_ticketmanagesystem.h"
 #include <QObject>
 
+
+
 TicketManageSystem::TicketManageSystem(QWidget *parent)
-        : QMainWindow(parent), ui(new Ui::TicketManageSystem) {
+        : QMainWindow(parent), ui(new Ui::TicketManageSystem){
     //TODO 将widget都声明，尝试addItem()
     ui->setupUi(this);
 
@@ -20,7 +22,7 @@ TicketManageSystem::~TicketManageSystem() {
 
 void TicketManageSystem::on_Inquire_clicked() {
     Inquire(this->ui);
-    flightListUpdateUI(this->ui);
+    flightListUpdateUI(this->ui,my_tickets);
     //终端返回信息
     qDebug() << "Inquire";
 }
@@ -47,21 +49,21 @@ void TicketManageSystem::on_RemoveNo_clicked() {
 }
 
 void TicketManageSystem::on_Reserve_clicked() {
-    BookTicket(this->ui);
-
+    string name = user_name;
+    BookTicket(this->ui, name, my_tickets);
     qDebug() << "Reserve";
 }
 
 
 void TicketManageSystem::on_Change_clicked() {
-    ChangeTicket(this->ui);
-
+    string name = user_name;
+    ChangeTicket(this->ui, name, my_tickets);
     qDebug() << "Change";
 }
 
 void TicketManageSystem::on_Cancel_clicked() {
-    CancelTicket(this->ui);
-
+    string name = user_name;
+    CancelTicket(this->ui, name, my_tickets);
     qDebug() << "Cancel";
 }
 
