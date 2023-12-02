@@ -28,7 +28,7 @@ Linklist<passengerInfo> FileTool::find_user_by_name(std::string name) {
 
 void FileTool::add(FlightInfo a) {
     // 按类写入二进制数据
-    std::ofstream ofs("/Users/yangqianjing/data.bin", std::ios::binary | std::ios::app);
+    std::ofstream ofs("/Users/yangqianjing/ticket_data.bin", std::ios::binary | std::ios::app);
     ofs.write((char *) &a, sizeof(a));
     ofs.close();
 }
@@ -36,7 +36,7 @@ void FileTool::add(FlightInfo a) {
 //减去一张余票
 bool FileTool::change(FlightInfo a, int c, int flag) {
     // 打开二进制文件
-    std::fstream fs("/Users/yangqianjing/data.bin", std::ios::in | std::ios::out | std::ios::binary);
+    std::fstream fs("/Users/yangqianjing/ticket_data.bin", std::ios::in | std::ios::out | std::ios::binary);
     //读取数据
     FlightInfo temp;
     int num, count = 0;
@@ -69,7 +69,7 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
                     break;
             }
             fs.seekp(count * sizeof(FlightInfo), ios::beg);
-            fs.write(reinterpret_cast<const char *>(&temp), sizeof(FlightInfo));
+            fs.write(reinterpret_cast<const char *>(&a), sizeof(FlightInfo));
             break;
         }
         count++;
@@ -82,7 +82,7 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
 
 Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
     // 打开二进制文件
-    std::ifstream ifs("/Users/yangqianjing/data.bin", std::ios::binary);
+    std::ifstream ifs("/Users/yangqianjing/ticket_data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
     while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {
@@ -97,7 +97,7 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
 
 Linklist<FlightInfo> FileTool::read_by_path(string start, string end) {
     // 打开二进制文件
-    std::ifstream ifs("/Users/yangqianjing/data.bin", std::ios::binary);
+    std::ifstream ifs("/Users/yangqianjing/ticket_data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
     while (ifs.read((char *) &temp, sizeof(FlightInfo)) && temp.ticket_has_left()) {

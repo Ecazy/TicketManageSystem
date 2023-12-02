@@ -129,7 +129,7 @@ void Inquire(Ui::TicketManageSystem *ui) {
     WriteInTicketAvailable(ui);
 }
 
-void WriteInMyTicket(Ui::TicketManageSystem *ui, Linklist<passengerInfo> my_tickets) {
+void WriteInMyTicket(Ui::TicketManageSystem *ui, Linklist<passengerInfo> &my_tickets) {
     QTableWidget *MyTickets = ui->MyTickets;
     MyTickets->setRowCount(0);
 
@@ -152,14 +152,14 @@ void WriteInMyTicket(Ui::TicketManageSystem *ui, Linklist<passengerInfo> my_tick
         MyTickets->insertRow(i - 1);
         str = QString::fromStdString(flightID);
         QTableWidgetItem *item0 = new QTableWidgetItem(str);
-        MyTickets->setItem(i, column++, item0);
+        MyTickets->setItem(i - 1, column++, item0);
 
         string date = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day) + " " +
                       to_string(time.hour) + ":" +
                       to_string(time.minute);
         str = QString::fromStdString(date);
         QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        MyTickets->setItem(i, column++, item1);
+        MyTickets->setItem(i - 1, column++, item1);
         switch (tc) {
             case FIRST:
                 str = QString::fromStdString("一等舱");
@@ -172,54 +172,12 @@ void WriteInMyTicket(Ui::TicketManageSystem *ui, Linklist<passengerInfo> my_tick
                 break;
         }
         QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        MyTickets->setItem(i, column++, item2);
+        MyTickets->setItem(i - 1, column++, item2);
     }
 }
 
-bool book(string name, string id, travelClass your_class, Linklist<passengerInfo> my_tickets) {
-    for (int i = 0; i < my_tickets.length; i++) {
-        if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
-            return false;
-        }
-    }
-    if (your_class == FIRST) {
-        f.change(f.find_flight_by_Id(flightList, id), 0);
-        passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
-        f.add_user(a);
-        my_tickets.addToTail(a);
-    } else if (your_class == SECOND) {
-        f.change(f.find_flight_by_Id(flightList, id), 1);
-        passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
-        f.add_user(a);
-        my_tickets.addToTail(a);
-    } else if (your_class == THIRD) {
-        f.change(f.find_flight_by_Id(flightList, id), 2);
-        passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
-        f.add_user(a);
-        my_tickets.addToTail(a);
-    }
-    return true;
-}
 
-bool cancel(string name, string id, Linklist<passengerInfo> my_tickets) {
-    for (int i = 0; i < my_tickets.length; i++) {
-        if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
-            f.change(my_tickets.getNode(i).getFlightInfo(), my_tickets.getNode(i).my_class, -1);
-            my_tickets.remove(i);
-            return true;
-        }
-    }
-    return false;
-}
-
-bool
-change(string name, string now_id, string target_id, travelClass target_class, Linklist<passengerInfo> my_tickets) {
-    if (cancel(name, now_id, my_tickets))
-        return book(name, target_id, target_class, my_tickets);
-    return false;
-}
-
-void BookTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo> my_tickets) {
+void BookTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo> &my_tickets) {
     QComboBox *Book = ui->BookFlightIDComBox;
     QString flightID = Book->currentText();
 
@@ -235,13 +193,14 @@ void BookTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo>
         Inquire(ui);
         flightListUpdateUI(ui, my_tickets);
         WriteInMyTicket(ui, my_tickets);
+        WriteInTicketAvailable(ui);
         return;
     }
 
     qDebug() << "Error in book ticket";
 }
 
-void ChangeTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo> my_tickets) {
+void ChangeTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo> &my_tickets) {
     QComboBox *Original = ui->BookedFlightID;
     QComboBox *Target = ui->BookFlightIDComBox_2;
     QComboBox *TargetClass = ui->TargetClassComboBox;
@@ -258,24 +217,26 @@ void ChangeTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInf
         Inquire(ui);
         flightListUpdateUI(ui, my_tickets);
         WriteInMyTicket(ui, my_tickets);
+        WriteInTicketAvailable(ui);
         return;
     }
     qDebug() << "Error in change Ticket for the above reason";
 }
 
-void CancelTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo> my_tickets) {
+void CancelTicket(Ui::TicketManageSystem *ui, string name, Linklist<passengerInfo> &my_tickets) {
     QComboBox *Cancel = ui->CancelMyTicketsComBox;
     QString cancelFlightID = Cancel->currentText();
     if (cancel(name, cancelFlightID.toStdString(), my_tickets)) {
         Inquire(ui);
         flightListUpdateUI(ui, my_tickets);
         WriteInMyTicket(ui, my_tickets);
+        WriteInTicketAvailable(ui);
         return;
     }
     qDebug() << "Error in canceling ticket";
 }
 
-void flightListUpdateUI(Ui::TicketManageSystem *ui, Linklist<passengerInfo> my_tickets) {
+void flightListUpdateUI(Ui::TicketManageSystem *ui, Linklist<passengerInfo> &my_tickets) {
     QComboBox *Book = ui->BookFlightIDComBox;
     QComboBox *Original = ui->BookedFlightID;
     QComboBox *Target = ui->BookFlightIDComBox_2;
@@ -287,7 +248,7 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui, Linklist<passengerInfo> my_t
         QString flightID = QString::fromStdString(flightList[i].getFlightID());
         flightIDList.append(flightID);
     }
-    for (int i = 0; i < my_tickets.length; ++i) {
+    for (int i = 1; i < my_tickets.length; ++i) {
         QString flightID = QString::fromStdString(my_tickets[i].getFlightInfo().getFlightID());
         MyFlightIDList.append(flightID);
     }
@@ -310,3 +271,75 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui, Linklist<passengerInfo> my_t
 
 }
 
+bool book(string name, string id, travelClass your_class, Linklist<passengerInfo> &my_tickets) {
+    for (int i = 0; i < my_tickets.length; i++) {
+        if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
+            return false;
+        }
+    }
+    if (your_class == FIRST) {
+        f.change(f.find_flight_by_Id(flightList, id), 0);
+        passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
+        for (int i = 0; i < flightList.length; i++) {
+            if (flightList.getNode(i).getFlightID() == id)
+                flightList.getNode(i).setStockRemained(FIRST, flightList.getNode(i).getStockRemained(FIRST) - 1);
+        }
+        f.add_user(a);
+        my_tickets.addToTail(a);
+    } else if (your_class == SECOND) {
+        f.change(f.find_flight_by_Id(flightList, id), 1);
+        passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
+        for (int i = 0; i < flightList.length; i++) {
+            if (flightList.getNode(i).getFlightID() == id)
+                flightList.getNode(i).setStockRemained(SECOND, flightList.getNode(i).getStockRemained(SECOND) - 1);
+        }
+        f.add_user(a);
+        my_tickets.addToTail(a);
+    } else if (your_class == THIRD) {
+        f.change(f.find_flight_by_Id(flightList, id), 2);
+        passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
+        for (int i = 0; i < flightList.length; i++) {
+            if (flightList.getNode(i).getFlightID() == id)
+                flightList.getNode(i).setStockRemained(THIRD, flightList.getNode(i).getStockRemained(THIRD) - 1);
+        }
+        f.add_user(a);
+        my_tickets.addToTail(a);
+    }
+    return true;
+}
+
+bool cancel(string name, string id, Linklist<passengerInfo> &my_tickets) {
+    for (int i = 0; i < my_tickets.length; i++) {
+        if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
+            int c;
+            switch (my_tickets.getNode(i).my_class) {
+                case FIRST:
+                    c = 0;
+                    break;
+                case SECOND:
+                    c = 1;
+                    break;
+                case THIRD:
+                    c = 2;
+                    break;
+            }
+            f.change(my_tickets.getNode(i).getFlightInfo(), c, -1);
+            for (int k = 0; k < flightList.length; k++) {
+                if (flightList.getNode(k).getFlightID() == id)
+                    flightList.getNode(k).setStockRemained(my_tickets.getNode(i).my_class,
+                                                           flightList.getNode(k).getStockRemained(
+                                                                   my_tickets.getNode(i).my_class) + 1);
+            }
+            my_tickets.remove(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
+change(string name, string now_id, string target_id, travelClass target_class, Linklist<passengerInfo> &my_tickets) {
+    if (cancel(name, now_id, my_tickets))
+        return book(name, target_id, target_class, my_tickets);
+    return false;
+}
