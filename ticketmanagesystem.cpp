@@ -46,20 +46,20 @@ void TicketManageSystem::on_RemoveNo_clicked() {
 }
 
 void TicketManageSystem::on_Reserve_clicked() {
-    BookTicket(this->ui);
+    BookTicket(this->ui,usrName);
 
     qDebug() << "Reserve";
 }
 
 
 void TicketManageSystem::on_Change_clicked() {
-    ChangeTicket(this->ui);
+    ChangeTicket(this->ui,usrName);
 
     qDebug() << "Change";
 }
 
 void TicketManageSystem::on_Cancel_clicked() {
-    CancelTicket(this->ui);
+    CancelTicket(this->ui,usrName);
 
     qDebug() << "Cancel";
 }

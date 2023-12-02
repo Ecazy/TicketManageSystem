@@ -1,12 +1,18 @@
 #include "ticketmanagesystem.h"
+#include "Login.h"
 #include <QApplication>
 
 #include<iostream>
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    Login s;
+    s.show();
     TicketManageSystem w;
-    w.show();
+    QObject::connect(&s,&Login::loginSuccessful,[&w,&s](){
+        w.set_name(s.usrName);
+        w.show();
+    });
     return a.exec();
 
 //    FileTool f;

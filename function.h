@@ -38,11 +38,11 @@ void flightListUpdateUI(Ui::TicketManageSystem* ui);
 
 void Inquire(Ui::TicketManageSystem* ui);
 
-void BookTicket(Ui::TicketManageSystem* ui);
+void BookTicket(Ui::TicketManageSystem* ui,const string& name);
 
-void ChangeTicket(Ui::TicketManageSystem* ui);
+void ChangeTicket(Ui::TicketManageSystem* ui,const string& name);
 
-void CancelTicket(Ui::TicketManageSystem* ui);
+void CancelTicket(Ui::TicketManageSystem* ui,const string& name);
 
 
 

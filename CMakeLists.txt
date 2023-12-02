@@ -25,7 +25,7 @@ add_executable(TicketManageSystem
                 ticketmanagesystem.cpp
                 ticketmanagesystem.h
                 ui_ticketmanagesystem.h
-                FileTool.h FileTool.cpp FlightInfo.h FlightInfo.cpp)
+                FileTool.h FileTool.cpp FlightInfo.h FlightInfo.cpp Login.cpp Login.h ui_login.h)
 target_link_libraries(TicketManageSystem
         Qt::Core
         Qt::Gui

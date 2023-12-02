@@ -227,7 +227,7 @@ bool change(string name, string now_id, string target_id, travelClass target_cla
     return false;
 }
 
-void BookTicket(Ui::TicketManageSystem *ui) {
+void BookTicket(Ui::TicketManageSystem *ui,const string& name) {
     QComboBox *Book = ui->BookFlightIDComBox;
     QString flightID = Book->currentText();
 
@@ -239,7 +239,7 @@ void BookTicket(Ui::TicketManageSystem *ui) {
     if (tc == "一等舱") targetClass = FIRST;
     else if (tc == "二等舱") targetClass = SECOND;
     else targetClass = THIRD;
-    if (book("root", flightID.toStdString(), targetClass))
+    if (book(name, flightID.toStdString(), targetClass))
     {
         Inquire(ui);
         flightListUpdateUI(ui);
@@ -250,7 +250,7 @@ void BookTicket(Ui::TicketManageSystem *ui) {
     qDebug() << "Error in book ticket";
 }
 
-void ChangeTicket(Ui::TicketManageSystem *ui) {
+void ChangeTicket(Ui::TicketManageSystem *ui,const string& name) {
     QComboBox *Original = ui->BookedFlightID;
     QComboBox *Target = ui->BookFlightIDComBox_2;
     QComboBox *TargetClass = ui->TargetClassComboBox;
@@ -270,12 +270,12 @@ void ChangeTicket(Ui::TicketManageSystem *ui) {
 //        WriteInMyTicket(ui);
 //        return ;
 //    }
-    if(cancel("root", originalFlightID.toStdString()))
+    if(cancel(name, originalFlightID.toStdString()))
     {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
-        if (book("root", targetFlightID.toStdString(), targetClass))
+        if (book(name, targetFlightID.toStdString(), targetClass))
         {
             Inquire(ui);
             flightListUpdateUI(ui);
@@ -286,10 +286,10 @@ void ChangeTicket(Ui::TicketManageSystem *ui) {
     qDebug() << "Error in change Ticket for the above reason";
 }
 
-void CancelTicket(Ui::TicketManageSystem *ui) {
+void CancelTicket(Ui::TicketManageSystem *ui,const string& name) {
     QComboBox *Cancel = ui->CancelMyTicketsComBox;
     QString cancelFlightID = Cancel->currentText();
-    if (cancel("root", cancelFlightID.toStdString()))
+    if (cancel(name, cancelFlightID.toStdString()))
     {
         Inquire(ui);
         flightListUpdateUI(ui);
