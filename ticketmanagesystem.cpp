@@ -7,9 +7,18 @@ TicketManageSystem::TicketManageSystem(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::TicketManageSystem) {
     ui->setupUi(this);
 
+    QDateEdit* dateEdit = ui->ConditionDate;
+    QCalendarWidget *calendarWidget = ui->calendarWidget;
+
+    ui->name->setText(QString::fromStdString(usrName));
     //禁用表格更改
     ui->TicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->MyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //关联组件
+    QObject::connect(dateEdit,&QDateEdit::dateChanged,calendarWidget,&QCalendarWidget::setSelectedDate);
+    QObject::connect(calendarWidget, &QCalendarWidget::selectionChanged, [dateEdit, calendarWidget]() {
+        dateEdit->setDate(calendarWidget->selectedDate());
+    });
 }
 
 TicketManageSystem::~TicketManageSystem() {

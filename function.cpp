@@ -88,6 +88,10 @@ void WriteInTicketAvailable(Ui::TicketManageSystem *ui) {
         int secondStock = tmp.getStockRemained(SECOND);
         int thirdStock = tmp.getStockRemained(THIRD);
 
+        int firstPrice = tmp.getFares(FIRST);
+        int secondPrice = tmp.getFares(SECOND);
+        int thirdPrice = tmp.getFares(THIRD);
+
 
         QString str;
         int column = 0;
@@ -121,6 +125,19 @@ void WriteInTicketAvailable(Ui::TicketManageSystem *ui) {
         str = QString::fromStdString(to_string(thirdStock));
         QTableWidgetItem *item6 = new QTableWidgetItem(str);
         ticketAvailable->setItem(i, column++, item6);
+
+        str = QString::fromStdString(to_string(firstPrice));
+        QTableWidgetItem *item7 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i,column++,item7);
+
+        str = QString::fromStdString(to_string(secondPrice));
+        QTableWidgetItem *item8 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i,column++,item8);
+
+        str = QString::fromStdString(to_string(thirdPrice));
+        QTableWidgetItem *item9 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i,column++,item9);
+
     }
 }
 
@@ -239,14 +256,12 @@ void BookTicket(Ui::TicketManageSystem *ui,const string& name) {
     if (tc == "一等舱") targetClass = FIRST;
     else if (tc == "二等舱") targetClass = SECOND;
     else targetClass = THIRD;
-    if (book(name, flightID.toStdString(), targetClass))
-    {
+    if (book(name, flightID.toStdString(), targetClass)) {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
         return;
     }
-
     qDebug() << "Error in book ticket";
 }
 

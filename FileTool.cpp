@@ -137,7 +137,6 @@ bool FileTool::read(fstream& fs,FlightInfo& tmp)
 }
 
 //减去一张余票
-//TODO 此处可能大改,未规划好如何改进
 bool FileTool::change(FlightInfo a, int c, int flag) {
     // 打开二进制文件
     std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary);

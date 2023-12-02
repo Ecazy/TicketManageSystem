@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -25,11 +26,15 @@ class Ui_Login
 public:
     QWidget *centralwidget;
     QToolButton *login;
-    QLineEdit *user_name;
-    QLineEdit *password;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *horizontalLayout;
     QLabel *label;
+    QLineEdit *user_name;
+    QWidget *horizontalLayoutWidget_2;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
-    QLabel *label_3;
+    QLineEdit *password;
+    QLabel *title;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *Login)
@@ -41,22 +46,43 @@ public:
         centralwidget->setObjectName("centralwidget");
         login = new QToolButton(centralwidget);
         login->setObjectName("login");
-        login->setGeometry(QRect(120, 210, 121, 41));
-        user_name = new QLineEdit(centralwidget);
-        user_name->setObjectName("user_name");
-        user_name->setGeometry(QRect(110, 100, 161, 21));
-        password = new QLineEdit(centralwidget);
-        password->setObjectName("password");
-        password->setGeometry(QRect(110, 150, 161, 21));
-        label = new QLabel(centralwidget);
+        login->setGeometry(QRect(120, 190, 121, 41));
+        horizontalLayoutWidget = new QWidget(centralwidget);
+        horizontalLayoutWidget->setObjectName("horizontalLayoutWidget");
+        horizontalLayoutWidget->setGeometry(QRect(70, 100, 211, 31));
+        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
+        horizontalLayout->setObjectName("horizontalLayout");
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(horizontalLayoutWidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(50, 100, 54, 16));
-        label_2 = new QLabel(centralwidget);
+
+        horizontalLayout->addWidget(label);
+
+        user_name = new QLineEdit(horizontalLayoutWidget);
+        user_name->setObjectName("user_name");
+
+        horizontalLayout->addWidget(user_name);
+
+        horizontalLayoutWidget_2 = new QWidget(centralwidget);
+        horizontalLayoutWidget_2->setObjectName("horizontalLayoutWidget_2");
+        horizontalLayoutWidget_2->setGeometry(QRect(70, 130, 211, 31));
+        horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        label_2 = new QLabel(horizontalLayoutWidget_2);
         label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(50, 150, 54, 16));
-        label_3 = new QLabel(centralwidget);
-        label_3->setObjectName("label_3");
-        label_3->setGeometry(QRect(160, 40, 54, 16));
+
+        horizontalLayout_2->addWidget(label_2);
+
+        password = new QLineEdit(horizontalLayoutWidget_2);
+        password->setObjectName("password");
+
+        horizontalLayout_2->addWidget(password);
+
+        title = new QLabel(centralwidget);
+        title->setObjectName("title");
+        title->setGeometry(QRect(80, 30, 201, 51));
+        title->setStyleSheet(QString::fromUtf8("font: 9pt \"\345\255\227\351\205\267\345\240\202\347\237\263\345\210\273\344\275\223\";"));
         Login->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(Login);
         statusbar->setObjectName("statusbar");
@@ -72,8 +98,8 @@ public:
         Login->setWindowTitle(QCoreApplication::translate("Login", "MainWindow", nullptr));
         login->setText(QCoreApplication::translate("Login", "\347\231\273\345\275\225", nullptr));
         label->setText(QCoreApplication::translate("Login", "\347\224\250\346\210\267\345\220\215", nullptr));
-        label_2->setText(QCoreApplication::translate("Login", "\345\257\206\347\240\201", nullptr));
-        label_3->setText(QString());
+        label_2->setText(QCoreApplication::translate("Login", " \345\257\206\347\240\201  ", nullptr));
+        title->setText(QCoreApplication::translate("Login", "<html><head/><body><p><span style=\" font-size:24pt; font-weight:700;\">\346\234\272\347\245\250\350\256\242\347\245\250\347\263\273\347\273\237</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };
