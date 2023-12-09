@@ -10,6 +10,28 @@ FileTool f;
 
 
 /**
+ * @brief  格式化时间
+ * @param  DateTime &time 时间
+ * @return string 格式化后的时间
+ */
+ string formatTime(const DateTime &time)
+{
+    string str;
+    str = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day);
+    if(time.hour<10)
+        str+=" 0"+to_string(time.hour);
+    else
+        str+=" "+to_string(time.hour);
+
+    if(time.minute<10)
+        str+=":0"+to_string(time.minute);
+    else
+        str+=":"+to_string(time.minute);
+
+    return str;
+}
+
+/**
  * @brief 检查航班是否符合指定时间，并将不符合条件的航班从列表中删除
  * @param FlightList 航班信息链表
  */
@@ -82,8 +104,6 @@ void WriteInTicketAvailable(Ui::TicketManageSystem *ui) {
         string start = tmp.getBeginning();
         string destination = tmp.getDestination();
         DateTime dateTime = tmp.getDepature();
-        int year, month, day, hour, minute;
-        dateTime.getDate(year, month, day, hour, minute);
         int firstStock = tmp.getStockRemained(FIRST);
         int secondStock = tmp.getStockRemained(SECOND);
         int thirdStock = tmp.getStockRemained(THIRD);
@@ -108,8 +128,7 @@ void WriteInTicketAvailable(Ui::TicketManageSystem *ui) {
         QTableWidgetItem *item2 = new QTableWidgetItem(str);
         ticketAvailable->setItem(i, column++, item2);
 
-        string date = to_string(year) + "/" + to_string(month) + "/" + to_string(day) + " " + to_string(hour) + ":" +
-                      to_string(minute);
+        string date = formatTime(dateTime);
         str = QString::fromStdString(date);
         QTableWidgetItem *item3 = new QTableWidgetItem(str);
         ticketAvailable->setItem(i, column++, item3);
@@ -167,12 +186,7 @@ void WriteInMyTicket(Ui::TicketManageSystem *ui) {
         DateTime time;
 
         string flightID = tmp.getFlightInfo().getFlightID();
-
-        time.year = tmp.getFlightInfo().getDepature().year;
-        time.month = tmp.getFlightInfo().getDepature().month;
-        time.day = tmp.getFlightInfo().getDepature().day;
-        time.hour = tmp.getFlightInfo().getDepature().hour;
-        time.minute = tmp.getFlightInfo().getDepature().minute;
+        time = tmp.getFlightInfo().getDepature();
 
         travelClass tc = tmp.my_class;
 
@@ -183,9 +197,7 @@ void WriteInMyTicket(Ui::TicketManageSystem *ui) {
         QTableWidgetItem *item0 = new QTableWidgetItem(str);
         MyTickets->setItem(i,column++,item0);
 
-        string date = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day) + " " +
-                      to_string(time.hour) + ":" +
-                      to_string(time.minute);
+        string date = formatTime(time);
         str = QString::fromStdString(date);
         QTableWidgetItem *item1 = new QTableWidgetItem(str);
         MyTickets->setItem(i,column++,item1);
