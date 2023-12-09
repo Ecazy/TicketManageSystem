@@ -8,17 +8,13 @@ TicketManageSystem::TicketManageSystem(QWidget *parent)
     ui->setupUi(this);
 
     QDateEdit* dateEdit = ui->ConditionDate;
-    QCalendarWidget *calendarWidget = ui->calendarWidget;
 
-    ui->name->setText(QString::fromStdString(usrName));
+//    ui->UsrName->setText(QString::fromStdString(usrName));
     //禁用表格更改
     ui->TicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->MyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    //关联组件
-    QObject::connect(dateEdit,&QDateEdit::dateChanged,calendarWidget,&QCalendarWidget::setSelectedDate);
-    QObject::connect(calendarWidget, &QCalendarWidget::selectionChanged, [dateEdit, calendarWidget]() {
-        dateEdit->setDate(calendarWidget->selectedDate());
-    });
+    ui->ChangeTicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->ChangeMyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->CancelMyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 TicketManageSystem::~TicketManageSystem() {
@@ -31,6 +27,13 @@ void TicketManageSystem::on_Inquire_clicked() {
     flightListUpdateUI(this->ui);
     //终端返回信息
     qDebug() << "Inquire";
+}
+
+void TicketManageSystem::on_ChangeInquire_clicked() {
+    ChangeInquire(this->ui);
+    flightListUpdateUI(this->ui);
+
+    qDebug()<<"Change Inquire";
 }
 
 void TicketManageSystem::on_SortByPrice_clicked() {
@@ -47,12 +50,12 @@ void TicketManageSystem::on_SortByTime_clicked() {
     qDebug() << "SortByTime";
 }
 
-void TicketManageSystem::on_RemoveNo_clicked() {
-    removeNoTicketFlight();
-    WriteInTicketAvailable(this->ui);
-
-    qDebug() << "RemoveNo";
-}
+//void TicketManageSystem::on_RemoveNo_clicked() {
+//    removeNoTicketFlight();
+//    WriteInTicketAvailable(this->ui);
+//
+//    qDebug() << "RemoveNo";
+//}
 
 void TicketManageSystem::on_Reserve_clicked() {
     ErrorFeedback(BookTicket(this->ui,usrName));

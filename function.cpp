@@ -5,6 +5,7 @@
 #include <QComboBox>
 
 Linklist<FlightInfo> flightList;
+Linklist<FlightInfo> changeFlightList;
 Linklist<passengerInfo> my_tickets;
 FileTool f;
 
@@ -160,6 +161,72 @@ void WriteInTicketAvailable(Ui::TicketManageSystem *ui) {
     }
 }
 
+void WriteInChange(Ui::TicketManageSystem *ui)
+{
+    QTableWidget *ticketAvailable = ui->ChangeTicketsAvailable;
+    ticketAvailable->setRowCount(0);
+    for (int i = 0; i < changeFlightList.length; i++) {
+        FlightInfo tmp = changeFlightList[i];
+        string flightID = tmp.getFlightID();
+        string start = tmp.getBeginning();
+        string destination = tmp.getDestination();
+        DateTime dateTime = tmp.getDepature();
+        int firstStock = tmp.getStockRemained(FIRST);
+        int secondStock = tmp.getStockRemained(SECOND);
+        int thirdStock = tmp.getStockRemained(THIRD);
+
+        int firstPrice = tmp.getFares(FIRST);
+        int secondPrice = tmp.getFares(SECOND);
+        int thirdPrice = tmp.getFares(THIRD);
+
+
+        QString str;
+        int column = 0;
+        ticketAvailable->insertRow(i);
+        str = QString::fromStdString(flightID);
+        QTableWidgetItem *item0 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item0);
+
+        str = QString::fromStdString(start);
+        QTableWidgetItem *item1 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item1);
+
+        str = QString::fromStdString(destination);
+        QTableWidgetItem *item2 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item2);
+
+        string date = formatTime(dateTime);
+        str = QString::fromStdString(date);
+        QTableWidgetItem *item3 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item3);
+
+        str = QString::fromStdString(to_string(firstStock));
+        QTableWidgetItem *item4 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item4);
+
+        str = QString::fromStdString(to_string(secondStock));
+        QTableWidgetItem *item5 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item5);
+
+        str = QString::fromStdString(to_string(thirdStock));
+        QTableWidgetItem *item6 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item6);
+
+        str = QString::fromStdString(to_string(firstPrice));
+        QTableWidgetItem *item7 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i,column++,item7);
+
+        str = QString::fromStdString(to_string(secondPrice));
+        QTableWidgetItem *item8 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i,column++,item8);
+
+        str = QString::fromStdString(to_string(thirdPrice));
+        QTableWidgetItem *item9 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i,column++,item9);
+
+    }
+}
+
 void Inquire(Ui::TicketManageSystem *ui) {
 //    QWidget *widget = loadUiFile(UI_PATH);
     QDateEdit *ConditionDate = ui->ConditionDate;
@@ -178,43 +245,116 @@ void Inquire(Ui::TicketManageSystem *ui) {
     WriteInTicketAvailable(ui);
 }
 
+void ChangeInquire(Ui::TicketManageSystem *ui)
+{
+    QDateEdit *ConditionDate = ui->ChangeConditionDate;
+
+    QString str;
+    QDate date = ConditionDate->date();
+    QComboBox *start = ui->ChangeConditionStart;
+    QComboBox *destination = ui->ChangeConditionDestination;
+    int year = date.year();
+    int month = date.month();
+    int day = date.day();
+
+    changeFlightList = f.read_by_time(year, month, day);
+
+    checkBAD(changeFlightList, start->currentText().toStdString(),destination->currentText().toStdString());
+    WriteInChange(ui);
+}
+
 void WriteInMyTicket(Ui::TicketManageSystem *ui) {
-    QTableWidget *MyTickets = ui->MyTickets;
-    MyTickets->setRowCount(0);
-    for (int i = 0; i < my_tickets.length; i++) {
-        passengerInfo tmp = my_tickets[i];
-        DateTime time;
+    //Change Tab
+        QTableWidget *MyTickets = ui->ChangeMyTickets;
+        MyTickets->setRowCount(0);
+        for (int i = 0; i < my_tickets.length; i++) {
+            passengerInfo tmp = my_tickets[i];
+            DateTime time;
+            string start = tmp.getFlightInfo().getBeginning(), end = tmp.getFlightInfo().getDestination();
+            string flightID = tmp.getFlightInfo().getFlightID();
+            time = tmp.getFlightInfo().getDepature();
 
-        string flightID = tmp.getFlightInfo().getFlightID();
-        time = tmp.getFlightInfo().getDepature();
+            travelClass tc = tmp.my_class;
 
-        travelClass tc = tmp.my_class;
+            QString str;
+            int column = 0;
+            MyTickets->insertRow(i);
+            str = QString::fromStdString(flightID);
+            QTableWidgetItem *item0 = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,item0);
 
-        QString str;
-        int column = 0;
-        MyTickets->insertRow(i);
-        str = QString::fromStdString(flightID);
-        QTableWidgetItem *item0 = new QTableWidgetItem(str);
-        MyTickets->setItem(i,column++,item0);
+            str = QString::fromStdString(start);
+            QTableWidgetItem *itemStart = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,itemStart);
 
-        string date = formatTime(time);
-        str = QString::fromStdString(date);
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        MyTickets->setItem(i,column++,item1);
-        switch (tc) {
-            case FIRST:
-                str = QString::fromStdString("一等舱");
-                break;
-            case SECOND:
-                str = QString::fromStdString("二等舱");
-                break;
-            case THIRD:
-                str = QString::fromStdString("三等舱");
-                break;
+            str = QString::fromStdString(end);
+            QTableWidgetItem *itemEnd = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,itemEnd);
+
+            string date = formatTime(time);
+            str = QString::fromStdString(date);
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,item1);
+            switch (tc) {
+                case FIRST:
+                    str = QString::fromStdString("一等舱");
+                    break;
+                case SECOND:
+                    str = QString::fromStdString("二等舱");
+                    break;
+                case THIRD:
+                    str = QString::fromStdString("三等舱");
+                    break;
+            }
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,item2);
         }
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        MyTickets->setItem(i,column++,item2);
-    }
+
+    //Cancel Tab
+        MyTickets = ui->CancelMyTickets;
+        MyTickets->setRowCount(0);
+        for (int i = 0; i < my_tickets.length; i++) {
+            passengerInfo tmp = my_tickets[i];
+            DateTime time;
+            string start = tmp.getFlightInfo().getBeginning(), end = tmp.getFlightInfo().getDestination();
+            string flightID = tmp.getFlightInfo().getFlightID();
+            time = tmp.getFlightInfo().getDepature();
+
+            travelClass tc = tmp.my_class;
+
+            QString str;
+            int column = 0;
+            MyTickets->insertRow(i);
+            str = QString::fromStdString(flightID);
+            QTableWidgetItem *item0 = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,item0);
+
+            str = QString::fromStdString(start);
+            QTableWidgetItem *itemStart = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,itemStart);
+
+            str = QString::fromStdString(end);
+            QTableWidgetItem *itemEnd = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,itemEnd);
+
+            string date = formatTime(time);
+            str = QString::fromStdString(date);
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,item1);
+            switch (tc) {
+                case FIRST:
+                    str = QString::fromStdString("一等舱");
+                    break;
+                case SECOND:
+                    str = QString::fromStdString("二等舱");
+                    break;
+                case THIRD:
+                    str = QString::fromStdString("三等舱");
+                    break;
+            }
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            MyTickets->setItem(i,column++,item2);
+        }
 }
 
 bool book(string name, string id, travelClass your_class) {
@@ -346,7 +486,7 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui) {
     QComboBox *Cancel = ui->CancelMyTicketsComBox;
     QComboBox *TargetClass = ui->TargetClassComboBox;
 
-    QStringList flightIDList, MyFlightIDList;
+    QStringList flightIDList, MyFlightIDList,ChangeList;
     for (int i = 0; i < flightList.length; ++i) {
         QString flightID = QString::fromStdString(flightList[i].getFlightID());
         flightIDList.append(flightID);
@@ -355,6 +495,11 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui) {
     {
         QString flightID = QString::fromStdString(my_tickets[i].getFlightInfo().getFlightID());
         MyFlightIDList.append(flightID);
+    }
+    for(int i=0;i<changeFlightList.length;++i)
+    {
+        QString flightID = QString::fromStdString(changeFlightList[i].getFlightID());
+        ChangeList.append(flightID);
     }
 
     Book->clear();

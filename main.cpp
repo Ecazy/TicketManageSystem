@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
     s.show();
     TicketManageSystem w;
     QObject::connect(&s,&Login::loginSuccessful,[&w,&s](){
-        w.set_name(s.usrName);
         w.show();
     });
     return a.exec();

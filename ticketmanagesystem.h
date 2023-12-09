@@ -30,7 +30,7 @@ private slots:
 
     void on_SortByTime_clicked();
 
-    void on_RemoveNo_clicked();
+//    void on_RemoveNo_clicked();
 
     void on_Reserve_clicked();
 
@@ -38,6 +38,7 @@ private slots:
 
     void on_Cancel_clicked();
 
+    void on_ChangeInquire_clicked();
 private:
     string usrName;
     Ui::TicketManageSystem *ui;

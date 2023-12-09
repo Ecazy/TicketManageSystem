@@ -39,9 +39,13 @@ void WriteInMyTicket(Linklist<passengerInfo> &my_ticket_list,Ui::TicketManageSys
 
 void WriteInTicketAvailable(Ui::TicketManageSystem* ui);
 
+void WriteInChange(Ui::TicketManageSystem* ui);
+
 void flightListUpdateUI(Ui::TicketManageSystem* ui);
 
 void Inquire(Ui::TicketManageSystem* ui);
+
+void ChangeInquire(Ui::TicketManageSystem* ui);
 
 ERROR_TYPE BookTicket(Ui::TicketManageSystem* ui,const string& name);
 
