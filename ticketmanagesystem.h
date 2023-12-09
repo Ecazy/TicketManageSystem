@@ -20,6 +20,8 @@ public:
 
     string& get_name(){return usrName;}
 
+    void ErrorFeedback(ERROR_TYPE);
+
 
 private slots:
     void on_Inquire_clicked();

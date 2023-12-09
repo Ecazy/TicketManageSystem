@@ -14,7 +14,7 @@ FileTool f;
  * @param  DateTime &time 时间
  * @return string 格式化后的时间
  */
- string formatTime(const DateTime &time)
+string formatTime(const DateTime &time)
 {
     string str;
     str = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day);
@@ -224,27 +224,37 @@ bool book(string name, string id, travelClass your_class) {
         }
     }
     if (your_class == FIRST) {
-        f.change(f.find_flight_by_Id(flightList, id), 0);
-        passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
-        my_tickets.addToTail(a);
+        if(f.change(f.find_flight_by_Id(flightList, id), 0)) {
+            passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
+            my_tickets.addToTail(a);
+            return true;
+        }
+        return false;
     } else if (your_class == SECOND) {
-        f.change(f.find_flight_by_Id(flightList, id), 1);
-        passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
-        my_tickets.addToTail(a);
+        if(f.change(f.find_flight_by_Id(flightList, id), 1)) {
+            passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
+            my_tickets.addToTail(a);
+            return true;
+        }
+        return false;
     } else {
-        f.change(f.find_flight_by_Id(flightList, id), 2);
-        passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
-        my_tickets.addToTail(a);
+        if(f.change(f.find_flight_by_Id(flightList, id), 2)) {
+            passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
+            my_tickets.addToTail(a);
+            return true;
+        }
+        return false;
     }
-    return true;
 }
 
 bool cancel(string name, string id) {
     for (int i = 0; i < my_tickets.length; i++) {
         if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
-            f.change(my_tickets.getNode(i).getFlightInfo(), my_tickets.getNode(i).my_class, -1);
-            my_tickets.remove(i);
-            return true;
+            if(f.change(my_tickets.getNode(i).getFlightInfo(), my_tickets.getNode(i).my_class, -1))
+            {
+                my_tickets.remove(i);
+                return true;
+            }
         }
     }
     return false;
@@ -256,7 +266,7 @@ bool change(string name, string now_id, string target_id, travelClass target_cla
     return false;
 }
 
-void BookTicket(Ui::TicketManageSystem *ui,const string& name) {
+ERROR_TYPE BookTicket(Ui::TicketManageSystem *ui,const string& name) {
     QComboBox *Book = ui->BookFlightIDComBox;
     QString flightID = Book->currentText();
 
@@ -272,12 +282,13 @@ void BookTicket(Ui::TicketManageSystem *ui,const string& name) {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
-        return;
+        return SUCCESS;
     }
     qDebug() << "Error in book ticket";
+    return BOOK_FAILURE;
 }
 
-void ChangeTicket(Ui::TicketManageSystem *ui,const string& name) {
+ERROR_TYPE ChangeTicket(Ui::TicketManageSystem *ui,const string& name) {
     QComboBox *Original = ui->BookedFlightID;
     QComboBox *Target = ui->BookFlightIDComBox_2;
     QComboBox *TargetClass = ui->TargetClassComboBox;
@@ -297,23 +308,24 @@ void ChangeTicket(Ui::TicketManageSystem *ui,const string& name) {
 //        WriteInMyTicket(ui);
 //        return ;
 //    }
-    if(cancel(name, originalFlightID.toStdString()))
+    if(book(name, targetFlightID.toStdString(), targetClass))
     {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
-        if (book(name, targetFlightID.toStdString(), targetClass))
+        if (cancel(name, originalFlightID.toStdString()))
         {
             Inquire(ui);
             flightListUpdateUI(ui);
             WriteInMyTicket(ui);
-            return;
+            return SUCCESS;
         }
     }
-    qDebug() << "Error in change Ticket for the above reason";
+    qDebug() << "Error in changing ticket";
+    return CHANGE_FAILURE;
 }
 
-void CancelTicket(Ui::TicketManageSystem *ui,const string& name) {
+ERROR_TYPE CancelTicket(Ui::TicketManageSystem *ui,const string& name) {
     QComboBox *Cancel = ui->CancelMyTicketsComBox;
     QString cancelFlightID = Cancel->currentText();
     if (cancel(name, cancelFlightID.toStdString()))
@@ -321,9 +333,10 @@ void CancelTicket(Ui::TicketManageSystem *ui,const string& name) {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
-        return ;
+        return SUCCESS;
     }
     qDebug() << "Error in canceling ticket";
+    return CANCEL_FAILURE;
 }
 
 void flightListUpdateUI(Ui::TicketManageSystem *ui) {

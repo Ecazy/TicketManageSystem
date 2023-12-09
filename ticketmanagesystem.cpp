@@ -55,22 +55,42 @@ void TicketManageSystem::on_RemoveNo_clicked() {
 }
 
 void TicketManageSystem::on_Reserve_clicked() {
-    BookTicket(this->ui,usrName);
+    ErrorFeedback(BookTicket(this->ui,usrName));
 
     qDebug() << "Reserve";
 }
 
 
 void TicketManageSystem::on_Change_clicked() {
-    ChangeTicket(this->ui,usrName);
+    ErrorFeedback(ChangeTicket(this->ui,usrName));
 
     qDebug() << "Change";
 }
 
 void TicketManageSystem::on_Cancel_clicked() {
-    CancelTicket(this->ui,usrName);
+    ErrorFeedback(CancelTicket(this->ui,usrName));
 
     qDebug() << "Cancel";
+}
+
+void TicketManageSystem::ErrorFeedback(ERROR_TYPE et) {
+    switch (et) {
+        case SUCCESS:
+            break;
+        case BOOK_FAILURE:
+            QMessageBox::warning(this, "错误", "订票失败");
+            break;
+        case CANCEL_FAILURE:
+            QMessageBox::warning(this, "错误", "退票失败");
+            break;
+        case CHANGE_FAILURE:
+            QMessageBox::warning(this, "错误", "改签失败");
+            break;
+        default:
+            QMessageBox::warning(this,"错误","未知错误");
+            break;
+    }
+    return;
 }
 
 

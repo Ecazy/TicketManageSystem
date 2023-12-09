@@ -40,6 +40,8 @@ void Login::on_login_clicked() {
     }
     else
     {
+        ui->user_name->setText("");
+        ui->password->setText("");
         QMessageBox::warning(this, "登录失败", "用户名不存在");
     }
 }
