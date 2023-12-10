@@ -161,6 +161,259 @@ void WriteInTicketAvailable(Ui::TicketManageSystem *ui) {
     }
 }
 
+void WriteInTicketsTable(Ui::Admin *ui) {
+    QTableWidget *ticketAvailable = ui->TicketsTable;
+    ticketAvailable->setRowCount(0);
+    for (int i = 0; i < flightList.length; i++) {
+        FlightInfo tmp = flightList[i];
+        string flightID = tmp.getFlightID();
+        string start = tmp.getBeginning();
+        string destination = tmp.getDestination();
+        DateTime dateTime = tmp.getDepature();
+        int firstStock = tmp.getStockRemained(FIRST);
+        int secondStock = tmp.getStockRemained(SECOND);
+        int thirdStock = tmp.getStockRemained(THIRD);
+
+        int firstPrice = tmp.getFares(FIRST);
+        int secondPrice = tmp.getFares(SECOND);
+        int thirdPrice = tmp.getFares(THIRD);
+
+
+        QString str;
+        int column = 0;
+        ticketAvailable->insertRow(i);
+        str = QString::fromStdString(flightID);
+        QTableWidgetItem *item0 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item0);
+
+        str = QString::fromStdString(start);
+        QTableWidgetItem *item1 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item1);
+
+        str = QString::fromStdString(destination);
+        QTableWidgetItem *item2 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item2);
+
+        string date = formatTime(dateTime);
+        str = QString::fromStdString(date);
+        QTableWidgetItem *item3 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item3);
+
+        str = QString::fromStdString(to_string(firstPrice));
+        QTableWidgetItem *item7 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item7);
+
+        str = QString::fromStdString(to_string(secondPrice));
+        QTableWidgetItem *item8 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item8);
+
+        str = QString::fromStdString(to_string(thirdPrice));
+        QTableWidgetItem *item9 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item9);
+
+
+        str = QString::fromStdString(to_string(firstStock));
+        QTableWidgetItem *item4 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item4);
+
+        str = QString::fromStdString(to_string(secondStock));
+        QTableWidgetItem *item5 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item5);
+
+        str = QString::fromStdString(to_string(thirdStock));
+        QTableWidgetItem *item6 = new QTableWidgetItem(str);
+        ticketAvailable->setItem(i, column++, item6);
+    }
+}
+
+FlightInfo ReadFromAdd(Ui::Admin *ui) {
+    QTableWidget *ticketInfo = ui->TicketsInfoTable;
+    double firstPrice = ticketInfo->item(0,0)->text().toDouble(),
+        secondPrice = ticketInfo->item(0,1)->text().toDouble(),
+        thirdPrice = ticketInfo->item(0,2)->text().toDouble();
+
+    int firstStock = ticketInfo->item(0,3)->text().toInt(),
+        secondStock = ticketInfo->item(0,4)->text().toInt(),
+        thirdStock = ticketInfo->item(0,5)->text().toInt();
+
+    string flightID = ui->AddFlightID->text().toStdString();
+    string start = ui->AddStart->currentText().toStdString(),
+           end = ui->AddEnd->currentText().toStdString();
+    QDate date = ui->AddTimeSet->date();
+    QTime time = ui->AddTime->time();
+    int year=date.year(),month=date.month(),day=date.day();
+    int hour=time.hour(),minute=time.minute();
+
+    DateTime dateTime;
+    dateTime.setDateTime(year,month,day,hour,minute);
+
+    FlightInfo flight(start,end,flightID,dateTime,350,firstPrice,secondPrice,thirdPrice);
+    flight.setStockRemained(FIRST,firstStock);
+    flight.setStockRemained(SECOND,secondStock);
+    flight.setStockRemained(THIRD,thirdStock);
+
+    return flight;
+}
+
+FlightInfo ReadFromChange(Ui::Admin *ui)
+{
+    QTableWidget *ticketInfo = ui->ChangeTicketsTable;
+    string flightID =ticketInfo->item(0,0)->text().toStdString(),
+           start = ticketInfo->item(0,1)->text().toStdString(),
+           end = ticketInfo->item(0,2)->text().toStdString();
+    QDateTimeEdit *time = ui->ChangeTimeSet;
+    DateTime dateTime;
+    dateTime.setDateTime(time->dateTime().date().year(),time->dateTime().date().month(),time->dateTime().date().day(),time->dateTime().time().hour(),time->dateTime().time().minute());
+    double firstPrice = ticketInfo->item(0,4)->text().toDouble(),
+        secondPrice = ticketInfo->item(0,5)->text().toDouble(),
+        thirdPrice = ticketInfo->item(0,6)->text().toDouble();
+
+    int firstStock = ticketInfo->item(0,7)->text().toInt(),
+        secondStock = ticketInfo->item(0,8)->text().toInt(),
+        thirdStock = ticketInfo->item(0,9)->text().toInt();
+
+    FlightInfo tmp(start,end,flightID,dateTime,350,firstPrice,secondPrice,thirdPrice);
+    tmp.setStockRemained(FIRST,firstStock);
+    tmp.setStockRemained(SECOND,secondStock);
+    tmp.setStockRemained(THIRD,thirdStock);
+
+    return tmp;
+}
+
+void WriteIn(Ui::Admin *ui,bool flag)
+{
+    if(flag)
+    {
+        QTableWidget *ticketAvailable = ui->DeleteTicketsTable;
+        ticketAvailable->setRowCount(0);
+        for (int i = 0; i < flightList.length; i++) {
+            FlightInfo tmp = flightList[i];
+            string flightID = tmp.getFlightID();
+            string start = tmp.getBeginning();
+            string destination = tmp.getDestination();
+            DateTime dateTime = tmp.getDepature();
+            int firstStock = tmp.getStockRemained(FIRST);
+            int secondStock = tmp.getStockRemained(SECOND);
+            int thirdStock = tmp.getStockRemained(THIRD);
+
+            int firstPrice = tmp.getFares(FIRST);
+            int secondPrice = tmp.getFares(SECOND);
+            int thirdPrice = tmp.getFares(THIRD);
+
+
+            QString str;
+            int column = 0;
+            ticketAvailable->insertRow(i);
+            str = QString::fromStdString(flightID);
+            QTableWidgetItem *item0 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item0);
+
+            str = QString::fromStdString(start);
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item1);
+
+            str = QString::fromStdString(destination);
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item2);
+
+            string date = formatTime(dateTime);
+            str = QString::fromStdString(date);
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item3);
+
+            str = QString::fromStdString(to_string(firstPrice));
+            QTableWidgetItem *item7 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item7);
+
+            str = QString::fromStdString(to_string(secondPrice));
+            QTableWidgetItem *item8 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item8);
+
+            str = QString::fromStdString(to_string(thirdPrice));
+            QTableWidgetItem *item9 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item9);
+
+
+            str = QString::fromStdString(to_string(firstStock));
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item4);
+
+            str = QString::fromStdString(to_string(secondStock));
+            QTableWidgetItem *item5 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item5);
+
+            str = QString::fromStdString(to_string(thirdStock));
+            QTableWidgetItem *item6 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item6);
+        }
+    }
+    else
+    {
+        QTableWidget *ticketAvailable = ui->ChangeTicketsTable;
+        ticketAvailable->setRowCount(0);
+        for (int i = 0; i < flightList.length; i++) {
+            FlightInfo tmp = flightList[i];
+            string flightID = tmp.getFlightID();
+            string start = tmp.getBeginning();
+            string destination = tmp.getDestination();
+            DateTime dateTime = tmp.getDepature();
+            int firstStock = tmp.getStockRemained(FIRST);
+            int secondStock = tmp.getStockRemained(SECOND);
+            int thirdStock = tmp.getStockRemained(THIRD);
+
+            int firstPrice = tmp.getFares(FIRST);
+            int secondPrice = tmp.getFares(SECOND);
+            int thirdPrice = tmp.getFares(THIRD);
+
+
+            QString str;
+            int column = 0;
+            ticketAvailable->insertRow(i);
+            str = QString::fromStdString(flightID);
+            QTableWidgetItem *item0 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item0);
+
+            str = QString::fromStdString(start);
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item1);
+
+            str = QString::fromStdString(destination);
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item2);
+
+            string date = formatTime(dateTime);
+            str = QString::fromStdString(date);
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item3);
+
+            str = QString::fromStdString(to_string(firstPrice));
+            QTableWidgetItem *item7 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item7);
+
+            str = QString::fromStdString(to_string(secondPrice));
+            QTableWidgetItem *item8 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item8);
+
+            str = QString::fromStdString(to_string(thirdPrice));
+            QTableWidgetItem *item9 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item9);
+
+
+            str = QString::fromStdString(to_string(firstStock));
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item4);
+
+            str = QString::fromStdString(to_string(secondStock));
+            QTableWidgetItem *item5 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item5);
+
+            str = QString::fromStdString(to_string(thirdStock));
+            QTableWidgetItem *item6 = new QTableWidgetItem(str);
+            ticketAvailable->setItem(i, column++, item6);
+        }
+    }
+}
+
 void WriteInChange(Ui::TicketManageSystem *ui)
 {
     QTableWidget *ticketAvailable = ui->ChangeTicketsAvailable;
@@ -243,6 +496,75 @@ void Inquire(Ui::TicketManageSystem *ui) {
 
     checkBAD(flightList, start->currentText().toStdString(),destination->currentText().toStdString());
     WriteInTicketAvailable(ui);
+}
+
+void Inquire(Ui::Admin *ui,const INQUIRE_TYPE it)
+{
+    QDateEdit *dateFilter;
+    QDate date;
+    QString str;
+    QComboBox *start;
+    QComboBox *destination;
+    int year;
+    int month;
+    int day;
+
+    switch (it) {
+        case PLACE:
+            flightList.clear();
+            start = ui->StartFilterByPlace;
+            destination = ui->EndFilterByPlace;
+            if(start->currentText().toStdString() == destination->currentText().toStdString())
+                break;
+            flightList = f.read_by_path(start->currentText().toStdString(), destination->currentText().toStdString());
+            break;
+        case TIME:
+            flightList.clear();
+            dateFilter = ui->DateFilterByTime;
+            date = dateFilter->date();
+            year= date.year(),month=date.month(),day= date.day();
+            flightList = f.read_by_time(year, month, day);
+            break;
+        case TIME_PLACE:
+            flightList.clear();
+            dateFilter = ui->DateFilter;
+            date = dateFilter->date();
+            year= date.year(),month=date.month(),day= date.day();
+            start = ui->StartFilter;
+            destination = ui->EndFilter;
+            flightList = f.read_by_time(year, month, day);
+            checkBAD(flightList, start->currentText().toStdString(),destination->currentText().toStdString());
+            break;
+    }
+    WriteInTicketsTable(ui);
+}
+
+ERROR_TYPE Inquire(Ui::Admin *ui,bool flag)
+{
+    if(flag)
+    {
+        QLineEdit *deleteFlightID = ui->DeleteFlightID;
+        string flightID = deleteFlightID->text().toStdString();
+        if(flightID=="")    return INVALID_INPUT;
+        flightList=f.read_by_id(flightID);
+    }
+    else
+    {
+        QLineEdit *changeFlightID = ui->ChangeFlightID;
+        string flightID = changeFlightID->text().toStdString();
+        if(flightID=="")    return INVALID_INPUT;
+        flightList=f.read_by_id(flightID);
+        DateTime dateTime = flightList[0].getDepature();
+        QDate date;QTime time;
+        date.setDate(dateTime.year,dateTime.month,dateTime.day);
+        time.setHMS(dateTime.hour,dateTime.minute,0);
+        ui->ChangeTimeSet->setDate(date);
+        ui->ChangeTimeSet->setTime(time);
+    }
+    if(flightList.length==0)
+        return INQUIRE_FAILURE_BLANKET;
+    WriteIn(ui,flag);
+    return SUCCESS;
 }
 
 void ChangeInquire(Ui::TicketManageSystem *ui)
@@ -519,5 +841,47 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui) {
         TargetClass->addItems(QStringList() << "一等舱" << "二等舱" << "三等舱");
     }
 
+}
+
+ERROR_TYPE Add(Ui::Admin *ui)
+{
+    if(ui->TicketsInfoTable->item(0,0)== nullptr or ui->TicketsInfoTable->item(0,0)->text().isEmpty())    return INVALID_INPUT;
+    FlightInfo tmp = ReadFromAdd(ui);
+    f.add(tmp);
+    ui->AddTimeSet->setTime(QTime::currentTime());
+    ui->AddTime->setTime(QTime::currentTime());
+    ui->AddFlightID->clear();
+    ui->AddStart->setCurrentIndex(0);
+    ui->AddEnd->setCurrentIndex(0);
+    return SUCCESS;
+}
+
+ERROR_TYPE Delete(Ui::Admin *ui)
+{
+    string flightID = ui->DeleteFlightID->text().toStdString();
+    if(f.remove(flightID)) {
+        flightList.clear();
+        Inquire(ui,true);
+        ui->DeleteFlightID->clear();
+        return SUCCESS;
+    }
+    qDebug()<<"Delete Fail";
+    return DELETE_FAILURE;
+}
+
+ERROR_TYPE Change(Ui::Admin *ui)
+{
+    string flightID = ui->ChangeFlightID->text().toStdString();
+    if(flightID=="" or ui->ChangeTicketsTable->rowCount()==0)    return CHANGE_FAILURE;
+    FlightInfo tmp = ReadFromChange(ui);
+    if(f.change_by_id(tmp,flightID)) {
+        flightList.clear();
+        Inquire(ui,false);
+        ui->ChangeTimeSet->setTime(QTime::currentTime());
+        ui->ChangeFlightID->clear();
+        return SUCCESS;;
+    }
+    qDebug()<<"Change Fail";
+    return CHANGE_FAILURE;
 }
 

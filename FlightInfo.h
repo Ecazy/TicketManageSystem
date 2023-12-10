@@ -123,6 +123,11 @@ public:
 
     void setStockRemained(travelClass _travelClass, int a);
 
+    void setFlightID(const string _flightID)
+    {
+        this->flightID=_flightID;
+    }
+
     //是否存在余票
     bool ticket_has_left();
 

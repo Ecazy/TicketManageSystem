@@ -144,7 +144,7 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
     FlightInfo temp;
     int num=0;
     int rpointer=0;
-    while (read(fs,temp) && temp.ticket_has_left()) {
+    while (read(fs,temp) && temp.getFlightID()!="000000") {
         // 检查这个值是否是我们想要的
         if (temp.getFlightID() == a.getFlightID()) {
             // 修改类成员
@@ -188,7 +188,7 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
     std::ifstream ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while ( this->read(ifs,temp) && temp.ticket_has_left()) {
+    while ( this->read(ifs,temp) && temp.getFlightID()!="000000") {
         // 检查这个值是否是我们想要的
         if (temp.getDepature().year == y && temp.getDepature().month == m && temp.getDepature().day == d) {
             FlightList.addToTail(temp);
@@ -204,13 +204,25 @@ Linklist<FlightInfo> FileTool::read_by_path(string start, string end) {
     std::ifstream ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while (read(ifs,temp) && temp.ticket_has_left()) {
+    while (read(ifs,temp) && temp.getFlightID()!="000000") {
         // 检查这个值是否是我们想要的
         if (temp.getBeginning() == start && temp.getDestination() == end) {
             FlightList.addToTail(temp);
         }
     }
     // 关闭文件
+    ifs.close();
+    return FlightList;
+}
+
+Linklist<FlightInfo> FileTool::read_by_id(string id) {
+    std::ifstream ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary);
+    FlightInfo temp;
+    Linklist<FlightInfo> FlightList;
+    while (read(ifs,temp) && temp.getFlightID()!="000000") {
+        if(temp.getFlightID()==id)
+            FlightList.addToTail(temp);
+    }
     ifs.close();
     return FlightList;
 }
@@ -224,12 +236,48 @@ FlightInfo FileTool::find_flight_by_Id(Linklist<FlightInfo> list, string id) {
     return list.getNode(0);
 }
 
+bool FileTool::remove(const string flightID) {
+    std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary);
+    //读取数据
+    FlightInfo temp;
+    int num=0;
+    int rpointer=0;
+    while (read(fs,temp) && temp.getFlightID()!="000000") {
+        // 检查这个值是否是我们想要的
+        if (temp.getFlightID() == flightID){
+            temp.setFlightID("000000");
+            fs.seekp(rpointer,ios::beg);
+            //此处如何修改
+            writeFlightInfo(fs,temp);
+            fs.close();
+            return true;
+        }
+        rpointer = fs.tellg();
+    }
+    // 关闭文件
+    fs.close();
+    return false;
+}
 
-QWidget *loadUiFile(const string &path) {
-    QUiLoader uiLoader;
-    QFile file("D:/Code/C++/Project/Widget/TicketManageSystem/ticketmanagesystem.ui");
-    QWidget *main = uiLoader.load(&file);
-//    if(main!= nullptr)
-    return main;
-
+bool FileTool::change_by_id(FlightInfo a, const string flightID) {
+    std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary);
+    //读取数据
+    FlightInfo temp;
+    int num=0;
+    int rpointer=0;
+    while (read(fs,temp) && temp.getFlightID()!="000000") {
+        // 检查这个值是否是我们想要的
+        if (temp.getFlightID() == flightID){
+            temp.setFlightID("000000");
+            fs.seekp(rpointer,ios::beg);
+            //此处如何修改
+            writeFlightInfo(fs,a);
+            fs.close();
+            return true;
+        }
+        rpointer = fs.tellg();
+    }
+    // 关闭文件
+    fs.close();
+    return false;
 }

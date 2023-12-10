@@ -7,7 +7,6 @@ TicketManageSystem::TicketManageSystem(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::TicketManageSystem) {
     ui->setupUi(this);
 
-    QDateEdit* dateEdit = ui->ConditionDate;
 
 //    ui->UsrName->setText(QString::fromStdString(usrName));
     //禁用表格更改
@@ -50,12 +49,12 @@ void TicketManageSystem::on_SortByTime_clicked() {
     qDebug() << "SortByTime";
 }
 
-//void TicketManageSystem::on_RemoveNo_clicked() {
-//    removeNoTicketFlight();
-//    WriteInTicketAvailable(this->ui);
-//
-//    qDebug() << "RemoveNo";
-//}
+void TicketManageSystem::on_RemoveNo_clicked() {
+    removeNoTicketFlight();
+    WriteInTicketAvailable(this->ui);
+
+    qDebug() << "RemoveNo";
+}
 
 void TicketManageSystem::on_Reserve_clicked() {
     ErrorFeedback(BookTicket(this->ui,usrName));

@@ -30,7 +30,7 @@ private slots:
 
     void on_SortByTime_clicked();
 
-//    void on_RemoveNo_clicked();
+    void on_RemoveNo_clicked();
 
     void on_Reserve_clicked();
 

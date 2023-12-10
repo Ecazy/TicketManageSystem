@@ -22,6 +22,8 @@ signals:
 
     void loginSuccessful(); // 声明一个登录成功的信号
 
+    void loginAdmin();//声明一个登录管理员信号
+
 
 private slots:
 

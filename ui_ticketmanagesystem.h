@@ -205,7 +205,7 @@ public:
 
         verticalLayoutWidget = new QWidget(ReserveTab);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(810, 140, 91, 111));
+        verticalLayoutWidget->setGeometry(QRect(810, 160, 91, 111));
         SortOperation = new QVBoxLayout(verticalLayoutWidget);
         SortOperation->setObjectName("SortOperation");
         SortOperation->setContentsMargins(0, 0, 0, 0);
@@ -426,7 +426,7 @@ public:
 
         retranslateUi(TicketManageSystem);
 
-        TicketOperation->setCurrentIndex(1);
+        TicketOperation->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(TicketManageSystem);

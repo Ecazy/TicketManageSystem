@@ -29,7 +29,10 @@ void Login::on_login_clicked() {
         {
             usrName =  name;
             QMessageBox::information(this, "登录成功", "登录成功");
-            emit loginSuccessful();
+            if(usrName=="admin")
+                emit loginAdmin();
+            else
+                emit loginSuccessful();
             this->hide();
         }
         else

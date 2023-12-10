@@ -363,7 +363,7 @@
      <property name="geometry">
       <rect>
        <x>810</x>
-       <y>140</y>
+       <y>160</y>
        <width>91</width>
        <height>111</height>
       </rect>
@@ -380,6 +380,13 @@
        <widget class="QPushButton" name="SortByTime">
         <property name="text">
          <string>按时间排序</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="RemoveNo">
+        <property name="text">
+         <string>去除无票航班</string>
         </property>
        </widget>
       </item>

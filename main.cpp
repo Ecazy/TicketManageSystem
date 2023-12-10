@@ -1,5 +1,6 @@
 #include "ticketmanagesystem.h"
 #include "Login.h"
+#include "admin.h"
 #include <QApplication>
 
 #include<iostream>
@@ -10,8 +11,12 @@ int main(int argc, char *argv[]) {
     s.setWindowTitle("Login");
     s.show();
     TicketManageSystem w;
+    Admin admin;
     QObject::connect(&s,&Login::loginSuccessful,[&w,&s](){
         w.show();
+    });
+    QObject::connect(&s,&Login::loginAdmin,[&admin,&s](){
+        admin.show();
     });
     return a.exec();
 

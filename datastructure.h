@@ -112,7 +112,7 @@ public:
 
     //析构函数，用于释放链表中的内存
     ~Linklist() {
-        for (Node<T> *p = head; p->next != nullptr; p = head) {
+        for (Node<T> *p = head;p!= nullptr and p->next != nullptr; p = head) {
             head = head->next;
             delete p;
         }
