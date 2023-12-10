@@ -73,8 +73,7 @@ void removeNoTicketFlight() {
 
 void sortByStartTime() {
     flightList.sort([](FlightInfo a, FlightInfo b) {
-        return a.getDepature().hour * 60 + a.getDepature().minute <
-               b.getDepature().hour * 60 + b.getDepature().minute;
+        return a.getDepature()<b.getDepature();
     });
 }
 
