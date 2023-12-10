@@ -32,6 +32,8 @@ private slots:
 
     void on_login_clicked();
 
+    void on_exit_clicked();
+
     void show_login();
 
 private:

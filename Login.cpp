@@ -21,7 +21,7 @@ void Login::on_login_clicked() {
     std::string name = username.toStdString();
     std::string code = password.toStdString();
 
-    std::map<std::string, std::string>  usr = {{"admin", "123456"},{"root", "000000"}};
+    std::map<std::string, std::string>  usr = {{"admin", "123456"},{"root", "000000"},{"usr","password"}};
 
     if(usr.find(name)!=usr.end())
     {
@@ -47,6 +47,10 @@ void Login::on_login_clicked() {
         ui->password->setText("");
         QMessageBox::warning(this, "登录失败", "用户名不存在");
     }
+}
+
+void Login::on_exit_clicked() {
+    this->close();
 }
 
 void Login::show_login() {
