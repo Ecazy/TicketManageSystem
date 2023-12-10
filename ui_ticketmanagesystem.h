@@ -84,6 +84,7 @@ public:
     QTableWidget *CancelMyTickets;
     QLabel *label_9;
     QLabel *name;
+    QPushButton *Exit;
 
     void setupUi(QWidget *TicketManageSystem)
     {
@@ -158,7 +159,7 @@ public:
         Conditions->setContentsMargins(0, 0, 0, 0);
         ConditionDate = new QDateEdit(horizontalLayoutWidget);
         ConditionDate->setObjectName("ConditionDate");
-        ConditionDate->setDateTime(QDateTime(QDate(2023, 12, 9), QTime(16, 0, 0)));
+        ConditionDate->setDateTime(QDateTime(QDate(2023, 12, 9), QTime(8, 0, 0)));
         ConditionDate->setDate(QDate(2023, 12, 9));
 
         Conditions->addWidget(ConditionDate);
@@ -329,7 +330,7 @@ public:
         Conditions_2->setContentsMargins(0, 0, 0, 0);
         ChangeConditionDate = new QDateEdit(horizontalLayoutWidget_2);
         ChangeConditionDate->setObjectName("ChangeConditionDate");
-        ChangeConditionDate->setDateTime(QDateTime(QDate(2023, 12, 9), QTime(8, 0, 0)));
+        ChangeConditionDate->setDateTime(QDateTime(QDate(2023, 12, 9), QTime(0, 0, 0)));
         ChangeConditionDate->setDate(QDate(2023, 12, 9));
 
         Conditions_2->addWidget(ChangeConditionDate);
@@ -423,6 +424,9 @@ public:
         name = new QLabel(TicketManageSystem);
         name->setObjectName("name");
         name->setGeometry(QRect(530, 30, 54, 16));
+        Exit = new QPushButton(TicketManageSystem);
+        Exit->setObjectName("Exit");
+        Exit->setGeometry(QRect(720, 10, 80, 24));
 
         retranslateUi(TicketManageSystem);
 
@@ -590,6 +594,7 @@ public:
         label_9->setText(QCoreApplication::translate("TicketManageSystem", "\346\210\221\347\232\204\350\256\242\345\215\225", nullptr));
         TicketOperation->setTabText(TicketOperation->indexOf(CancelTab), QCoreApplication::translate("TicketManageSystem", "\351\200\200\347\245\250", nullptr));
         name->setText(QString());
+        Exit->setText(QCoreApplication::translate("TicketManageSystem", "\351\200\200\345\207\272", nullptr));
     } // retranslateUi
 
 };

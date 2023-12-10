@@ -843,6 +843,14 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui) {
 
 }
 
+void updateFlightList(Ui::TicketManageSystem *ui)
+{
+    flightList.clear();
+    flightListUpdateUI(ui);
+    WriteInTicketAvailable(ui);
+    WriteInMyTicket(ui);
+}
+
 ERROR_TYPE Add(Ui::Admin *ui)
 {
     if(ui->TicketsInfoTable->item(0,0)== nullptr or ui->TicketsInfoTable->item(0,0)->text().isEmpty())    return INVALID_INPUT;
@@ -879,7 +887,7 @@ ERROR_TYPE Change(Ui::Admin *ui)
         Inquire(ui,false);
         ui->ChangeTimeSet->setTime(QTime::currentTime());
         ui->ChangeFlightID->clear();
-        return SUCCESS;;
+        return SUCCESS;
     }
     qDebug()<<"Change Fail";
     return CHANGE_FAILURE;

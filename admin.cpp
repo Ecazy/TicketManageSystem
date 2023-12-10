@@ -124,3 +124,9 @@ void Admin::on_SortByTime_clicked()
     qDebug() << "Admin SortByTime";
 }
 
+void Admin::on_Exit_clicked() {
+    emit(try_exit());
+    this->close();
+
+    qDebug()<<"Admin Exit";
+}

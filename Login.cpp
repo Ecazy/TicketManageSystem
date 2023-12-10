@@ -48,3 +48,10 @@ void Login::on_login_clicked() {
         QMessageBox::warning(this, "登录失败", "用户名不存在");
     }
 }
+
+void Login::show_login() {
+    ui->user_name->setText("");
+    ui->password->setText("");
+    this->show();
+    ui->user_name->setFocus();
+}

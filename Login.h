@@ -29,6 +29,8 @@ private slots:
 
     void on_login_clicked();
 
+    void show_login();
+
 private:
     Ui::Login *ui;
 

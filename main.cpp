@@ -12,6 +12,8 @@ int main(int argc, char *argv[]) {
     s.show();
     TicketManageSystem w;
     Admin admin;
+    QObject::connect(&w,SIGNAL(try_exit()),&s,SLOT(show_login()));
+    QObject::connect(&admin,SIGNAL(try_exit()),&s,SLOT(show_login()));
     QObject::connect(&s,&Login::loginSuccessful,[&w,&s](){
         w.show();
     });

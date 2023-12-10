@@ -39,6 +39,14 @@ private slots:
     void on_Cancel_clicked();
 
     void on_ChangeInquire_clicked();
+
+    void on_Exit_clicked();
+
+    void updateList();
+
+signals:
+    void try_exit();
+
 private:
     string usrName;
     Ui::TicketManageSystem *ui;

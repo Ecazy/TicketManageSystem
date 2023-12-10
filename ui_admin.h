@@ -89,6 +89,7 @@ public:
     QPushButton *ChangeInquire;
     QPushButton *Change;
     QLabel *label_7;
+    QPushButton *Exit;
 
     void setupUi(QWidget *Admin)
     {
@@ -97,7 +98,7 @@ public:
         Admin->resize(1078, 411);
         tabWidget = new QTabWidget(Admin);
         tabWidget->setObjectName("tabWidget");
-        tabWidget->setGeometry(QRect(0, 0, 1081, 411));
+        tabWidget->setGeometry(QRect(0, 30, 1081, 381));
         tab_4 = new QWidget();
         tab_4->setObjectName("tab_4");
         TicketsTable = new QTableWidget(tab_4);
@@ -124,7 +125,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
         TicketsTable->setHorizontalHeaderItem(9, __qtablewidgetitem9);
         TicketsTable->setObjectName("TicketsTable");
-        TicketsTable->setGeometry(QRect(0, 150, 1041, 231));
+        TicketsTable->setGeometry(QRect(0, 120, 1041, 231));
         tabWidget_2 = new QTabWidget(tab_4);
         tabWidget_2->setObjectName("tabWidget_2");
         tabWidget_2->setGeometry(QRect(0, 30, 531, 91));
@@ -423,7 +424,7 @@ public:
         DeleteTicketsTable->setGeometry(QRect(130, 10, 911, 81));
         horizontalLayoutWidget_3 = new QWidget(tab_2);
         horizontalLayoutWidget_3->setObjectName("horizontalLayoutWidget_3");
-        horizontalLayoutWidget_3->setGeometry(QRect(10, 60, 111, 31));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 60, 111, 21));
         horizontalLayout_3 = new QHBoxLayout(horizontalLayoutWidget_3);
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -496,6 +497,9 @@ public:
         label_7->setObjectName("label_7");
         label_7->setGeometry(QRect(10, 50, 54, 16));
         tabWidget->addTab(tab_3, QString());
+        Exit = new QPushButton(Admin);
+        Exit->setObjectName("Exit");
+        Exit->setGeometry(QRect(710, 10, 80, 24));
 
         retranslateUi(Admin);
 
@@ -703,6 +707,7 @@ public:
         Change->setText(QCoreApplication::translate("Admin", "\344\277\256\346\224\271", nullptr));
         label_7->setText(QCoreApplication::translate("Admin", "\344\277\256\346\224\271\346\227\266\351\227\264", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("Admin", "\344\277\256\346\224\271\350\210\252\347\217\255", nullptr));
+        Exit->setText(QCoreApplication::translate("Admin", "\351\200\200\345\207\272", nullptr));
     } // retranslateUi
 
 };

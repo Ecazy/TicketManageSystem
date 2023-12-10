@@ -37,6 +37,11 @@ private slots:
 
     void on_SortByTime_clicked();
 
+    void on_Exit_clicked();
+
+signals:
+    void try_exit();
+
 private:
     Ui::Admin *ui;
 };

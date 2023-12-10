@@ -14,6 +14,8 @@ TicketManageSystem::TicketManageSystem(QWidget *parent)
     ui->ChangeTicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->ChangeMyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->CancelMyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //设置每次切换TicketOperation的页面使调用updateList
+    QObject::connect(ui->TicketOperation, SIGNAL(currentChanged(int)), this, SLOT(updateList()));
 }
 
 TicketManageSystem::~TicketManageSystem() {
@@ -94,6 +96,20 @@ void TicketManageSystem::ErrorFeedback(ERROR_TYPE et) {
     }
     return;
 }
+
+void TicketManageSystem::updateList() {
+    updateFlightList(this->ui);
+    WriteInTicketAvailable(this->ui);
+    qDebug()<<"updateList";
+}
+
+void TicketManageSystem::on_Exit_clicked() {
+    emit(try_exit());
+    this->close();
+
+    qDebug()<<"Exit";
+}
+
 
 
 //简单介绍原理：
