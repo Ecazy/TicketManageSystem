@@ -25,6 +25,98 @@
    <property name="currentIndex">
     <number>0</number>
    </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>我的</string>
+    </attribute>
+    <widget class="QLabel" name="Name">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="greeting">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>你好</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="MyTickets">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>511</width>
+       <height>221</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>航班号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>起点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>终点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>航班时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>舱位</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>我的订单</string>
+     </property>
+    </widget>
+    <widget class="QCalendarWidget" name="NowDate">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>120</y>
+       <width>261</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="ReserveTab">
     <attribute name="title">
      <string>订票</string>
@@ -957,7 +1049,7 @@
        <x>10</x>
        <y>100</y>
        <width>501</width>
-       <height>91</height>
+       <height>231</height>
       </rect>
      </property>
      <column>

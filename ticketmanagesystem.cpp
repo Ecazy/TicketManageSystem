@@ -90,6 +90,9 @@ void TicketManageSystem::ErrorFeedback(ERROR_TYPE et) {
         case CHANGE_FAILURE:
             QMessageBox::warning(this, "错误", "改签失败");
             break;
+        case INVALID_INPUT:
+            QMessageBox::warning(this, "错误", "输入错误");
+            break;
         default:
             QMessageBox::warning(this,"错误","未知错误");
             break;
@@ -108,6 +111,17 @@ void TicketManageSystem::on_Exit_clicked() {
     this->close();
 
     qDebug()<<"Exit";
+}
+
+void TicketManageSystem::showMyTickets() {
+    ShowMy(this->ui,usrName);
+    if(QTime::currentTime().hour()<12)
+        this->ui->greeting->setText("上午好！");
+    else if(QTime::currentTime().hour()<18)
+        this->ui->greeting->setText("下午好！");
+    else
+        this->ui->greeting->setText("晚上好！");
+    qDebug()<<"showMyTickets";
 }
 
 

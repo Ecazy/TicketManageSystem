@@ -18,6 +18,9 @@ public:
 
     std::string usrName;
 
+    std::string getName()
+    {return usrName;}
+
 signals:
 
     void loginSuccessful(); // 声明一个登录成功的信号

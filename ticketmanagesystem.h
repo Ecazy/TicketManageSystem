@@ -22,6 +22,12 @@ public:
 
     void ErrorFeedback(ERROR_TYPE);
 
+    void showName()
+    {
+        ui->Name->setText(usrName.c_str());
+        showMyTickets();
+    }
+
 
 private slots:
     void on_Inquire_clicked();
@@ -43,6 +49,8 @@ private slots:
     void on_Exit_clicked();
 
     void updateList();
+
+    void showMyTickets();
 
 signals:
     void try_exit();

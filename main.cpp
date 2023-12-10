@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
     QObject::connect(&w,SIGNAL(try_exit()),&s,SLOT(show_login()));
     QObject::connect(&admin,SIGNAL(try_exit()),&s,SLOT(show_login()));
     QObject::connect(&s,&Login::loginSuccessful,[&w,&s](){
+        w.set_name(s.getName());
+        w.showName();
         w.show();
     });
     QObject::connect(&s,&Login::loginAdmin,[&admin,&s](){

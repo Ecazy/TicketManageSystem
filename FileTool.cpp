@@ -73,6 +73,22 @@ void FileTool::writeFlightInfo(std::ofstream& ofs,FlightInfo& tmp)
     StockRemained stock =  tmp.getStockRemained();
     ofs.write(reinterpret_cast<const char*>(&stock),sizeof(stock));
 }
+
+void FileTool::writePassengerInfo(std::fstream &fs, passengerInfo &tmp) {
+    string name=tmp.getName();
+    this->writeString(fs, name);
+    fs.write(reinterpret_cast<const char*>(&tmp.my_class),sizeof(tmp.my_class));
+    FlightInfo flightInfo =  tmp.getFlightInfo();
+    writeFlightInfo(fs,flightInfo);
+}
+
+void FileTool::writePassengerInfo(std::ofstream &ofs, passengerInfo &tmp) {
+    string name=tmp.getName();
+    this->writeString(ofs, name);
+    ofs.write(reinterpret_cast<const char*>(&tmp.my_class),sizeof(tmp.my_class));
+    FlightInfo flightInfo =  tmp.getFlightInfo();
+    writeFlightInfo(ofs,flightInfo);
+}
 // 二进制文件"data.bin"在main函数中创建
 
 void FileTool::add(FlightInfo& a) {
@@ -81,6 +97,14 @@ void FileTool::add(FlightInfo& a) {
     //以下为逐成员变量写入文件
     this->writeFlightInfo(ofs,a);
 //    ofs.write((char *) &a, sizeof(a));
+    ofs.close();
+}
+
+void FileTool::add(passengerInfo a)
+{
+    std::ofstream ofs("D:/Code/C++/Project/Widget/TicketManageSystem/passenger.bin", std::ios::binary | std::ios::app);
+    //以下为逐成员变量写入文件
+    this->writePassengerInfo(ofs,a);
     ofs.close();
 }
 
@@ -133,6 +157,41 @@ bool FileTool::read(fstream& fs,FlightInfo& tmp)
     tmp.setStockRemained(FIRST,stock.first);
     tmp.setStockRemained(SECOND,stock.second);
     tmp.setStockRemained(THIRD,stock.third);
+    return true;
+}
+
+bool FileTool::read(ifstream& ifs,passengerInfo& a)
+{
+    if(ifs.peek()==EOF)
+        return false;
+    string name;
+    travelClass TravelClass;
+    FlightInfo flightInfo;
+
+    name=readString(ifs);
+    ifs.read(reinterpret_cast<char*>(&TravelClass),sizeof(TravelClass));
+    read(ifs,flightInfo);
+
+    a.setName(name);
+    a.setTravelClass(TravelClass);
+    a.setFlightInfo(flightInfo);
+    return true;
+}
+
+bool FileTool::read(fstream& fs,passengerInfo &tmp){
+    if(fs.peek()==EOF)
+        return false;
+    string name;
+    travelClass TravelClass;
+    FlightInfo flightInfo;
+
+    name=readString(fs);
+    fs.read(reinterpret_cast<char*>(&TravelClass),sizeof(TravelClass));
+    read(fs,flightInfo);
+
+    tmp.setName(name);
+    tmp.setTravelClass(TravelClass);
+    tmp.setFlightInfo(flightInfo);
     return true;
 }
 
@@ -259,6 +318,28 @@ bool FileTool::remove(const string flightID) {
     return false;
 }
 
+bool FileTool::remove(passengerInfo a){
+    std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/passenger.bin", std::ios::in | std::ios::out | std::ios::binary);
+    //读取数据
+    passengerInfo temp;
+    int num=0;
+    int rpointer=0;
+    while (read(fs,temp)) {
+        // 检查这个值是否是我们想要的
+        if (temp.getFlightInfo().getFlightID() == a.getFlightInfo().getFlightID()){
+            temp.setName("NULL");
+            fs.seekp(rpointer,ios::beg);
+            //此处如何修改
+            fs.close();
+            return true;
+        }
+        rpointer = fs.tellg();
+    }
+    // 关闭文件
+    fs.close();
+    return false;
+}
+
 bool FileTool::change_by_id(FlightInfo a, const string flightID) {
     std::fstream fs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary);
     //读取数据
@@ -280,4 +361,19 @@ bool FileTool::change_by_id(FlightInfo a, const string flightID) {
     // 关闭文件
     fs.close();
     return false;
+}
+
+Linklist<passengerInfo> FileTool::read_by_name(string name){
+    std::ifstream  ifs("D:/Code/C++/Project/Widget/TicketManageSystem/passenger.bin",std::ios::binary);
+    Linklist<passengerInfo> passengerList;
+    passengerInfo temp;
+    while(read(ifs,temp)&&temp.getName()!="NULL")
+    {
+        if(temp.getName()==name)
+        {
+            passengerList.addToTail(temp);
+        }
+    }
+    ifs.close();
+    return passengerList;
 }

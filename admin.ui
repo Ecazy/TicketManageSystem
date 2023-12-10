@@ -27,7 +27,7 @@
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
-     <string>查询</string>
+     <string>查询航班</string>
     </attribute>
     <widget class="QTableWidget" name="TicketsTable">
      <property name="geometry">

@@ -19,6 +19,11 @@ public:
     passengerInfo(string name, FlightInfo my_flight, travelClass my_class, bool isBooked = false) :
             name(name), my_flight(my_flight), my_class(my_class), isBooked(isBooked) {}
 
+    passengerInfo() {};
+
+    passengerInfo(passengerInfo &_passenger);
+
+    passengerInfo(const passengerInfo &_passenger);
 
     ~passengerInfo() {};
 
@@ -29,6 +34,12 @@ public:
     bool getIsBooked();
 
     void setIsBooked(bool isBooked);
+
+    void setName(string name);
+
+    void setFlightInfo(FlightInfo my_flight);
+
+    void setTravelClass(travelClass my_class);
 
     bool operator<(passengerInfo &_passenger);
 

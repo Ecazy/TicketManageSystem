@@ -58,6 +58,9 @@ void flightListUpdateUI(Ui::TicketManageSystem* ui);
 
 void updateFlightList(Ui::TicketManageSystem* ui);
 
+
+void ShowMy(Ui::TicketManageSystem* ui,string name);
+
 void Inquire(Ui::TicketManageSystem* ui);
 
 void Inquire(Ui::Admin* ui,const INQUIRE_TYPE it);

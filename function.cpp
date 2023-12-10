@@ -677,6 +677,52 @@ void WriteInMyTicket(Ui::TicketManageSystem *ui) {
             QTableWidgetItem *item2 = new QTableWidgetItem(str);
             MyTickets->setItem(i,column++,item2);
         }
+
+    //My Tab
+    MyTickets = ui->MyTickets;
+    MyTickets->setRowCount(0);
+    for (int i = 0; i < my_tickets.length; i++) {
+        passengerInfo tmp = my_tickets[i];
+        DateTime time;
+        string start = tmp.getFlightInfo().getBeginning(), end = tmp.getFlightInfo().getDestination();
+        string flightID = tmp.getFlightInfo().getFlightID();
+        time = tmp.getFlightInfo().getDepature();
+
+        travelClass tc = tmp.my_class;
+
+        QString str;
+        int column = 0;
+        MyTickets->insertRow(i);
+        str = QString::fromStdString(flightID);
+        QTableWidgetItem *item0 = new QTableWidgetItem(str);
+        MyTickets->setItem(i,column++,item0);
+
+        str = QString::fromStdString(start);
+        QTableWidgetItem *itemStart = new QTableWidgetItem(str);
+        MyTickets->setItem(i,column++,itemStart);
+
+        str = QString::fromStdString(end);
+        QTableWidgetItem *itemEnd = new QTableWidgetItem(str);
+        MyTickets->setItem(i,column++,itemEnd);
+
+        string date = formatTime(time);
+        str = QString::fromStdString(date);
+        QTableWidgetItem *item1 = new QTableWidgetItem(str);
+        MyTickets->setItem(i,column++,item1);
+        switch (tc) {
+            case FIRST:
+                str = QString::fromStdString("一等舱");
+                break;
+            case SECOND:
+                str = QString::fromStdString("二等舱");
+                break;
+            case THIRD:
+                str = QString::fromStdString("三等舱");
+                break;
+        }
+        QTableWidgetItem *item2 = new QTableWidgetItem(str);
+        MyTickets->setItem(i,column++,item2);
+    }
 }
 
 bool book(string name, string id, travelClass your_class) {
@@ -689,6 +735,7 @@ bool book(string name, string id, travelClass your_class) {
         if(f.change(f.find_flight_by_Id(flightList, id), 0)) {
             passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
             my_tickets.addToTail(a);
+            f.add(a);
             return true;
         }
         return false;
@@ -696,6 +743,7 @@ bool book(string name, string id, travelClass your_class) {
         if(f.change(f.find_flight_by_Id(flightList, id), 1)) {
             passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
             my_tickets.addToTail(a);
+            f.add(a);
             return true;
         }
         return false;
@@ -703,6 +751,7 @@ bool book(string name, string id, travelClass your_class) {
         if(f.change(f.find_flight_by_Id(flightList, id), 2)) {
             passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
             my_tickets.addToTail(a);
+            f.add(a);
             return true;
         }
         return false;
@@ -714,6 +763,7 @@ bool cancel(string name, string id) {
         if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
             if(f.change(my_tickets.getNode(i).getFlightInfo(), my_tickets.getNode(i).my_class, -1))
             {
+                f.remove(my_tickets[i]);
                 my_tickets.remove(i);
                 return true;
             }
@@ -734,12 +784,14 @@ ERROR_TYPE BookTicket(Ui::TicketManageSystem *ui,const string& name) {
 
     QComboBox *Class = ui->BookClasscomboBox;
     QString TravelClass = Class->currentText();
+    if(flightID.toStdString()=="")  return  INVALID_INPUT;
 
     string tc = TravelClass.toStdString();
     travelClass targetClass;
     if (tc == "一等舱") targetClass = FIRST;
     else if (tc == "二等舱") targetClass = SECOND;
-    else targetClass = THIRD;
+    else if(tc == "三等舱") targetClass = THIRD;
+    else return INVALID_INPUT;
     if (book(name, flightID.toStdString(), targetClass)) {
         Inquire(ui);
         flightListUpdateUI(ui);
@@ -762,7 +814,8 @@ ERROR_TYPE ChangeTicket(Ui::TicketManageSystem *ui,const string& name) {
     travelClass targetClass;
     if (tc == "一等舱") targetClass = FIRST;
     else if (tc == "二等舱") targetClass = SECOND;
-    else targetClass = THIRD;
+    else if(tc == "三等舱") targetClass = THIRD;
+    else return INVALID_INPUT;
 //    if (change("root", originalFlightID.toStdString(), targetFlightID.toStdString(), targetClass))
 //    {
 //        Inquire(ui);
@@ -851,6 +904,13 @@ void updateFlightList(Ui::TicketManageSystem *ui)
     WriteInMyTicket(ui);
 }
 
+void ShowMy(Ui::TicketManageSystem *ui,string name){
+    my_tickets.clear();
+    my_tickets = f.read_by_name(name);
+    ui->NowDate->setSelectedDate(QDate::currentDate());
+    updateFlightList(ui);
+}
+
 ERROR_TYPE Add(Ui::Admin *ui)
 {
     if(ui->TicketsInfoTable->item(0,0)== nullptr or ui->TicketsInfoTable->item(0,0)->text().isEmpty())    return INVALID_INPUT;
@@ -892,4 +952,5 @@ ERROR_TYPE Change(Ui::Admin *ui)
     qDebug()<<"Change Fail";
     return CHANGE_FAILURE;
 }
+
 
