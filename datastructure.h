@@ -11,7 +11,7 @@ struct Node {
     T data;
     Node *next;
 
-    Node(T _data, Node *_next = nullptr) : data(_data), next(_next) {}
+    explicit Node(T _data, Node *_next = nullptr) : data(_data), next(_next) {}
     Node(const Node& _node)
     {
         data = _node.data;
@@ -31,7 +31,7 @@ struct TreeNode {
     TreeNode *left;
     TreeNode *right;
 
-    TreeNode(T _data, TreeNode *_left = nullptr, TreeNode *_right = nullptr) : data(_data), left(_left),
+    explicit TreeNode(T _data, TreeNode *_left = nullptr, TreeNode *_right = nullptr) : data(_data), left(_left),
                                                                                right(_right) {}
 
     TreeNode() : data(0), left(nullptr), right(nullptr) {}
@@ -48,7 +48,7 @@ public:
     int length;
 
     //默认构造函数，用于初始化空链表
-    Linklist(Node<T> *_head = nullptr, int _length = 0) : head(_head), length(_length) {}
+    explicit Linklist(Node<T> *_head = nullptr, int _length = 0) : head(_head), length(_length) {}
 
     Linklist(const Linklist &other) {
         length = other.length;
@@ -82,7 +82,7 @@ public:
     }
 
     void insertBack(const T& data) {
-        Node<T>* newNode = new Node<T>(data); // 创建一个新节点
+        auto* newNode = new Node<T>(data); // 创建一个新节点
 
         if (!head) { // 如果链表为空，将新节点设为头节点
             head = newNode;
@@ -140,7 +140,7 @@ public:
 template<class T>
 class Queue : public Linklist<T> {
 public:
-    Queue(Node<T> *_head = nullptr, int _length = 0) : Linklist<T>(_head, _length) {}
+    explicit Queue(Node<T> *_head = nullptr, int _length = 0) : Linklist<T>(_head, _length) {}
 
     Queue(Queue &_queue) : Linklist<T>(_queue) {}
 

@@ -80,6 +80,7 @@ void TicketManageSystem::on_Cancel_clicked() {
 void TicketManageSystem::ErrorFeedback(ERROR_TYPE et) {
     switch (et) {
         case SUCCESS:
+            QMessageBox::information(this, "成功", "操作成功");
             break;
         case BOOK_FAILURE:
             QMessageBox::warning(this, "错误", "订票失败");

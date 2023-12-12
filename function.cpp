@@ -18,7 +18,18 @@ FileTool f;
 string formatTime(const DateTime &time)
 {
     string str;
-    str = to_string(time.year) + "/" + to_string(time.month) + "/" + to_string(time.day);
+    str = to_string(time.year) + "/";
+
+    if(time.month<10)
+        str+="0"+to_string(time.month)+"/";
+    else
+        str+=to_string(time.month)+"/";
+
+    if(time.day<10)
+        str+="0"+to_string(time.day)+" ";
+    else
+        str+=to_string(time.day)+" ";
+
     if(time.hour<10)
         str+=" 0"+to_string(time.hour);
     else
@@ -585,6 +596,9 @@ void ChangeInquire(Ui::TicketManageSystem *ui)
 }
 
 void WriteInMyTicket(Ui::TicketManageSystem *ui) {
+    my_tickets.sort([](passengerInfo a, passengerInfo b) {
+        return a.getFlightInfo().getDepature() < b.getFlightInfo().getDepature();
+    });
     //Change Tab
         QTableWidget *MyTickets = ui->ChangeMyTickets;
         MyTickets->setRowCount(0);
@@ -724,31 +738,31 @@ void WriteInMyTicket(Ui::TicketManageSystem *ui) {
     }
 }
 
-bool book(string name, string id, travelClass your_class) {
+bool book(Linklist<FlightInfo> &flightInfoList,string name, string id, travelClass your_class) {
     for (int i = 0; i < my_tickets.length; i++) {
         if (my_tickets.getNode(i).getFlightInfo().getFlightID() == id) {
             return false;
         }
     }
     if (your_class == FIRST) {
-        if(f.change(f.find_flight_by_Id(flightList, id), 0)) {
-            passengerInfo a(name, f.find_flight_by_Id(flightList, id), FIRST, true);
+        if(f.change(f.find_flight_by_Id(flightInfoList, id), 0)) {
+            passengerInfo a(name, f.find_flight_by_Id(flightInfoList, id), FIRST, true);
             my_tickets.addToTail(a);
             f.add(a);
             return true;
         }
         return false;
     } else if (your_class == SECOND) {
-        if(f.change(f.find_flight_by_Id(flightList, id), 1)) {
-            passengerInfo a(name, f.find_flight_by_Id(flightList, id), SECOND, true);
+        if(f.change(f.find_flight_by_Id(flightInfoList, id), 1)) {
+            passengerInfo a(name, f.find_flight_by_Id(flightInfoList, id), SECOND, true);
             my_tickets.addToTail(a);
             f.add(a);
             return true;
         }
         return false;
     } else {
-        if(f.change(f.find_flight_by_Id(flightList, id), 2)) {
-            passengerInfo a(name, f.find_flight_by_Id(flightList, id), THIRD, true);
+        if(f.change(f.find_flight_by_Id(flightInfoList, id), 2)) {
+            passengerInfo a(name, f.find_flight_by_Id(flightInfoList, id), THIRD, true);
             my_tickets.addToTail(a);
             f.add(a);
             return true;
@@ -773,7 +787,7 @@ bool cancel(string name, string id) {
 
 bool change(string name, string now_id, string target_id, travelClass target_class) {
     if (cancel(name, now_id))
-        return book(name, target_id, target_class);
+        return book(changeFlightList,name, target_id, target_class);
     return false;
 }
 
@@ -791,7 +805,7 @@ ERROR_TYPE BookTicket(Ui::TicketManageSystem *ui,const string& name) {
     else if (tc == "二等舱") targetClass = SECOND;
     else if(tc == "三等舱") targetClass = THIRD;
     else return INVALID_INPUT;
-    if (book(name, flightID.toStdString(), targetClass)) {
+    if (book(flightList,name, flightID.toStdString(), targetClass)) {
         Inquire(ui);
         flightListUpdateUI(ui);
         WriteInMyTicket(ui);
@@ -822,7 +836,7 @@ ERROR_TYPE ChangeTicket(Ui::TicketManageSystem *ui,const string& name) {
 //        WriteInMyTicket(ui);
 //        return ;
 //    }
-    if(book(name, targetFlightID.toStdString(), targetClass))
+    if(book(changeFlightList,name, targetFlightID.toStdString(), targetClass))
     {
         Inquire(ui);
         flightListUpdateUI(ui);
@@ -886,8 +900,8 @@ void flightListUpdateUI(Ui::TicketManageSystem *ui) {
     Cancel->addItems(MyFlightIDList);
 
     Target->clear();
-    Target->addItems(flightIDList);
-    if(flightIDList.length()!=0 and MyFlightIDList.length()!=0)
+    Target->addItems(ChangeList);
+    if(ChangeList.length()!=0 and MyFlightIDList.length()!=0)
     {
         TargetClass->clear();
         TargetClass->addItems(QStringList() << "一等舱" << "二等舱" << "三等舱");
@@ -943,9 +957,9 @@ ERROR_TYPE Change(Ui::Admin *ui)
     FlightInfo tmp = ReadFromChange(ui);
     if(f.change_by_id(tmp,flightID)) {
         flightList.clear();
-        Inquire(ui,false);
-        ui->ChangeTimeSet->setTime(QTime::currentTime());
         ui->ChangeFlightID->clear();
+        WriteIn(ui,false);
+        ui->ChangeTimeSet->setTime(QTime::currentTime());
         return SUCCESS;
     }
     qDebug()<<"Change Fail";

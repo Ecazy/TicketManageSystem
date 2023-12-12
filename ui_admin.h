@@ -605,7 +605,7 @@ public:
         tabWidget_2->setTabText(tabWidget_2->indexOf(tab_7), QCoreApplication::translate("Admin", "\346\214\211\345\234\260\347\202\271\346\237\245\350\257\242", nullptr));
         SortByPrice->setText(QCoreApplication::translate("Admin", "\346\214\211\344\273\267\346\240\274\346\216\222\345\272\217", nullptr));
         SortByTime->setText(QCoreApplication::translate("Admin", "\346\214\211\346\227\266\351\227\264\346\216\222\345\272\217", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("Admin", "\346\237\245\350\257\242", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("Admin", "\346\237\245\350\257\242\350\210\252\347\217\255", nullptr));
         AddStart->setItemText(0, QCoreApplication::translate("Admin", "\345\214\227\344\272\254", nullptr));
         AddStart->setItemText(1, QCoreApplication::translate("Admin", "\344\270\212\346\265\267", nullptr));
         AddStart->setItemText(2, QCoreApplication::translate("Admin", "\345\271\277\345\267\236", nullptr));

@@ -203,9 +203,9 @@ bool FileTool::change(FlightInfo a, int c, int flag) {
     FlightInfo temp;
     int num=0;
     int rpointer=0;
-    while (read(fs,temp) && temp.getFlightID()!="000000") {
+    while (read(fs,temp)) {
         // 检查这个值是否是我们想要的
-        if (temp.getFlightID() == a.getFlightID()) {
+        if (temp.getFlightID()!="000000" && temp.getFlightID() == a.getFlightID()) {
             // 修改类成员
             switch (c) {
                 case 0:
@@ -247,9 +247,9 @@ Linklist<FlightInfo> FileTool::read_by_time(int y, int m, int d) {
     std::ifstream ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while ( this->read(ifs,temp) && temp.getFlightID()!="000000") {
+    while ( this->read(ifs,temp)) {
         // 检查这个值是否是我们想要的
-        if (temp.getDepature().year == y && temp.getDepature().month == m && temp.getDepature().day == d) {
+        if (temp.getFlightID()!="000000" && temp.getDepature().year == y && temp.getDepature().month == m && temp.getDepature().day == d) {
             FlightList.addToTail(temp);
         }
     }
@@ -263,9 +263,9 @@ Linklist<FlightInfo> FileTool::read_by_path(string start, string end) {
     std::ifstream ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while (read(ifs,temp) && temp.getFlightID()!="000000") {
+    while (read(ifs,temp)) {
         // 检查这个值是否是我们想要的
-        if (temp.getBeginning() == start && temp.getDestination() == end) {
+        if (temp.getFlightID()!="000000" && temp.getBeginning() == start && temp.getDestination() == end) {
             FlightList.addToTail(temp);
         }
     }
@@ -278,8 +278,8 @@ Linklist<FlightInfo> FileTool::read_by_id(string id) {
     std::ifstream ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::binary);
     FlightInfo temp;
     Linklist<FlightInfo> FlightList;
-    while (read(ifs,temp) && temp.getFlightID()!="000000") {
-        if(temp.getFlightID()==id)
+    while (read(ifs,temp)) {
+        if(temp.getFlightID()!="000000" && temp.getFlightID()==id)
             FlightList.addToTail(temp);
     }
     ifs.close();
@@ -301,9 +301,9 @@ bool FileTool::remove(const string flightID) {
     FlightInfo temp;
     int num=0;
     int rpointer=0;
-    while (read(fs,temp) && temp.getFlightID()!="000000") {
+    while (read(fs,temp)) {
         // 检查这个值是否是我们想要的
-        if (temp.getFlightID() == flightID){
+        if (temp.getFlightID()!="000000" && temp.getFlightID() == flightID){
             temp.setFlightID("000000");
             fs.seekp(rpointer,ios::beg);
             //此处如何修改
@@ -329,6 +329,7 @@ bool FileTool::remove(passengerInfo a){
         if (temp.getFlightInfo().getFlightID() == a.getFlightInfo().getFlightID()){
             temp.setName("NULL");
             fs.seekp(rpointer,ios::beg);
+            writePassengerInfo(fs,temp);
             //此处如何修改
             fs.close();
             return true;
@@ -346,9 +347,9 @@ bool FileTool::change_by_id(FlightInfo a, const string flightID) {
     FlightInfo temp;
     int num=0;
     int rpointer=0;
-    while (read(fs,temp) && temp.getFlightID()!="000000") {
+    while (read(fs,temp)) {
         // 检查这个值是否是我们想要的
-        if (temp.getFlightID() == flightID){
+        if (temp.getFlightID()!="000000" && temp.getFlightID() == flightID){
             temp.setFlightID("000000");
             fs.seekp(rpointer,ios::beg);
             //此处如何修改
@@ -367,9 +368,9 @@ Linklist<passengerInfo> FileTool::read_by_name(string name){
     std::ifstream  ifs("D:/Code/C++/Project/Widget/TicketManageSystem/passenger.bin",std::ios::binary);
     Linklist<passengerInfo> passengerList;
     passengerInfo temp;
-    while(read(ifs,temp)&&temp.getName()!="NULL")
+    while(read(ifs,temp))
     {
-        if(temp.getName()==name)
+        if(temp.getName()!="NULL" && temp.getName()==name)
         {
             passengerList.addToTail(temp);
         }
