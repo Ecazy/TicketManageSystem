@@ -90,6 +90,7 @@ public:
     QPushButton *Change;
     QLabel *label_7;
     QPushButton *Exit;
+    QPushButton *RemoveNULL;
 
     void setupUi(QWidget *Admin)
     {
@@ -424,7 +425,7 @@ public:
         DeleteTicketsTable->setGeometry(QRect(130, 10, 911, 81));
         horizontalLayoutWidget_3 = new QWidget(tab_2);
         horizontalLayoutWidget_3->setObjectName("horizontalLayoutWidget_3");
-        horizontalLayoutWidget_3->setGeometry(QRect(10, 60, 111, 21));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 60, 111, 31));
         horizontalLayout_3 = new QHBoxLayout(horizontalLayoutWidget_3);
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -499,7 +500,10 @@ public:
         tabWidget->addTab(tab_3, QString());
         Exit = new QPushButton(Admin);
         Exit->setObjectName("Exit");
-        Exit->setGeometry(QRect(710, 10, 80, 24));
+        Exit->setGeometry(QRect(670, 10, 91, 31));
+        RemoveNULL = new QPushButton(Admin);
+        RemoveNULL->setObjectName("RemoveNULL");
+        RemoveNULL->setGeometry(QRect(560, 10, 101, 31));
 
         retranslateUi(Admin);
 
@@ -708,6 +712,7 @@ public:
         label_7->setText(QCoreApplication::translate("Admin", "\344\277\256\346\224\271\346\227\266\351\227\264", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("Admin", "\344\277\256\346\224\271\350\210\252\347\217\255", nullptr));
         Exit->setText(QCoreApplication::translate("Admin", "\351\200\200\345\207\272", nullptr));
+        RemoveNULL->setText(QCoreApplication::translate("Admin", "\346\270\205\351\231\244\346\227\240\346\204\217\344\271\211\347\274\223\345\255\230", nullptr));
     } // retranslateUi
 
 };

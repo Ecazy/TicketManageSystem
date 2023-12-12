@@ -10,6 +10,7 @@ Admin::Admin(QWidget *parent) :
     //禁用表格更改
     ui->TicketsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->DeleteTicketsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 }
 
 Admin::~Admin()
@@ -125,8 +126,17 @@ void Admin::on_SortByTime_clicked()
 }
 
 void Admin::on_Exit_clicked() {
+    RemoveNULL();
     emit(try_exit());
     this->close();
 
     qDebug()<<"Admin Exit";
+}
+
+void  Admin::on_RemoveNULL_clicked() {
+    if(RemoveNULL())
+        QMessageBox::information(this,"成功","删除成功！");
+    else
+        QMessageBox::information(this,"失败","删除失败！");
+    qDebug()<<"Admin RemoveNULL";
 }

@@ -38,6 +38,10 @@ public:
 
     bool read(fstream& fs,FlightInfo &tmp);
 
+    Linklist<FlightInfo> read(FlightInfo tmp);
+
+    Linklist<passengerInfo> read(passengerInfo tmp);
+
     bool read(ifstream& ifs,passengerInfo &tmp);
 
     bool read(fstream& fs,passengerInfo &tmp);
@@ -61,8 +65,9 @@ public:
     Linklist<passengerInfo> read_by_name(string name);
 
     FlightInfo find_flight_by_Id(Linklist<FlightInfo> list, string id);
+
+    bool rewrite(Linklist<FlightInfo> flightList,Linklist<passengerInfo> passengerList);
 };
 
-QWidget *loadUiFile(const string &path);
 
 #endif //TICKETMANAGESYSTEM_TOOL_H

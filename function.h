@@ -89,6 +89,8 @@ ERROR_TYPE Delete(Ui::Admin* ui);
 
 ERROR_TYPE  Change(Ui::Admin* ui);
 
+bool RemoveNULL();
+
 
 
 #endif // FUNCTION_H

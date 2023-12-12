@@ -378,3 +378,56 @@ Linklist<passengerInfo> FileTool::read_by_name(string name){
     ifs.close();
     return passengerList;
 }
+
+Linklist<FlightInfo> FileTool::read(FlightInfo tmp) {
+    std::ifstream  ifs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin",std::ios::binary);
+    Linklist<FlightInfo> FlightList;
+    FlightInfo temp;
+    while(read(ifs,temp))
+    {
+        if(temp.getFlightID()!="000000")
+        {
+            FlightList.addToTail(temp);
+        }
+    }
+    ifs.close();
+    return FlightList;
+}
+
+Linklist<passengerInfo> FileTool::read(passengerInfo tmp){
+    std::ifstream   ifs("D:/Code/C++/Project/Widget/TicketManageSystem/passenger.bin",std::ios::binary);
+    Linklist<passengerInfo> passengerList;
+    passengerInfo temp;
+    while(read(ifs,temp))
+    {
+        if(temp.getName()!="NULL")
+        {
+            passengerList.addToTail(temp);
+        }
+    }
+    ifs.close();
+    return passengerList;
+}
+
+bool FileTool::rewrite(Linklist<FlightInfo> flightList,Linklist<passengerInfo> passengerList)
+{
+    std::fstream ffs("D:/Code/C++/Project/Widget/TicketManageSystem/data.bin", std::ios::in | std::ios::out | std::ios::binary | std::ios::trunc);
+    if(!ffs.is_open())
+        return false;
+    for(int i=0;i<flightList.length;++i)
+    {
+        writeFlightInfo(ffs,flightList[i]);
+    }
+    ffs.close();
+
+    std::fstream pfs("D:/Code/C++/Project/Widget/TicketManageSystem/passenger.bin", std::ios::in | std::ios::out | std::ios::binary | std::ios::trunc);
+    if(!pfs.is_open())
+        return false;
+    for(int i=0;i<passengerList.length;++i)
+    {
+        writePassengerInfo(pfs,passengerList[i]);
+    }
+    pfs.close();
+
+    return true;
+}

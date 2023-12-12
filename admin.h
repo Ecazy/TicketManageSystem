@@ -39,6 +39,8 @@ private slots:
 
     void on_Exit_clicked();
 
+    void on_RemoveNULL_clicked();
+
 signals:
     void try_exit();
 

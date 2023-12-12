@@ -966,4 +966,12 @@ ERROR_TYPE Change(Ui::Admin *ui)
     return CHANGE_FAILURE;
 }
 
+bool RemoveNULL()
+{
+     flightList=f.read(FlightInfo());
+     my_tickets=f.read(passengerInfo());
+
+     return f.rewrite(flightList,my_tickets);
+}
+
 
