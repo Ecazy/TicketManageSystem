@@ -126,7 +126,6 @@ void Admin::on_SortByTime_clicked()
 }
 
 void Admin::on_Exit_clicked() {
-    RemoveNULL();
     emit(try_exit());
     this->close();
 

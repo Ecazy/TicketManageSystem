@@ -425,7 +425,7 @@ public:
         DeleteTicketsTable->setGeometry(QRect(130, 10, 911, 81));
         horizontalLayoutWidget_3 = new QWidget(tab_2);
         horizontalLayoutWidget_3->setObjectName("horizontalLayoutWidget_3");
-        horizontalLayoutWidget_3->setGeometry(QRect(10, 60, 111, 31));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 60, 168, 31));
         horizontalLayout_3 = new QHBoxLayout(horizontalLayoutWidget_3);
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
