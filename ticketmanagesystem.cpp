@@ -5,12 +5,17 @@
 
 TicketManageSystem::TicketManageSystem(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::TicketManageSystem) {
-    //TODO 将widget都声明，尝试addItem()
     ui->setupUi(this);
 
+
+//    ui->UsrName->setText(QString::fromStdString(usrName));
     //禁用表格更改
     ui->TicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->MyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->ChangeTicketsAvailable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->ChangeMyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->CancelMyTickets->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //设置每次切换TicketOperation的页面使调用updateList
+    QObject::connect(ui->TicketOperation, SIGNAL(currentChanged(int)), this, SLOT(updateList()));
 }
 
 TicketManageSystem::~TicketManageSystem() {
@@ -23,6 +28,13 @@ void TicketManageSystem::on_Inquire_clicked() {
     flightListUpdateUI(this->ui);
     //终端返回信息
     qDebug() << "Inquire";
+}
+
+void TicketManageSystem::on_ChangeInquire_clicked() {
+    ChangeInquire(this->ui);
+    flightListUpdateUI(this->ui);
+
+    qDebug()<<"Change Inquire";
 }
 
 void TicketManageSystem::on_SortByPrice_clicked() {
@@ -47,23 +59,72 @@ void TicketManageSystem::on_RemoveNo_clicked() {
 }
 
 void TicketManageSystem::on_Reserve_clicked() {
-    BookTicket(this->ui);
+    ErrorFeedback(BookTicket(this->ui,usrName));
 
     qDebug() << "Reserve";
 }
 
 
 void TicketManageSystem::on_Change_clicked() {
-    ChangeTicket(this->ui);
+    ErrorFeedback(ChangeTicket(this->ui,usrName));
 
     qDebug() << "Change";
 }
 
 void TicketManageSystem::on_Cancel_clicked() {
-    CancelTicket(this->ui);
+    ErrorFeedback(CancelTicket(this->ui,usrName));
 
     qDebug() << "Cancel";
 }
+
+void TicketManageSystem::ErrorFeedback(ERROR_TYPE et) {
+    switch (et) {
+        case SUCCESS:
+            QMessageBox::information(this, "成功", "操作成功");
+            break;
+        case BOOK_FAILURE:
+            QMessageBox::warning(this, "错误", "订票失败");
+            break;
+        case CANCEL_FAILURE:
+            QMessageBox::warning(this, "错误", "退票失败");
+            break;
+        case CHANGE_FAILURE:
+            QMessageBox::warning(this, "错误", "改签失败");
+            break;
+        case INVALID_INPUT:
+            QMessageBox::warning(this, "错误", "输入错误");
+            break;
+        default:
+            QMessageBox::warning(this,"错误","未知错误");
+            break;
+    }
+    return;
+}
+
+void TicketManageSystem::updateList() {
+    updateFlightList(this->ui);
+    WriteInTicketAvailable(this->ui);
+    qDebug()<<"updateList";
+}
+
+void TicketManageSystem::on_Exit_clicked() {
+    emit(try_exit());
+    this->close();
+
+    qDebug()<<"Exit";
+}
+
+void TicketManageSystem::showMyTickets() {
+    ShowMy(this->ui,usrName);
+    if(QTime::currentTime().hour()<12)
+        this->ui->greeting->setText("上午好！");
+    else if(QTime::currentTime().hour()<18)
+        this->ui->greeting->setText("下午好！");
+    else
+        this->ui->greeting->setText("晚上好！");
+    qDebug()<<"showMyTickets";
+}
+
 
 
 //简单介绍原理：

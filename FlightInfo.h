@@ -47,6 +47,25 @@ public:
         _minute = minute;
     }
 
+    bool operator<(const DateTime &date) {
+        if (year == date.year) {
+            if (month == date.month) {
+                if (day == date.day) {
+                    if (hour == date.hour) {
+                        return minute < date.minute;
+                    }
+                    else
+                        return  hour < date.hour;
+                }
+                else
+                    return day < date.day;
+            }
+            else
+                return  month < date.month;
+        }
+        else
+            return  year < date.year;
+    }
 };
 
 class FlightInfo {
@@ -122,6 +141,11 @@ public:
     StockRemained  getStockRemained();
 
     void setStockRemained(travelClass _travelClass, int a);
+
+    void setFlightID(const string _flightID)
+    {
+        this->flightID=_flightID;
+    }
 
     //是否存在余票
     bool ticket_has_left();

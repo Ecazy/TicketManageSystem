@@ -16,6 +16,18 @@ public:
 
     ~TicketManageSystem();
 
+    void set_name(const string name){ usrName = name;}
+
+    string& get_name(){return usrName;}
+
+    void ErrorFeedback(ERROR_TYPE);
+
+    void showName()
+    {
+        ui->Name->setText(usrName.c_str());
+        showMyTickets();
+    }
+
 
 private slots:
     void on_Inquire_clicked();
@@ -32,7 +44,19 @@ private slots:
 
     void on_Cancel_clicked();
 
+    void on_ChangeInquire_clicked();
+
+    void on_Exit_clicked();
+
+    void updateList();
+
+    void showMyTickets();
+
+signals:
+    void try_exit();
+
 private:
+    string usrName;
     Ui::TicketManageSystem *ui;
 
 };

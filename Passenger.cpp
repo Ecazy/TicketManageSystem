@@ -40,3 +40,29 @@ bool passengerInfo::operator==(passengerInfo &_passenger) {
 FlightInfo passengerInfo::getFlightInfo() {
     return my_flight;
 }
+
+passengerInfo::passengerInfo(passengerInfo &_passenger) {
+    name = _passenger.name;
+    my_class = _passenger.my_class;
+    isBooked = _passenger.isBooked;
+    my_flight = _passenger.my_flight;
+}
+
+void passengerInfo::setFlightInfo(FlightInfo my_flight) {
+    this->my_flight = my_flight;
+}
+
+void passengerInfo::setName(string name) {
+    this->name = name;
+}
+
+void  passengerInfo::setTravelClass(travelClass my_class) {
+    this->my_class = my_class;
+}
+
+passengerInfo::passengerInfo(const passengerInfo &_passenger) {
+    name = _passenger.name;
+    my_class = _passenger.my_class;
+    isBooked = _passenger.isBooked;
+    this->setFlightInfo(_passenger.my_flight);
+}

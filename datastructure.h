@@ -11,8 +11,12 @@ struct Node {
     T data;
     Node *next;
 
-    Node(T _data, Node *_next = nullptr) : data(_data), next(_next) {}
-
+    explicit Node(T _data, Node *_next = nullptr) : data(_data), next(_next) {}
+    Node(const Node& _node)
+    {
+        data = _node.data;
+        next = _node.next;
+    }
     Node() : data(0), next(nullptr) {}
 };
 
@@ -27,7 +31,7 @@ struct TreeNode {
     TreeNode *left;
     TreeNode *right;
 
-    TreeNode(T _data, TreeNode *_left = nullptr, TreeNode *_right = nullptr) : data(_data), left(_left),
+    explicit TreeNode(T _data, TreeNode *_left = nullptr, TreeNode *_right = nullptr) : data(_data), left(_left),
                                                                                right(_right) {}
 
     TreeNode() : data(0), left(nullptr), right(nullptr) {}
@@ -44,7 +48,7 @@ public:
     int length;
 
     //默认构造函数，用于初始化空链表
-    Linklist(Node<T> *_head = nullptr, int _length = 0) : head(_head), length(_length) {}
+    explicit Linklist(Node<T> *_head = nullptr, int _length = 0) : head(_head), length(_length) {}
 
     Linklist(const Linklist &other) {
         length = other.length;
@@ -78,7 +82,7 @@ public:
     }
 
     void insertBack(const T& data) {
-        Node<T>* newNode = new Node<T>(data); // 创建一个新节点
+        auto* newNode = new Node<T>(data); // 创建一个新节点
 
         if (!head) { // 如果链表为空，将新节点设为头节点
             head = newNode;
@@ -108,7 +112,7 @@ public:
 
     //析构函数，用于释放链表中的内存
     ~Linklist() {
-        for (Node<T> *p = head; p != nullptr; p = head) {
+        for (Node<T> *p = head;p!= nullptr and p->next != nullptr; p = head) {
             head = head->next;
             delete p;
         }
@@ -136,7 +140,7 @@ public:
 template<class T>
 class Queue : public Linklist<T> {
 public:
-    Queue(Node<T> *_head = nullptr, int _length = 0) : Linklist<T>(_head, _length) {}
+    explicit Queue(Node<T> *_head = nullptr, int _length = 0) : Linklist<T>(_head, _length) {}
 
     Queue(Queue &_queue) : Linklist<T>(_queue) {}
 
@@ -196,36 +200,85 @@ public:
  * @tparam T
  * @param compare 比较函数，用于比较两个数据的大小
 */
+//template<class T>
+//void Linklist<T>::sort(bool(*compare)(T, T)) {
+//    if (length <= 1)
+//        return;
+//    Node<T> *p = head;
+//    Node<T> *q = head->next;
+//    Node<T> *r = head;
+//    while (q != nullptr) {
+//        if (compare(q->data, head->data)) {
+//            r = r->next;
+//            T temp = r->data;
+//            r->data = q->data;
+//            q->data = temp;
+//        }
+//        q = q->next;
+//    }
+//    T temp = r->data;
+//    r->data = head->data;
+//    head->data = temp;
+//
+//    Linklist<T> left;
+//    {
+//        Node<T> *p = head;
+//        for(int i=0;i<length/2;++i)
+//        {
+//            left.addToTail(p->data);
+//            p = p->next;
+//        }
+//    }
+//    Linklist<T> right;
+//    {
+//        Node<T> *p = r->next;
+//        for(int i=0;i<length-length/2-1;++i)
+//        {
+//            right.addToTail(p->data);
+//            p = p->next;
+//        }
+//    }
+//
+//
+//    left.sort(compare);
+//    right.sort(compare);
+//    head = left.head;
+//    p = head;
+//    while (p->next != nullptr)
+//        p = p->next;
+//    p->next = r;
+//    r->next = right.head;
+//}
+
+//冒泡排序，避免错误
 template<class T>
 void Linklist<T>::sort(bool(*compare)(T, T)) {
     if (length <= 1)
         return;
-    Node<T> *p = head;
-    Node<T> *q = head->next;
-    Node<T> *r = head;
-    while (q != nullptr) {
-        if (compare(q->data, head->data)) {
-            r = r->next;
-            T temp = r->data;
-            r->data = q->data;
-            q->data = temp;
+
+    Node<T>* current = nullptr;
+    Node<T>* end = nullptr;
+
+    for (int i = 0; i < length - 1; ++i) {
+        current = head;
+
+        while (current->next != end) {
+            Node<T>* nextNode = current->next;
+
+            if (compare(nextNode->data, current->data)) {
+                // 交换节点数据
+                T temp = current->data;
+                current->data = nextNode->data;
+                nextNode->data = temp;
+            }
+
+            current = current->next;
         }
-        q = q->next;
+
+        end = current;  // 已排序部分的尾部
     }
-    T temp = r->data;
-    r->data = head->data;
-    head->data = temp;
-    Linklist<T> left(head, length / 2);
-    Linklist<T> right(r->next, length - length / 2 - 1);
-    left.sort(compare);
-    right.sort(compare);
-    head = left.head;
-    p = head;
-    while (p->next != nullptr)
-        p = p->next;
-    p->next = r;
-    r->next = right.head;
 }
+
 
 /**
  * @brief 私有函数，用于插入结点到列表中

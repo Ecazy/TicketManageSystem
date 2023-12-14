@@ -6,218 +6,117 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>671</width>
-    <height>376</height>
+    <width>978</width>
+    <height>447</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ticketmanagementsystem</string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <widget class="QTabWidget" name="TicketOperation">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>20</y>
-     <width>291</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="Conditions">
-    <item>
-     <widget class="QDateEdit" name="ConditionDate">
-      <property name="dateTime">
-       <datetime>
-        <hour>8</hour>
-        <minute>0</minute>
-        <second>0</second>
-        <year>2023</year>
-        <month>11</month>
-        <day>24</day>
-       </datetime>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="ConditionStart">
-      <item>
-       <property name="text">
-        <string>北京</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>上海</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>广州</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>深圳</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>武汉</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="ConditionDestination">
-      <item>
-       <property name="text">
-        <string>北京</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>上海</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>广州</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>深圳</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>武汉</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QTableWidget" name="TicketsAvailable">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>511</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="showGrid">
-    <bool>true</bool>
-   </property>
-   <column>
-    <property name="text">
-     <string>航班号</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>起点</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>终点</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>航班时间</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>一等舱余票</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>二等舱余票</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>三等舱余票</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QTableWidget" name="MyTickets">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>251</y>
-     <width>311</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>航班号</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>航班时间</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>舱位</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>90</y>
-     <width>91</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="SortOperation">
-    <item>
-     <widget class="QPushButton" name="SortByPrice">
-      <property name="text">
-       <string>按价格排序</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="SortByTime">
-      <property name="text">
-       <string>按时间排序</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="RemoveNo">
-      <property name="text">
-       <string>去除无票航班</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QTabWidget" name="TicketOperation">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>230</y>
-     <width>301</width>
-     <height>131</height>
+     <width>911</width>
+     <height>401</height>
     </rect>
    </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>我的</string>
+    </attribute>
+    <widget class="QLabel" name="Name">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="greeting">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>你好</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="MyTickets">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>511</width>
+       <height>221</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>航班号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>起点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>终点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>航班时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>舱位</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>我的订单</string>
+     </property>
+    </widget>
+    <widget class="QCalendarWidget" name="NowDate">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>120</y>
+       <width>261</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="ReserveTab">
     <attribute name="title">
      <string>订票</string>
@@ -225,8 +124,8 @@
     <widget class="QWidget" name="horizontalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
+       <x>510</x>
+       <y>50</y>
        <width>231</width>
        <height>31</height>
       </rect>
@@ -259,8 +158,8 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>-10</y>
+       <x>510</x>
+       <y>20</y>
        <width>72</width>
        <height>29</height>
       </rect>
@@ -272,7 +171,7 @@
     <widget class="QPushButton" name="Reserve">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>770</x>
        <y>50</y>
        <width>111</width>
        <height>31</height>
@@ -282,16 +181,371 @@
       <string>订票</string>
      </property>
     </widget>
+    <widget class="QTableWidget" name="TicketsAvailable">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>130</y>
+       <width>801</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <property name="showGrid">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>航班号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>起点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>终点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>航班时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>一等舱余票</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>二等舱余票</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>三等舱余票</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>一等舱票价</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>二等舱票价</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>三等舱票价</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QPushButton" name="Inquire">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>50</y>
+       <width>89</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>查询</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>349</width>
+       <height>49</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="Conditions">
+      <item>
+       <widget class="QDateEdit" name="ConditionDate">
+        <property name="dateTime">
+         <datetime>
+          <hour>8</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2023</year>
+          <month>12</month>
+          <day>9</day>
+         </datetime>
+        </property>
+        <property name="date">
+         <date>
+          <year>2023</year>
+          <month>12</month>
+          <day>9</day>
+         </date>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="ConditionStart">
+        <item>
+         <property name="text">
+          <string>北京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>上海</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>广州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>深圳</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>武汉</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>成都</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>杭州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>重庆</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>长沙</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>西安</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南昌</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>天津</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>郑州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>济南</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="ConditionDestination">
+        <item>
+         <property name="text">
+          <string>北京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>上海</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>广州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>深圳</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>武汉</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>成都</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>杭州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>重庆</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>长沙</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>西安</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南昌</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>天津</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>郑州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>济南</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>810</x>
+       <y>160</y>
+       <width>91</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="SortOperation">
+      <item>
+       <widget class="QPushButton" name="SortByPrice">
+        <property name="text">
+         <string>按价格排序</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="SortByTime">
+        <property name="text">
+         <string>按时间排序</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="RemoveNo">
+        <property name="text">
+         <string>去除无票航班</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>单程航班</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>出发时间</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>20</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>出发地</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>20</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>目的地</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QWidget" name="CancelTab">
+   <widget class="QWidget" name="ChangeTab">
     <attribute name="title">
      <string>改签</string>
     </attribute>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>0</y>
+       <x>630</x>
+       <y>230</y>
        <width>61</width>
        <height>16</height>
       </rect>
@@ -303,23 +557,19 @@
     <widget class="QWidget" name="horizontalLayoutWidget_5">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>20</y>
+       <x>530</x>
+       <y>130</y>
        <width>171</width>
        <height>26</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QComboBox" name="BookedFlightID"/>
-      </item>
-     </layout>
+     <layout class="QHBoxLayout" name="horizontalLayout_3"/>
     </widget>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>50</y>
+       <x>630</x>
+       <y>290</y>
        <width>54</width>
        <height>16</height>
       </rect>
@@ -331,8 +581,8 @@
     <widget class="QWidget" name="horizontalLayoutWidget_6">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>70</y>
+       <x>630</x>
+       <y>310</y>
        <width>281</width>
        <height>26</height>
       </rect>
@@ -349,8 +599,8 @@
     <widget class="QPushButton" name="Change">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>20</y>
+       <x>820</x>
+       <y>250</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -362,8 +612,8 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>50</y>
+       <x>790</x>
+       <y>290</y>
        <width>54</width>
        <height>16</height>
       </rect>
@@ -372,8 +622,388 @@
       <string>新的舱位</string>
      </property>
     </widget>
+    <widget class="QTableWidget" name="ChangeMyTickets">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>270</y>
+       <width>501</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>航班号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>起点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>终点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>航班时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>舱位</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>我的订单</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="ChangeTicketsAvailable">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>801</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="showGrid">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>航班号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>起点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>终点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>航班时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>一等舱余票</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>二等舱余票</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>三等舱余票</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>一等舱票价</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>二等舱票价</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>三等舱票价</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>目的航班</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>349</width>
+       <height>49</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="Conditions_2">
+      <item>
+       <widget class="QDateEdit" name="ChangeConditionDate">
+        <property name="dateTime">
+         <datetime>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2023</year>
+          <month>12</month>
+          <day>9</day>
+         </datetime>
+        </property>
+        <property name="date">
+         <date>
+          <year>2023</year>
+          <month>12</month>
+          <day>9</day>
+         </date>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="ChangeConditionStart">
+        <item>
+         <property name="text">
+          <string>北京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>上海</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>广州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>深圳</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>武汉</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>成都</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>杭州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>重庆</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>长沙</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>西安</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南昌</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>天津</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>郑州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>济南</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="ChangeConditionDestination">
+        <item>
+         <property name="text">
+          <string>北京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>上海</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>广州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>深圳</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>武汉</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>成都</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>杭州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>重庆</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>长沙</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>西安</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南京</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>南昌</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>天津</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>郑州</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>济南</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="ChangeInquire">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>10</y>
+       <width>89</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>查询</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="BookedFlightID">
+     <property name="geometry">
+      <rect>
+       <x>630</x>
+       <y>250</y>
+       <width>169</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>出发时间</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>0</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>出发地</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>0</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>目的地</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QWidget" name="ChangeTab">
+   <widget class="QWidget" name="CancelTab">
     <attribute name="title">
      <string>退票</string>
     </attribute>
@@ -413,19 +1043,80 @@
       <string>退票</string>
      </property>
     </widget>
+    <widget class="QTableWidget" name="CancelMyTickets">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>501</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>航班号</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>起点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>终点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>航班时间</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>舱位</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>我的订单</string>
+     </property>
+    </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="Inquire">
+  <widget class="QLabel" name="name">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>530</x>
      <y>30</y>
-     <width>89</width>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Exit">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>10</y>
+     <width>80</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>查询</string>
+    <string>退出</string>
    </property>
   </widget>
  </widget>
